@@ -1,5 +1,12 @@
 @CHARSET "UTF-8";
 body{
-	background-image: url("assets/images/bg_login.jpg");
-	background-repeat: no-repeat;
+	background: url("../images/bg_login.jpg") no-repeat center center fixed;
+	background-size: 100%;
+}
+
+.form-horizontal{
+    background: #fff;
+    padding-bottom: 40px;
+    border-radius: 15px;
+    text-align: center;
 }
