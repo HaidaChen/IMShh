@@ -1,10 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>华辉烟花信息管理系统</title>
+	
+	<link href="../thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-
+	<nav class="navbar navbar-fixed-top navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">华辉烟花</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+            	<li><a><span class="glyphicon glyphicon-off"></span>退出</a></li>
+            </ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="active"><a>财务</a></li>
+				<li><a>仓管</a></li>
+				<li><a>人事</a></li>
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统管理 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a>基础数据</a></li>
+						<li><a>系统用户</a></li>
+						<li><a>权限管理</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<iframe id="contentFrame" src="finIndex.html" width="100%" height="100%" scrolling="no" frameborder="0" onload="changeFrameHeight()"></iframe>
+	<script>
+		function changeFrameHeight(){
+		    var ifm= document.getElementById("contentFrame"); 
+		    ifm.height=document.documentElement.clientHeight;
+		
+		}
+		
+		window.onresize=function(){  
+		     changeFrameHeight();  
+		} 
+	</script>
+	<script src="../thirds/jquery/jquery-3.2.1.min.js"></script>
+    <script src="../thirds/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
