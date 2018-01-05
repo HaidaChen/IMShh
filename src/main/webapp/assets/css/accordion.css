@@ -1,5 +1,7 @@
 ul {
 	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
 a {
@@ -11,7 +13,7 @@ a {
  	position: fixed;
  	top: 0;
  	left: 0;
- 	bottom: -10px;
+ 	bottom: 0;
  	background: #FFF;
  	-webkit-border-radius: 4px;
  	-moz-border-radius: 4px;
@@ -78,13 +80,15 @@ a {
  	font-size: 14px;
  	margin-left: -15px;
  	margin-right: -15px;
- }
+ } 
 
  .submenu li {
  	border-bottom: 1px solid #4b4a5e;
  }
 
- .submenu a {
+
+
+ .submenu a{
  	display: block;
  	text-decoration: none;
  	color: #d9d9d9;
@@ -100,3 +104,42 @@ a {
  	background: #b63b4d;
  	color: #FFF;
  }
+ 
+
+/**
+ * single Submenu
+ -----------------------------*/
+ .singlesubmenu{
+ 	font-size: 14px;
+ 	margin-left: -15px;
+ 	margin-right: -15px;
+ }
+ 
+ .singlesubmenu li {
+ 	cursor: pointer;
+	display: block;	
+ 	border-bottom: 1px solid #CCC;
+ }
+ 
+ .singlesubmenu li:last-child {
+	border-bottom: 0;
+}
+
+ .singlesubmenu a {
+ 	display: block;
+ 	text-decoration: none;
+ 	color: #4D4D4D;
+ 	padding: 12px;
+ 	padding-left: 42px;
+ 	-webkit-transition: all 0.25s ease;
+ 	-o-transition: all 0.25s ease;
+ 	transition: all 0.25s ease;
+ }
+
+ .singlesubmenu a:hover,
+ .singlesubmenu a:focus,
+ .singlesubmenu .active {
+ 	background: #b63b4d;
+ 	color: #FFF;
+ }
+ 

@@ -6,14 +6,17 @@ $(function() {
 		// Variables privadas
 		var links = this.el.find('.link');
 		var items = $('ul.submenu').children('li');
+		var signleItems = $('ul.singlesubmenu').children('li');
+		
 		// Evento
 		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
-		items.on('click', {el: this.el}, this.active);
+		items.on('click', {el: this.el, target: '.submenu'}, this.active);
+		signleItems.on('click', {el: this.el, target: '.singlesubmenu'}, this.active);
 	}
 
 	Accordion.prototype.dropdown = function(e) {
 		var $el = e.data.el;
-		$this = $(this),
+		$this = $(this);
 		$next = $this.next();
 
 		$next.slideToggle();
@@ -26,10 +29,11 @@ $(function() {
 	
 	Accordion.prototype.active = function(e){
 		var $el = e.data.el;
-		$this = $(this),
+		var target = e.data.target;
+		$this = $(this);
 		
 		$this.addClass('active');
-		$el.find('.submenu').children('li').not($this).removeClass('active');
+		$el.find(target).children('li').not($this).removeClass('active');
 	}
 
 	var accordion = new Accordion($('#accordion'), false);
