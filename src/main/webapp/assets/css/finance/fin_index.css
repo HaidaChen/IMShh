@@ -1,15 +1,13 @@
 * {
 	margin: 0;
 	padding: 0;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+
 }
 
 body {
 	background: #b5b5b5;
 	font-family: 'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
-	padding-bottom: 50px;
+	
 }
 
 ul {
@@ -25,7 +23,7 @@ a {
  	position: fixed;
  	top: 0;
  	left: 0;
- 	bottom: 0;
+ 	bottom: -10px;
  	background: #FFF;
  	-webkit-border-radius: 4px;
  	-moz-border-radius: 4px;
@@ -63,7 +61,7 @@ a {
 	transition: all 0.4s ease;
 }
 
-.accordion li i.fa-chevron-down {
+.accordion li i.glyphicon-chevron-down {
 	right: 12px;
 	left: auto;
 	font-size: 16px;
@@ -76,7 +74,7 @@ a {
 .accordion li.open i {
 	color: #b63b4d;
 }
-.accordion li.open i.fa-chevron-down {
+.accordion li.open i.glyphicon-chevron-down {
 	-webkit-transform: rotate(180deg);
 	-ms-transform: rotate(180deg);
 	-o-transform: rotate(180deg);

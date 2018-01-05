@@ -1,9 +1,5 @@
 @CHARSET "UTF-8";
 body{
 	font-family: Verdana, Arial, sans-serif;
-	padding-top: 50px;
-}
-
-.navbar-inverse .navbar-brand {
-color: #fff;
+	background-color: #b5b5b5;
 }

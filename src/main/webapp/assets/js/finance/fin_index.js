@@ -8,13 +8,13 @@ $(function() {
 		var items = $('ul.submenu').children('li');
 		// Evento
 		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
-		items.on('click', {el: this.el, multiple: this.multiple}, this.active);
+		items.on('click', {el: this.el}, this.active);
 	}
 
 	Accordion.prototype.dropdown = function(e) {
 		var $el = e.data.el;
-			$this = $(this),
-			$next = $this.next();
+		$this = $(this),
+		$next = $this.next();
 
 		$next.slideToggle();
 		$this.parent().toggleClass('open');
@@ -26,15 +26,10 @@ $(function() {
 	
 	Accordion.prototype.active = function(e){
 		var $el = e.data.el;
-			$this = $(this),
-			$next = $this.next();
-
-		$next.slideToggle();
-		$this.parent().toggleClass('active');
-
-		if (!e.data.multiple) {
-			$el.find('.submenu').not($next).removeClass('active');
-		};
+		$this = $(this),
+		
+		$this.addClass('active');
+		$el.find('.submenu').children('li').not($this).removeClass('active');
 	}
 
 	var accordion = new Accordion($('#accordion'), false);
