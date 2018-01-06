@@ -11,7 +11,7 @@ a {
 
 .accordion { 	
  	position: fixed;
- 	top: 0;
+ 	top: 51px;
  	left: 0;
  	bottom: 0;
  	background: #FFF;

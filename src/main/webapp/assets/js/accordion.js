@@ -1,5 +1,4 @@
-$(function() {
-	var Accordion = function(el, multiple) {
+var Accordion = function(el, multiple) {		
 		this.el = el || {};
 		this.multiple = multiple || false;
 
@@ -34,10 +33,8 @@ $(function() {
 		
 		$this.addClass('active');
 		$el.find(target).children('li').not($this).removeClass('active');
-	}
-
+	}	
+/*$(function() {
+	
 	var accordion = new Accordion($('#accordion'), false);
-	
-	
-	
-});
+});*/
