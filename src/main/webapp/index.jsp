@@ -1,16 +1,19 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="header.jsp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset="UTF-8">
+	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<title>华辉烟花信息管理系统</title>
 	
-	<link href="../thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="../assets/css/style.css" rel="stylesheet">
-	<link href="../assets/css/index.css" rel="stylesheet">
-	<link href="../assets/css/accordion.css" rel="stylesheet">
+	<link href="<%=basePath %>thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=basePath %>assets/css/style.css" rel="stylesheet">
+	<link href="<%=basePath %>assets/css/index.css" rel="stylesheet">
+	<link href="<%=basePath %>assets/css/accordion.css" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse">
@@ -39,20 +42,10 @@
 	
 	
 	<iframe id="contentFrame" name="contentFrame" class="col-md-10 col-md-offset-2 col-xs-9 col-xs-offset-3" src="" width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe>
-	<!--<script>
-		function changeFrameHeight(){
-		    var ifm= document.getElementById("contentFrame"); 
-		    ifm.height=document.documentElement.clientHeight - 55;
-		
-		}
-		
-		window.onresize=function(){  
-		     changeFrameHeight();  
-		} 
-	</script>-->
-	<script src="../thirds/jquery/jquery-3.2.1.min.js"></script>
-    <script src="../thirds/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../assets/js/accordion.js"></script>
-    <script src="../assets/js/index.js"></script>
+	
+	<script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
+    <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=basePath %>assets/js/accordion.js"></script>
+    <script src="<%=basePath %>assets/js/index.js"></script>
 </body>
 </html>
