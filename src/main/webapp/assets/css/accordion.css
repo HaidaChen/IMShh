@@ -15,9 +15,10 @@ a {
  	left: 0;
  	bottom: 0;
  	background: #FFF;
- 	-webkit-border-radius: 4px;
+ 	border-right: 3px solid #4D4D4D;
+ 	/*-webkit-border-radius: 4px;
  	-moz-border-radius: 4px;
- 	border-radius: 4px;
+ 	border-radius: 4px;*/
  }
 
 .accordion .link {

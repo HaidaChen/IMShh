@@ -2,7 +2,7 @@
     "menu": [{"name": "单据管理", 
                "url": "", 
            "submenu":[{"name": "订单", 
-                        "url": "",
+                        "url": "http://www.baidu.com",
                     "submenu": null}, 
                       {"name": "采购单", 
                         "url": "",

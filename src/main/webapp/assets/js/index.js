@@ -10,7 +10,7 @@ jQuery.extend({
 						var box = $('<div id="accordion" class="accordion col-xs-3 col-md-2"></div>');
 		                var list = $('<ul class="singlesubmenu"></ul>');
 		                $.each(obj.menu, function(idx, menu) {
-		                	var item = $('<li><a href="' + menu.url + '">' + menu.name + '</a></li>');
+		                	var item = $('<li><a href="' + menu.url + '" target="contentFrame">' + menu.name + '</a></li>');
 		                	list.append(item);
 		                });
 		                box.append(list);	
@@ -25,7 +25,7 @@ jQuery.extend({
 							var cathead = $('<div class="link">' + menu.name + '<i class="glyphicon glyphicon-chevron-down"></i></div>');
 						    var catbox = $('<ul class="submenu"></ul>');
 						    $.each(menu.submenu, function(num, submenu) {
-						    	var item = $('<li><a href="' + submenu.url + '">' + submenu.name + '</a></li>');
+						    	var item = $('<li><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
 						        catbox.append(item);
 						    });
 						    box.append(catlist);
@@ -44,7 +44,7 @@ jQuery.extend({
 $(function(){	
 	var menus = $('#navmenu').children('li');
 	menus.on('click', function(e){
-		alert('');
+		
 		var $this = $(this);
 		var $tip = $this.attr("data-tip");
 		
