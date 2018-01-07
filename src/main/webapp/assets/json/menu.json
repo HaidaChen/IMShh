@@ -36,7 +36,7 @@
   },
   {"module": "busData",
      "menu": [{"name": "客户信息",
-               "url": "/jsp/busdata/cust/overview.jsp",
+               "url": "",
            "submenu": null},
              {"name": "供应商信息",
                "url": "",

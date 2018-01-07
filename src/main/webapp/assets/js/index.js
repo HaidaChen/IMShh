@@ -1,7 +1,7 @@
 jQuery.extend({
 	loadSidemenu:function(module){
 		
-		$.getJSON("../assets/json/menu.json", function (data){
+		$.getJSON("assets/json/menu.json", function (data){
 			
 			$.each(data, function(index, obj) {
 				if (module == obj.module){
