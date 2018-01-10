@@ -8,3 +8,8 @@ body{
 	font-family: Verdana, Arial, sans-serif;
 	background-color: #fff;
 }
+
+.box{
+	margin: 5px;
+	padding: 3px;
+}

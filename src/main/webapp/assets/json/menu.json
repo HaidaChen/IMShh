@@ -36,7 +36,7 @@
   },
   {"module": "busData",
      "menu": [{"name": "客户信息",
-               "url": "",
+               "url": "cust/main.do",
            "submenu": null},
              {"name": "供应商信息",
                "url": "",

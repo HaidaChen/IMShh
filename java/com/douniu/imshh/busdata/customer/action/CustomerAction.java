@@ -10,15 +10,16 @@ import com.douniu.imshh.busdata.customer.service.ICustomerService;
 
 
 @Controller
+@RequestMapping("/cust")
 public class CustomerAction {
 	
 	@Autowired
 	private ICustomerService service;
 	
-	@RequestMapping("/cust/main")
+	@RequestMapping("/main")
     public ModelAndView enter(Customer cust){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("WEB-INF/jsp/cust/customerMain");
+        mav.setViewName("/busdata/cust/overview");
         return mav;
     }
 }
