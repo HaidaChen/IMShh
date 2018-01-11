@@ -4,7 +4,7 @@ ul {
 	padding: 0;
 }
 
-a {
+.accordion a {
 	color: #b63b4d;
 	text-decoration: none;
 }
