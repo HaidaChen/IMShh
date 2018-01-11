@@ -14,39 +14,35 @@
 	<link href="<%=basePath %>assets/css/style.css" rel="stylesheet">
 	<link href="<%=basePath %>assets/css/login.css" rel="stylesheet">
 </head>
-<body>
-  
-    <div class="container">
-  	    <div class="row header">
-  		    <h2>华辉烟花信息管理系统</h2>
-  		    <p>v1.0</p>
-  	    </div>
-    
-  	    <div class="row">
-	  		<div class="col-sm-4 col-sm-offset-4 login-box">
-	  			<div class="title">
-			  		<span>用户登录</span>
-			  	</div>
-			  	<div class="form">
-			  		<form action="jsp/index.html">
-				        <input type="text" name="uname" placeholder="用户名">
-				        <input type="password" name="password" placeholder="密    码">			      
-				      
-				        <div class="operator">
-				          <input type="submit" value="登录">
-				        </div>
-				      
-				    </form>
-			  	</div>
-	  		</div>
-  		</div>
-	</div>
-
-    <div class="footer">
-    	<div class="container">
-        	<p class="text-muted">Copyright &copy; 2018 DouNiu,Inc. All rights reserved</p>
-        </div>
+<body class="cm-login">
+    <div class="text-center" style="padding:90px 0 30px 0;background:#fff;border-bottom:1px solid #ddd">
+      <img src="<%=basePath %>assets/images/hhlogo.png" width="260" height="85">
     </div>
+    
+    <div class="col-sm-6 col-md-4 col-lg-3" style="margin:40px auto; float:none;">
+      <form method="post" action="index.jsp">
+    <div class="col-xs-12">
+          <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+          <input type="text" name="username" class="form-control" placeholder="用户名">
+        </div>
+          </div>
+          <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></div>
+          <input type="password" name="password" class="form-control" placeholder="密码">
+        </div>
+          </div>
+        </div>
+    <div class="col-xs-6">
+          
+    </div><div class="col-xs-6">
+          <button type="submit" class="btn btn-block btn-primary">登    录</button>
+        </div>
+      </form>
+    </div>
+
     <script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
 </body>
