@@ -11,16 +11,16 @@
 	<title>华辉烟花信息管理系统</title>
 	
 	<link href="<%=basePath %>thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<%=basePath %>assets/css/index.css" rel="stylesheet">
-	<link href="<%=basePath %>assets/css/accordion.css" rel="stylesheet">
-  <%-- 
+    <link href="<%=basePath %>assets/css/sidebar.css" rel="stylesheet">
   
+  <%-- 
+  <link href="<%=basePath %>assets/css/index.css" rel="stylesheet">
   <link href="<%=basePath %>assets/css/style.css" rel="stylesheet">
 	
 	 --%>
 </head>
 <body>
-    <nav class="navbar navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
   		<div class="container-fluid">
 	    
 		    <div class="navbar-header">
@@ -30,7 +30,8 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#">华辉烟花</a>
+		      <a class="navbar-brand" ><img alt="brand..." src="<%=basePath %>assets/images/hhlogo.png" style="max-width:155px;max-height:51px; margin:-17px;"></a>
+                
 		    </div>
 
     		
@@ -48,7 +49,7 @@
                         </ul>
                   </li>
                 </ul>
-		        <ul class="nav pull-right">
+		        <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> Vincent Gabriel <i class="caret"></i>
 
@@ -68,78 +69,28 @@
 		    </div>
 	    </div>
 	</nav>
-	<!-- <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="navbar-toggle collapsed" data-toggle="collapse" data-target=".nav-collapse"> 
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-            
-                <a class="brand" href="#">华辉烟花</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav pull-right">
-                        <li class="dropdown">
-                            <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
-    
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a tabindex="-1" href="#">Profile</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a tabindex="-1" href="login.html">Logout</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul id="navmenu" class="nav navbar-nav">
-                        <li class="active" data-tip="finance"><a>财务</a></li>
-                        <li><a>仓管</a></li>
-                        <li><a>人事</a></li>
-                        <li data-tip="busData"><a>业务数据</a></li>
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统管理 <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a>系统用户</a></li>
-                                <li><a>权限管理</a></li>
-                            </ul>
-                        </li>
+	
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="sidebar content-box" style="display: block;">
+                    <ul class="nav" id="tsidebar">
+                            
                     </ul>
                 </div>
-                
+            </div>
+            
+            <div class="span9" id="content">
+                <div class="container-fluid">
+                    <iframe id="contentFrame" name="contentFrame"  src="" width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe>
+                </div>
             </div>
         </div>
-    </div> -->
-        <!-- <div class="container-fluid"> -->
-            
-			<!-- <div class="navbar-header">
-				<a class="navbar-brand">华辉烟花</a>
-			</div>
-			<ul class="nav navbar-nav navbar-right">
-            	<li><a><span class="glyphicon glyphicon-off"></span>退出</a></li>
-            </ul>
-			<ul id="navmenu" class="nav navbar-nav">
-				<li class="active" data-tip="finance"><a>财务</a></li>
-				<li><a>仓管</a></li>
-				<li><a>人事</a></li>
-				<li data-tip="busData"><a>业务数据</a></li>
-				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统管理 <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a>系统用户</a></li>
-						<li><a>权限管理</a></li>
-					</ul>
-				</li>
-			</ul> -->
-		<!-- </div> -->
-	</div>
+    </div>
 	
-	
+	<!-- 
 	<iframe id="contentFrame" name="contentFrame" class="col-md-10 col-md-offset-2 col-xs-9 col-xs-offset-3" src="" width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe>
-	
+	 -->
 	<script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>assets/js/accordion.js"></script>

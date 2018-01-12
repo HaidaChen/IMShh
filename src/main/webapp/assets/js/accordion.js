@@ -8,7 +8,7 @@ var Accordion = function(el, multiple) {
 		var signleItems = $('ul.singlesubmenu').children('li');
 		
 		// Evento
-		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
+		//links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
 		items.on('click', {el: this.el, target: '.submenu'}, this.active);
 		signleItems.on('click', {el: this.el, target: '.singlesubmenu'}, this.active);
 	}

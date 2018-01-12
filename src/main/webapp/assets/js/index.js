@@ -2,41 +2,44 @@ jQuery.extend({
 	loadSidemenu:function(module){
 		
 		$.getJSON("assets/json/menu.json", function (data){
+			var $sidebar = $('#tsidebar');
 			
 			$.each(data, function(index, obj) {
-				if (module == obj.module){
-					if ($('#accordion')) $('#accordion').remove();
-					if (obj.levels == 1){
-						var box = $('<div id="accordion" class="accordion col-xs-3 col-md-2"></div>');
-		                var list = $('<ul class="singlesubmenu"></ul>');
-		                $.each(obj.menu, function(idx, menu) {
-		                	var item = $('<li><a href="' + menu.url + '" target="contentFrame">' + menu.name + '</a></li>');
-		                	list.append(item);
-		                });
-		                box.append(list);	
-		                $('body').append(box);
-					}
-					
-					if (obj.levels == 2){
+				if (module == obj.module){					
+					$sidebar.children().remove();					
+					$.each(obj.menu, function(idx, menu){
+						var item = '';
+						var listitem = '';
+						var haschild = menu.url;
 						
-						var box = $('<ul id="accordion" class="accordion col-xs-3 col-md-2"></ul>');
-						$.each(obj.menu, function(idx, menu){
-							var catlist = $('<li></li>');
-							var cathead = $('<div class="link">' + menu.name + '<i class="glyphicon glyphicon-chevron-down"></i></div>');
-						    var catbox = $('<ul class="submenu"></ul>');
-						    $.each(menu.submenu, function(num, submenu) {
-						    	var item = $('<li><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
-						        catbox.append(item);
-						    });
-						    box.append(catlist);
-						    box.append(cathead);
-						    box.append(catbox);
-						});
-						$('body').append(box);
-					}
+						if (idx == 0)
+							listitem = $('<li class="current"></li>');
+						else
+							listitem = $('<li></li>');
+						
+						if (haschild)
+							listitem = $('<li class="submenu"></li>');
+						
+						
+						if (menu.url != '')
+						    item = $('<a href="' + menu.url + '" target="contentFrame">' + menu.name + '</a>');
+						else
+							item = $('<a><i class="' + menu.icon + '"></i>' + menu.name + '</a>');
+						listitem.append(item);
+						$sidebar.append(listitem);
+						if (menu.submenu){
+							
+							var subbox = $('<ul></ul>');
+							$.each(menu.submenu, function(idx, submenu){
+								var subitem = $('<li><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
+								subbox.append(subitem);
+							});
+							item.append(subbox);
+						}
+					});					
 				}
 			});
-			var accordion = new Accordion($('#accordion'), false);
+			var accordion = new Accordion($('#sidebar'), false);
 		});
 	}
 });
