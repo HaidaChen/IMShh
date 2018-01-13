@@ -7,13 +7,13 @@ jQuery.extend({
 			$.each(data, function(index, obj) {
 				if (module == obj.module){					
 					$sidebar.children().remove();					
-					$.each(obj.menu, function(idx, menu){
+					$.each(obj.menu, function(idx1, menu){
 						var item = '';
 						var listitem = '';
 						var haschild = menu.url;
 						
-						if (idx == 0)
-							listitem = $('<li class="current"></li>');
+						if (idx1 == 0)
+							listitem = $('<li class="active"></li>');
 						else
 							listitem = $('<li></li>');
 						
@@ -30,11 +30,17 @@ jQuery.extend({
 						if (menu.submenu){
 							
 							var subbox = $('<ul></ul>');
-							$.each(menu.submenu, function(idx, submenu){
-								var subitem = $('<li><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
+							$.each(menu.submenu, function(idx2, submenu){
+								var subitem = '';
+								if (idx1 == 0 && idx2 == 0){
+									listitem.removeClass("active");
+									subitem = $('<li class="active"><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
+								}else{
+									subitem = $('<li><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
+								}
 								subbox.append(subitem);
 							});
-							item.append(subbox);
+							listitem.append(subbox);
 						}
 					});					
 				}
