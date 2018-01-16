@@ -53,7 +53,8 @@ jQuery.extend({
 	}
 });
 
-$(function(){	
+$(function(){
+	
 	var menus = $('#navmenu').children('li');
 	menus.on('click', function(e){
 		
@@ -67,5 +68,17 @@ $(function(){
 		//var accordion = new Accordion($('#accordion'), false);
 	});	
 	
-	$.loadSidemenu('finance');	
+	$.loadSidemenu('finance');		
+	
+	$("#contentFrame").on('load', function(){
+		var iframeHeight = $(this).contents().find("body").height(); 
+
+        if( iframeHeight < 500){      
+            $(this).attr("height",500) 
+        }
+        else{
+        $(this).attr("height",iframeHeight) 
+        }
+	});
+	
 });

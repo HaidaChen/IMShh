@@ -77,9 +77,10 @@
                 </div>
             </div>
             
-            <div class="span9" id="content">
+            <div class="col-md-10" id="content">
                 <div class="container-fluid">
-                    <iframe id="contentFrame" name="contentFrame"  src="" width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe>
+                    <iframe id="contentFrame" name="contentFrame"  src="cust/main.do" width="100%" scrolling="no" frameborder="0"></iframe>
+                    
                 </div>
             </div>
         </div>
