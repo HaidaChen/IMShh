@@ -2,38 +2,41 @@ jQuery.extend({
 	loadSidemenu:function(module){
 		
 		$.getJSON("assets/json/menu.json", function (data){
-			var $sidebar = $('#tsidebar');
+			var $sidebar = $('#sidebar');
 			
 			$.each(data, function(index, obj) {
 				if (module == obj.module){					
-					$sidebar.children().remove();					
+					$sidebar.children().remove();
+					$level = obj.levels;
+					var $list = '';
+					if($level == 1)
+						$list = $('<ul class="level1"></ul>');
+					else
+						$list = $('<ul class="level2"></ul>');
+					$sidebar.append($list);
 					$.each(obj.menu, function(idx1, menu){
 						var item = '';
 						var listitem = '';
-						var haschild = menu.url;
-						
+												
 						if (idx1 == 0)
 							listitem = $('<li class="active"></li>');
 						else
 							listitem = $('<li></li>');
 						
-						if (haschild)
-							listitem = $('<li class="submenu"></li>');
-						
-						
-						if (menu.url != '')
+						if (menu.url != ''){
 						    item = $('<a href="' + menu.url + '" target="contentFrame">' + menu.name + '</a>');
-						else
-							item = $('<a><i class="' + menu.icon + '"></i>' + menu.name + '</a>');
+						}else{							
+							item = $('<div><a><i class="' + menu.icon + '"></i>' + menu.name + '</a></div>');							
+						}
 						listitem.append(item);
-						$sidebar.append(listitem);
+						$list.append(listitem);
 						if (menu.submenu){
 							
 							var subbox = $('<ul></ul>');
 							$.each(menu.submenu, function(idx2, submenu){
 								var subitem = '';
 								if (idx1 == 0 && idx2 == 0){
-									listitem.removeClass("active");
+									//listitem.removeClass("active");
 									subitem = $('<li class="active"><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
 								}else{
 									subitem = $('<li><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');

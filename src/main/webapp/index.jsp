@@ -73,10 +73,7 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">
-                <div class="sidebar" style="display: block;">
-                    <ul class="nav nav-list" id="tsidebar">
-                            
-                    </ul>
+                <div class="sidebar" style="display: block;" id="sidebar">
                 </div>
             </div>
             
