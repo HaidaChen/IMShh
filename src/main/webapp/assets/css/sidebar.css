@@ -43,7 +43,7 @@ body {
 
 .sidebar .nav > li {
     margin: 0;
-   border-bottom:1px dashed #eee;
+    /* border-bottom:1px dashed #eee; */
 }
 
 .sidebar .nav > li:last-child{
@@ -59,37 +59,42 @@ body {
 }
 
 .sidebar .nav > li > a {
-    font-size: 14px;
+    color: #5e5e5e;
+    font-size: 1.1em;
     line-height: 20px;
     padding: 15px 15px;
-    /* color: #999; */
+    border: 1px solid #e5e5e5;
     display: block;
    	background:none;
     text-decoration: none;
-   	border-top:0px;
+    font-weight: 600;
+   	/* border-top:0px; */
 }
 
 .sidebar .nav > li > a > i{
    margin-right:5px;
 }
 
+.sidebar .nav > li > ul{
+  border: 1px solid #c5c5c5;
+  border-top: 0px;
+  border-bottom: 0px;
+}
+
 .sidebar .nav > li > ul > li > a {
-    font-size: 13px;
+    
     line-height: 20px;
     padding: 8px 10px 8px 40px;
-    /* color: #999; */
+    color: #999;
     background:#fff;
     display: block;
     text-decoration: none;
-    border-top:0px;
+
 }
 
 .sidebar .nav > li > ul > li.active > a{
    background: #5CACEE;
-    /* color: #555; */
-    color: #fff;
-   border-top:0px;
-   /* color:#555; */
+   color: #fff;
    text-shadow: 0 1px 0 rgba(0,0,0,.15);
    -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
      -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
@@ -108,7 +113,7 @@ body {
     -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
      -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
           box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
-   	border-bottom:0px;
+   	
 }
 
 .sidebar .nav a .caret {
