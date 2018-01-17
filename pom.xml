@@ -7,11 +7,28 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>IMShh Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+  <profiles>  
+    <profile>  
+        <id>jdk-1.8</id>  
+        <activation>  
+            <activeByDefault>true</activeByDefault>  
+            <jdk>1.8</jdk>  
+        </activation>  
+        <properties>  
+            <maven.compiler.source>1.8</maven.compiler.source>  
+            <maven.compiler.target>1.8</maven.compiler.target>  
+            <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>  
+        </properties>  
+    </profile>  
+  </profiles> 
+  
+  
   <properties> 
-      <org.springframework.version>3.2.8.RELEASE</org.springframework.version> 
+      <org.springframework.version>4.3.7.RELEASE</org.springframework.version> 
   </properties>
+  
   <dependencies>
-     
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
