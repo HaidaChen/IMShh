@@ -72,13 +72,10 @@ $(function(){
 	
 	$("#contentFrame").on('load', function(){
 		var iframeHeight = $(this).contents().find("body").height(); 
-
-        if( iframeHeight < 500){      
-            $(this).attr("height",500) 
-        }
-        else{
-        $(this).attr("height",iframeHeight) 
-        }
+        if (iframeHeight < 600)
+        	$(this).attr("height",600) ;
+        else
+        	$(this).attr("height",iframeHeight);
 	});
 	
 });

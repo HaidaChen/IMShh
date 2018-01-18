@@ -22,4 +22,11 @@ public class CustomerAction {
         mav.setViewName("/busdata/cust/overview");
         return mav;
     }
+	
+	@RequestMapping("/edit")
+	public ModelAndView edit(Customer cust){
+		ModelAndView mav = new ModelAndView();
+        mav.setViewName("/busdata/cust/edit");
+        return mav;
+	}
 }
