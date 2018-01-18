@@ -29,4 +29,10 @@ public class CustomerAction {
         mav.setViewName("/busdata/cust/edit");
         return mav;
 	}
+	
+	@RequestMapping("/save")
+	public ModelAndView save(Customer cust){
+		service.save(cust);
+        return enter(cust);
+	}
 }

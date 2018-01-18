@@ -14,5 +14,30 @@ xsi:schemaLocation="
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
       
-      <bean name="customerService" class="com.douniu.imshh.busdata.customer.service.impl.CustomerService"></bean> 
+      <bean name="customerService" class="com.douniu.imshh.busdata.customer.service.impl.CustomerService">
+          <property name="dao" ref="customerDao"></property>
+      </bean>
+      <bean id="customerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+          <property name="mapperInterface" value="com.douniu.imshh.busdata.customer.dao.ICustomerDao"/>
+          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      
+      
+      <!-- 公共部分 -->
+      <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+         <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
+         <property name="url" value="jdbc:mysql://localhost:3306/imshh?characterEncoding=utf8"/> 
+         <property name="username" value="imshh"/> 
+         <property name="password" value="imshh"/> 
+     </bean> 
+      
+     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+         <!--dataSource属性指定要用到的连接池--> 
+         <property name="dataSource" ref="dataSource"/> 
+         <!--configLocation属性指定mybatis的核心配置文件--> 
+         <property name="configLocation" value="classpath:dbConf.xml"/> 
+    </bean>   
+    
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
 </beans>

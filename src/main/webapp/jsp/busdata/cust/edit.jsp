@@ -10,11 +10,12 @@
     
     <link href="<%=basePath %>/thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
+    <link href="<%=basePath %>/thirds/bootstrapvalidator/css/bootstrapValidator.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="block">
         
-        <form class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
+        <form id="custform" class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
             <input type="hidden" name="id" value="">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -25,57 +26,42 @@
               <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">公司名称</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="name" value="" placeholder="请输入名字">
+                  <input type="text" class="form-control" name="name" value="" placeholder="请输入公司名称" required="required">
                 </div>
               </div>              
               <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">地址</label>
+                <label for="address" class="col-sm-2 control-label">公司地址</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="mobile" value="" placeholder="请输入电话">
+                  <input type="text" class="form-control" name="address" value="" placeholder="请输入公司地址">
                 </div>
               </div>
               
               <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">联系电话</label>
+                <label for="phone" class="col-sm-2 control-label">联系电话</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="address" value="" placeholder="请输入住址">
+                  <input type="text" class="form-control" name="phone" value="" placeholder="请输入联系电话">
                 </div>
               </div>
               <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">Emai</label>
+                <label for="email" class="col-sm-2 control-label">eMail</label>
                 <div class="col-sm-10">
-                  
-                    <select class="form-control" name="prospective" >
-                      <option value="0">普通在客户</option>
-                      <option value="1">潜在客户</option>
-                      <option value="2">网单客户</option>
-                    </select>                
-                  
+                    <input type="text" class="form-control" name="email" value="" placeholder="请输入邮箱">
                 </div>
               </div>
               <div class="form-group">
-                  <label for="dtp_input2" class="col-sm-2 control-label">传真</label>
-                  <div class="input-group date form_date col-sm-10" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="padding-left: 15px; padding-right: 15px">
-                      <span style="position: relative; z-index: 1000001;">
-                          <input class="form-control" id="createDate" name="createDate" type="text" value="" readonly>
-                      </span>
-                      <span class="input-group-addon" style="position: relative; z-index: 1000001;">
-                          <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
+                  <label for="fax" class="col-sm-2 control-label">传真</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" name="fax" value="" placeholder="请输入传真">
                   </div>
-                  <input type="hidden" id="dtp_input2" value="" /><br/>
               </div>
               <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">联系人</label>
+                <label for="contacts" class="col-sm-2 control-label">联系人</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="weichat">
-                      <option value="0">未添加</option>
-                      <option value="1">已添加</option>
-                    </select>
+                    <input type="text" class="form-control" name="contacts" value="" placeholder="请输入联系人">
                 </div>
               </div>
               <div class="form-group">
-                <label for="lastname" class="col-sm-2 control-label">备注</label>
+                <label for="remark" class="col-sm-2 control-label">备注</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" name="remark" value="" placeholder="备注" >
                 </div>
@@ -93,5 +79,7 @@
     </div>
     <script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+    <script src="<%=basePath %>assets/js/customer.js"></script>
 </body>
 </html>

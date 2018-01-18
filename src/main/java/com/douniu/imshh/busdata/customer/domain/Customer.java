@@ -9,12 +9,13 @@ public class Customer extends BaseQO{
 	private String name;
 	private String address;
 	private String phone;
-	private String eMail;
+	private String email;
 	private String fax;
 	private String contacts;
+	private String remark;
 	
 	private Date createDate;
-	private int status;
+	private int status = 1;
 	
 	
 	public String getId() {
@@ -41,11 +42,12 @@ public class Customer extends BaseQO{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String geteMail() {
-		return eMail;
+	
+	public String getEmail() {
+		return email;
 	}
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getFax() {
 		return fax;
@@ -70,15 +72,19 @@ public class Customer extends BaseQO{
 	}
 	public void setStatus(int status) {
 		this.status = status;
-	}
+	}	
 	
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", eMail="
-				+ eMail + ", fax=" + fax + ", contacts=" + contacts + ", createDate=" + createDate + ", status="
-				+ status + "]";
-	}
-	
-	
+				+ email + ", fax=" + fax + ", contacts=" + contacts + ", remark=" + remark + ", createDate="
+				+ createDate + ", status=" + status + "]";
+	}	
 	
 }
