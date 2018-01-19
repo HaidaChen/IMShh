@@ -64,8 +64,7 @@
                             <a><i class="glyphicon glyphicon-edit"></i></a>
                             <a><i class="glyphicon glyphicon-remove"></i></a>
                         </td>
-                    </tr>
-                                       
+                    </tr>            
                 </tbody>
             </table>
         </div>

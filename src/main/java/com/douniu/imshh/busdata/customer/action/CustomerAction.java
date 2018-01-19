@@ -31,6 +31,10 @@ public class CustomerAction {
 	@RequestMapping("/edit")
 	public ModelAndView edit(Customer cust){
 		ModelAndView mav = new ModelAndView();
+		if (cust.getId() != ""){
+			Customer customer = service.getById(cust.getId());
+			mav.addObject("cust", customer);
+		}
         mav.setViewName("/busdata/cust/edit");
         return mav;
 	}
@@ -52,5 +56,10 @@ public class CustomerAction {
 		Gson gson = new Gson();
         String resJson = gson.toJson(pr);
 		return resJson;
+	}
+	
+	@RequestMapping("/delete")
+	public void delete(String id){
+		service.delete(id);
 	}
 }

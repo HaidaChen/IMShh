@@ -51,17 +51,19 @@
     </insert>
     <update id="update" parameterType="Customer">
         update t_customer set 
-          name = #{name},
-          called = #{call},
-          mobile = #{mobile},
-          city = #{city},
-          area = #{area},
-          apartment = #{apartment},
+          name = #{name},          
           address = #{address},
-          prospective = #{prospective},
-          createDate = #{createDate},
-          weichat = #{weichat},
+          phone = #{phone},
+          email = #{email},
+          fax = #{fax},
+          contacts = #{contacts},
           remark = #{remark}
+    where id = #{id}
+    </update>
+    <update id="deleteById" parameterType="String">
+        update t_customer set 
+          status = '0'
         where id = #{id}
     </update>
+    
 </mapper>

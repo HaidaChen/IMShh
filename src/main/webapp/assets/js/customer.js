@@ -15,7 +15,7 @@ $.extend({'loadcust' : function(){
 			var $tbody = $("tbody");			
 			$tbody.children().remove();
 			$.each(data.result, function(i, item){
-				var $tr = $('<tr><td>' + item.name + '</td><td>' + item.phone + '</td><td>' + item.email + '</td><td>' + item.fax + '</td><td></td></tr>');
+				var $tr = $('<tr><td>' + item.name + '</td><td>' + item.phone + '</td><td>' + item.email + '</td><td>' + item.fax + '</td><td class="center"><a><i class="glyphicon glyphicon-edit" onclick="$.viewCustomer(' + item.id + ')"></i></a><a><i class="glyphicon glyphicon-remove" onclick="$.delete(' + item.id + ')"></i></a></td></tr>');
 				$tbody.append($tr);
 			});
 			
@@ -25,6 +25,34 @@ $.extend({'loadcust' : function(){
 			alert(e);
 		}
 	});
+}});
+
+$.extend({'viewCustomer' : function(id){
+	var modalwin = $('<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
+	var modalbox = $('<div class="modal-content"></div>');
+	
+	modalwin.append(modalbox);
+	
+	$("body").append(modalwin);
+	$("#editModal").modal({
+		remote: "edit.do?id="+id
+	}).css({width: '600px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}}); 
+}});
+
+$.extend({'delete' : function(id){
+	if (confirm('确定删除该记录吗?')){
+		$.ajax({
+			type: 'POST',
+			url: 'delete.do',
+			data: {'id': id},
+			success: function(data){
+				$.loadcust();
+			},
+			error: function(req, e){
+				alert(e);
+			}
+		});
+	}
 }});
 
 $(function(){
@@ -87,4 +115,5 @@ $(function(){
 	});
 	
 	$.loadcust();
+
 });
