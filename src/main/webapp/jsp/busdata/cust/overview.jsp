@@ -10,6 +10,7 @@
 	
 	<link href="<%=basePath %>/thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
+    <link href="<%=basePath %>/thirds/bootstrapvalidator/css/bootstrapValidator.min.css" rel="stylesheet">
 </head>
 <body>
 	<div class="block">
@@ -24,7 +25,7 @@
         
         <div class="table-desc">
             <div class="pagesize">
-                <select>
+                <select id="pageSize">
                     <option>10</option>
                     <option>20</option>
                     <option>50</option>
@@ -33,7 +34,7 @@
             </div>
             <div class="search">
                 <div class="input-group input-group-sm">
-                  <input type="text" class="form-control" placeholder="Search for...">
+                  <input type="text" id="txt_search" class="form-control" placeholder="Search for...">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
                   </span>
@@ -70,8 +71,9 @@
         </div>
 	
         <div class="table-page">
-            <div class="record">共52条记录</div>
+            <div class="record">共<span id="rescount"></span>条记录</div>
             <div class="pager" >
+                <input type="hidden" id="currentPage" value="1">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm">
                         <li>
@@ -96,6 +98,7 @@
     </div>
 	<script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
     <script src="<%=basePath %>assets/js/customer.js"></script>
     
 </body>

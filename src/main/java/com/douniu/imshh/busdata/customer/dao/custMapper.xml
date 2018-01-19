@@ -5,16 +5,14 @@
     <resultMap type="Customer" id="custmap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
-        <result property="call" column="called"/>
-        <result property="mobile" column="mobile"/>
-        <result property="city" column="city"/>
-        <result property="area" column="area"/>
-        <result property="apartment" column="apartment"/>
         <result property="address" column="address"/>
-        <result property="prospective" column="prospective"/>
-        <result property="createDate" column="createData"/>
-        <result property="weichat" column="weichat"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="fax" column="fax"/>
+        <result property="contacts" column="contacts"/>
         <result property="remark" column="remark"/>
+        <result property="createDate" column="createDate"/>
+        <result property="status" column="status"/>
     </resultMap>
     
     <select id="findById" parameterType="String" resultMap="custmap">
@@ -22,55 +20,30 @@
     </select>
     
     <select id="query" parameterType="Customer" resultMap="custmap">
-        select * from t_customer where 1 = 1
-        <if test="name != null and name !=''">
-          and name like #{name} 
-        </if>
-        <if test="mobile != null and mobile !=''">
-          and mobile like #{mobile}
-        </if>
-        <if test="area != null and area !=''">
-          and area = #{area}
-        </if>
-        <if test="apartment != null and apartment !=''">
-          and apartment like #{apartment}
-        </if>
-        <if test="prospective != -1">
-          and prospective = #{prospective}
-        </if>
-        <if test="startDate != null">
-          and createDate &gt; #{startDate}
-        </if>
-        <if test="endDate != null">
-          and createDate &lt; #{endDate}
-        </if>
+        select * from t_customer where status = 1
+        <if test="condition != null and condition !=''">
+          or name like #{condition} 
+          or address like #{condition}
+          or phone like #{condition}
+          or email like #{condition}
+          or fax like #{condition}
+          or contacts like #{condition}
+          or remark like #{condition}
+        </if>        
           order by createDate desc
           limit #{pageOffset},#{pageSize}
     </select> 
     <select id="count" parameterType="Customer" resultType="int">
-        select count(1) from t_customer where 1 = 1
-        <if test="name != null and name !=''">
-          and name like #{name} 
-        </if>
-        <if test="mobile != null and mobile !=''">
-          and mobile like #{mobile}
-        </if>
-        <if test="area != null and area !=''">
-          and area = #{area}
-        </if>
-        <if test="apartment != null and apartment !=''">
-          and apartment like #{apartment}
-        </if>
-        <if test="prospective != -1">
-          and prospective = #{prospective}
-        </if>
-        <if test="startDate != null">
-          and createDate &gt; #{startDate}
-        </if>
-        <if test="endDate != null">
-          and createDate &lt; #{endDate}
-        </if>
-          order by createDate desc
+        select count(1) from t_customer where status = 1
+        <if test="condition != null and condition !=''">
+          or name like #{condition} 
+          or address like #{condition}
+          or phone like #{condition}
+          or email like #{condition}
+          or fax like #{condition}
+          or contacts like #{condition}
+          or remark like #{condition}
+        </if>  
     </select>   
     <insert id="insert" parameterType="Customer">
         insert into t_customer(id, name, address, phone, email, fax, contacts, createDate, remark, status) 

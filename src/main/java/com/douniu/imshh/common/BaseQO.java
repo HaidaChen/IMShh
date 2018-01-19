@@ -9,6 +9,7 @@ public class BaseQO {
     private Date endDate;
     private int pageOffset = 0;
     private int pageSize = 5;
+    private String condition;
     
     
     public int getDuration() {
@@ -59,11 +60,17 @@ public class BaseQO {
     }
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-    @Override
-    public String toString() {
-        return "BaseQO [duration=" + duration + ", startDate=" + startDate
-                + ", endDate=" + endDate + ", pageOffset=" + pageOffset
-                + ", pageSize=" + pageSize + "]";
-    }
+    }    
+    public String getCondition() {
+		return condition;
+	}
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
+	@Override
+	public String toString() {
+		return "BaseQO [duration=" + duration + ", startDate=" + startDate + ", endDate=" + endDate + ", pageOffset="
+				+ pageOffset + ", pageSize=" + pageSize + ", condition=" + condition + "]";
+	}	
+	
 }

@@ -1,6 +1,32 @@
 /**
  * 
  */
+$.extend({'loadcust' : function(){
+	var cond = $("#txt_search").val();
+	var currentPage = parseInt($("#currentPage").val());
+	var pageSize = parseInt($("#pageSize").val());
+	var pageOffset = (currentPage - 1) * pageSize;
+	
+	$.ajax({
+		type: 'POST',
+		url: 'loadcust.do',
+		data: {'condition': cond, 'pageOffset': pageOffset, 'pageSize': pageSize},
+		success: function(data){
+			var $tbody = $("tbody");			
+			$tbody.children().remove();
+			$.each(data.result, function(i, item){
+				var $tr = $('<tr><td>' + item.name + '</td><td>' + item.phone + '</td><td>' + item.email + '</td><td>' + item.fax + '</td><td></td></tr>');
+				$tbody.append($tr);
+			});
+			
+			$('#rescount').text(data.resultCount);
+		},
+		error: function(req, e){
+			alert(e);
+		}
+	});
+}});
+
 $(function(){
 	$("#import").click(function(){
 		var modalwin = $('<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
@@ -60,5 +86,5 @@ $(function(){
         }
 	});
 	
-	
+	$.loadcust();
 });

@@ -6,15 +6,26 @@ import java.util.List;
 import com.douniu.imshh.busdata.customer.dao.ICustomerDao;
 import com.douniu.imshh.busdata.customer.domain.Customer;
 import com.douniu.imshh.busdata.customer.service.ICustomerService;
+import com.douniu.imshh.utils.LikeFlagUtil;
 
 public class CustomerService implements ICustomerService{
 
+	
 	private ICustomerDao dao;
 	
 	public List<Customer> query(Customer customer) {
 		// TODO Auto-generated method stub
-		return dao.query(customer);
+		Customer condition = LikeFlagUtil.appendLikeFlag(customer, new String[]{"condition"});
+		return dao.query(condition);
 	}
+	
+	@Override
+	public int count(Customer customer) {
+		// TODO Auto-generated method stub
+		Customer condition = LikeFlagUtil.appendLikeFlag(customer, new String[]{"condition"});
+		return dao.count(condition);
+	}
+
 
 	public Customer getById(String id) {
 		// TODO Auto-generated method stub
@@ -37,11 +48,9 @@ public class CustomerService implements ICustomerService{
 		// TODO Auto-generated method stub
 		dao.deleteById(id);
 	}
-
-	public ICustomerDao getDao() {
-		return dao;
-	}
-
+	
+	
+	
 	public void setDao(ICustomerDao dao) {
 		this.dao = dao;
 	}

@@ -6,6 +6,7 @@ import com.douniu.imshh.busdata.customer.domain.Customer;
 
 public interface ICustomerDao {
 	List<Customer> query(Customer customer);
+	int count(Customer customer);
 	Customer findById(String id);
 	void insert(Customer customer);
 	void update(Customer customer);
