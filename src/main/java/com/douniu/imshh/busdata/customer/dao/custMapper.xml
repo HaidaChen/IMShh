@@ -22,32 +22,28 @@
     <select id="query" parameterType="Customer" resultMap="custmap">
         select * from t_customer where status = 1
         <if test="condition != null and condition !=''">
-          or name like #{condition} 
-          or address like #{condition}
+          and (name like #{condition} 
           or phone like #{condition}
           or email like #{condition}
           or fax like #{condition}
-          or contacts like #{condition}
-          or remark like #{condition}
+          or contacts like #{condition})
         </if>        
-          order by createDate desc
+          order by modifydate desc
           limit #{pageOffset},#{pageSize}
     </select> 
     <select id="count" parameterType="Customer" resultType="int">
         select count(1) from t_customer where status = 1
         <if test="condition != null and condition !=''">
-          or name like #{condition} 
-          or address like #{condition}
+          and (name like #{condition} 
           or phone like #{condition}
           or email like #{condition}
           or fax like #{condition}
-          or contacts like #{condition}
-          or remark like #{condition}
+          or contacts like #{condition})
         </if>  
     </select>   
     <insert id="insert" parameterType="Customer">
-        insert into t_customer(id, name, address, phone, email, fax, contacts, createDate, remark, status) 
-          values(#{id}, #{name}, #{address}, #{phone}, #{email}, #{fax}, #{contacts}, #{createDate}, #{remark}, #{status})
+        insert into t_customer(id, name, address, phone, email, fax, contacts, createDate, modifydate, remark, status) 
+          values(#{id}, #{name}, #{address}, #{phone}, #{email}, #{fax}, #{contacts}, #{createDate}, sysdate(), #{remark}, #{status})
     </insert>
     <update id="update" parameterType="Customer">
         update t_customer set 
@@ -57,12 +53,14 @@
           email = #{email},
           fax = #{fax},
           contacts = #{contacts},
-          remark = #{remark}
+          remark = #{remark},
+          modifydate = sysdate()
     where id = #{id}
     </update>
     <update id="deleteById" parameterType="String">
         update t_customer set 
-          status = '0'
+          status = '0',
+          modifydate = sysdate()
         where id = #{id}
     </update>
     

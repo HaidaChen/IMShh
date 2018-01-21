@@ -59,6 +59,7 @@ public class CustomerAction {
 	}
 	
 	@RequestMapping("/delete")
+	@ResponseBody
 	public void delete(String id){
 		service.delete(id);
 	}

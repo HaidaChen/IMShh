@@ -26,6 +26,7 @@
         <div class="table-desc">
             <div class="pagesize">
                 <select id="pageSize">
+                    <option>2</option>
                     <option>10</option>
                     <option>20</option>
                     <option>50</option>
@@ -36,7 +37,7 @@
                 <div class="input-group input-group-sm">
                   <input type="text" id="txt_search" class="form-control" placeholder="Search for...">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                    <button class="btn btn-default" id="btn_search" type="button"><i class="glyphicon glyphicon-search"></i></button>
                   </span>
                 </div>
             </div>
@@ -54,42 +55,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="odd gradeX">
-                        <td>Trident</td>
-                        <td>Internet
-                             Explorer 4.0</td>
-                        <td>Win 95+</td>
-                        <td class="center"> 4</td>
-                        <td class="center">
-                            <a><i class="glyphicon glyphicon-edit"></i></a>
-                            <a><i class="glyphicon glyphicon-remove"></i></a>
-                        </td>
-                    </tr>            
+                             
                 </tbody>
             </table>
         </div>
 	
         <div class="table-page">
             <div class="record">共<span id="rescount"></span>条记录</div>
-            <div class="pager" >
+            <div class="pager" id="pagebar">
                 <input type="hidden" id="currentPage" value="1">
+                <input type="hidden" id="pageCount">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </nav>  
             </div>

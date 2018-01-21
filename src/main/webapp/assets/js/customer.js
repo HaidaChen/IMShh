@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 $.extend({'loadcust' : function(){
 	var cond = $("#txt_search").val();
 	var currentPage = parseInt($("#currentPage").val());
@@ -20,11 +21,103 @@ $.extend({'loadcust' : function(){
 			});
 			
 			$('#rescount').text(data.resultCount);
+			$('#pageCount').val(Math.ceil(data.resultCount/pageSize));
+			
+			var $pageCount = $('#pageCount').val();
+			var $pagetool = $('#pagebar').children().find('ul');		
+			
+			
+			$pagetool.children().remove();
+			
+			$pagetool.append(prebtn);
+			if ($pageCount == 0){
+				$pagetool.hide();
+			}else{				
+				var prebtn = $('<li onclick="$.gotoPrevious()"><a aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>');
+				$pagetool.append(prebtn);
+				for (var i = 0; i < $pageCount; i++){
+					var item = null;
+					item = $('<li onclick="$.gotoPage(' + (i + 1) + ')" style="display : none"><a>' + (i + 1) + '</a></li>');
+					$pagetool.append(item);
+				}
+				var nextbtn = $('<li onclick="$.gotoNext()"><a aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
+				$pagetool.append(nextbtn);
+				
+				var currentPage = $("#currentPage").val();
+				var currentItem = $pagetool.children().eq(currentPage);
+				currentItem.addClass("active");
+				
+				prebtn.removeClass("disabled");
+				nextbtn.removeClass("disabled");
+				if (currentPage == 1){
+					prebtn.addClass("disabled");
+				}
+				
+				if (currentPage == $pageCount){
+					nextbtn.addClass("disabled");
+				}
+				
+				
+				$.displayPage();
+				
+				$pagetool.show();
+			}
+			
+			var main = $(window.parent.document).find("#contentFrame");
+			var thisheight = $(document).height()+30;
+			main.height(thisheight);
 		},
 		error: function(req, e){
 			alert(e);
 		}
 	});
+}});
+
+$.extend({'displayPage' : function(){
+	var $displayItems = [];
+	var $pageTool = $('#pagebar').children().find('ul');
+	var $currentPage = parseInt($("#currentPage").val());
+	var $pageCount = parseInt($('#pageCount').val());
+	var $firstshow = 1;
+	
+	
+	if ($pageCount <= 5){
+		for (var i = 1; i < $pageCount + 1; i++){
+			$displayItems.push(i);
+		}
+	}else{
+		if ($currentPage - 2 > 0 && $currentPage + 2 <= $pageCount){
+			$firstshow = $currentPage - 2;
+		}else if ($currentPage - 2 > 0 && $currentPage + 2 > $pageCount){
+			$firstshow = $pageCount + 1 - 5;
+		}else if ($currentPage - 2 < 0 && $currentPage + 2 < $pageCount + 1){
+			$firstshow = 1;
+		}
+		
+		for (var i = $firstshow; i < $firstshow + 5; i++){
+			$displayItems.push(i);
+		}
+	}
+	
+	$.each ($displayItems, function(index, item){
+		$pageTool.children().eq(item).css("display", "");
+	});
+}});
+
+$.extend({'gotoPage' : function(page){
+	if (page < 1 || page > $('#pageCount').val()){
+		return;
+	}
+	$("#currentPage").val(page);
+	$.loadcust();	
+}});
+
+$.extend({'gotoPrevious' : function(){	
+	$.gotoPage($("#currentPage").val() - 1);
+}});
+
+$.extend({'gotoNext' : function(){	
+	$.gotoPage(parseInt($("#currentPage").val()) + 1);
 }});
 
 $.extend({'viewCustomer' : function(id){
@@ -45,11 +138,18 @@ $.extend({'delete' : function(id){
 			type: 'POST',
 			url: 'delete.do',
 			data: {'id': id},
-			success: function(data){
+			success: function(){
 				$.loadcust();
 			},
-			error: function(req, e){
-				alert(e);
+			error: function(jqXHR, textStatus, errorThrown){
+				/*弹出jqXHR对象的信息*/
+	            alert(jqXHR.responseText);
+	            alert(jqXHR.status);
+	            alert(jqXHR.readyState);
+	            alert(jqXHR.statusText);
+	            /*弹出其他两个参数的信息*/
+	            alert(textStatus);
+	            alert(errorThrown);
 			}
 		});
 	}
@@ -115,5 +215,14 @@ $(function(){
 	});
 	
 	$.loadcust();
-
+	
+	$("#btn_search").click(function(){
+		$.loadcust();
+	});
+	
+	$("#pageSize").change(function(){
+		$.loadcust();
+	});
+	
+	
 });

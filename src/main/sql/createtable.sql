@@ -6,7 +6,8 @@ CREATE TABLE T_CUSTOMER(
     eMail varchar(20),
     fax varchar(20),
     contacts varchar(20),
-    createDate date,    
+    createDate date,  
+    modifyDate datetime,
     remark varchar(1024),
     status char(1)
 );
