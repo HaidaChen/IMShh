@@ -1,16 +1,25 @@
 package com.douniu.imshh.busdata.customer.action;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.douniu.imshh.busdata.customer.domain.Customer;
 import com.douniu.imshh.busdata.customer.service.ICustomerService;
 import com.douniu.imshh.common.PageResult;
+import com.douniu.imshh.utils.ExcelImportUtil;
 import com.google.gson.Gson;
 
 
@@ -62,5 +71,27 @@ public class CustomerAction {
 	@ResponseBody
 	public void delete(String id){
 		service.delete(id);
+	}
+	
+	@RequestMapping("/import")
+	@ResponseBody
+	public String importCustomer(@RequestParam(value = "excelFile") MultipartFile excelFile,
+			HttpServletRequest request) throws IOException{
+		if (null == excelFile) {  
+            return "模板文件为空,请选择文件";  
+        }  
+		
+		/*String path = request.getSession().getServletContext().getRealPath("IMShh"); 
+		File dir = new File(path);  
+        if(!dir.exists()) {  
+            dir.mkdirs();  
+        } */ 
+        //String fileName = excelFile.getOriginalFilename();//report.xls  
+        //String fileName2 = excelFile.getName();//excelFile  
+          
+        InputStream fis = excelFile.getInputStream();  
+        List<Map<String, String>>  data = ExcelImportUtil.parseExcel(fis);  
+        
+        return "success";  
 	}
 }

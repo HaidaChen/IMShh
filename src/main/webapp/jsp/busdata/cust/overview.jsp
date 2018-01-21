@@ -26,7 +26,6 @@
         <div class="table-desc">
             <div class="pagesize">
                 <select id="pageSize">
-                    <option>2</option>
                     <option>10</option>
                     <option>20</option>
                     <option>50</option>
@@ -74,8 +73,9 @@
         </div>
     </div>
 	<script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
+    <script src="<%=basePath %>thirds/jquery/jquery.form.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+    <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>    
     <script src="<%=basePath %>assets/js/customer.js"></script>
     
 </body>

@@ -155,6 +155,44 @@ $.extend({'delete' : function(id){
 	}
 }});
 
+function checkData(){  
+    var fileDir = $("#upfile").val();  
+    var suffix = fileDir.substr(fileDir.lastIndexOf("."));  
+    if("" == fileDir){  
+        alert("选择需要导入的Excel文件！");  
+        return false;  
+    }  
+    if(".xls" != suffix && ".xlsx" != suffix ){  
+        alert("选择Excel格式的文件导入！");  
+        return false;  
+    }  
+    return true;  
+ }  
+
+function ajaxSubmitForm() {
+　　　　var option = {
+      　　 url : 'import.do',
+     　　  type : 'POST',
+      　　 dataType : 'text',
+      　　 headers : {"ClientCallMode" : "ajax"}, //添加请求头部
+     　　  success : function(data) {
+        　　   if("success"==data.resultMessage){
+        　　    alert("个人用户已成功升级为企业用户！");
+           }
+           else{
+            alert("企业用户升级失败,请联系管理员！");
+            return;
+           }
+       },
+       error: function(data) {
+    	   alert(data);
+           alert("企业用户升级失败,请联系管理员！");
+       }
+    };
+   $("#form_upload").ajaxSubmit(option);
+   return false; //最好返回false，因为如果按钮类型是submit,则表单自己又会提交一次;返回false阻止表单再次提交
+}
+
 $(function(){
 	$("#import").click(function(){
 		var modalwin = $('<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
@@ -166,8 +204,12 @@ $(function(){
 		var headeroperate = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>');
 		var headertitle = $('<h4 class="modal-title" id="myModalLabel">请选择Excel文件</h4>  ');
 		
-		var fileinput = $('<input id="" name="" type="file" class="file" readonly="true">');
-		var btnimport = $('<button type="button">上传</button>');
+		var form = $('<form method="POST"  enctype="multipart/form-data" id="form_upload" action="import.do"></form>');
+		var fileinput = $('<input id="upfile" name="upfile" type="file" class="file" readonly="true">');
+		var btnimport = $('<input type="submit" onclick="return ajaxSubmitForm()">上传</button>');
+		form.append(fileinput);
+		form.append(btnimport);
+		
 		modalwin.append(modalbox);
 		modalbox.append(modalheader);
 		modalbox.append(modalcontent);
@@ -175,8 +217,9 @@ $(function(){
 		
 		modalheader.append(headeroperate);
 		modalheader.append(headertitle);
-		modalcontent.append(fileinput);
-		modalfooter.append(btnimport);
+		modalcontent.append(form);
+		
+		//modalfooter.append(btnimport);
 		
 		$("body").append(modalwin);
 		

@@ -24,6 +24,14 @@ xsi:schemaLocation="
       
       
       <!-- 公共部分 -->
+      <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->  
+	    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+	        <property name="defaultEncoding" value="utf-8" />  
+	        <!-- 指定所上传文件的总大小不能超过10485760000B。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->  
+	        <property name="maxUploadSize" value="10485760000" />  
+	        <property name="maxInMemorySize" value="40960" />  
+	    </bean>  
+    
       <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
          <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
          <property name="url" value="jdbc:mysql://localhost:3306/imshh?characterEncoding=utf8"/> 
