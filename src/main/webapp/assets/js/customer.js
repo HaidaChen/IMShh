@@ -167,30 +167,31 @@ function checkData(){
         return false;  
     }  
     return true;  
- }  
+}  
 
 function ajaxSubmitForm() {
-　　　　var option = {
-      　　 url : 'import.do',
-     　　  type : 'POST',
-      　　 dataType : 'text',
-      　　 headers : {"ClientCallMode" : "ajax"}, //添加请求头部
-     　　  success : function(data) {
-        　　   if("success"==data.resultMessage){
-        　　    alert("个人用户已成功升级为企业用户！");
-           }
-           else{
-            alert("企业用户升级失败,请联系管理员！");
-            return;
-           }
-       },
-       error: function(data) {
-    	   alert(data);
-           alert("企业用户升级失败,请联系管理员！");
-       }
-    };
-   $("#form_upload").ajaxSubmit(option);
-   return false; //最好返回false，因为如果按钮类型是submit,则表单自己又会提交一次;返回false阻止表单再次提交
+	if(checkData()){
+　　　　  var option = {
+	      　　 url : 'ajaxUpload.do',
+	     　　 // type : 'POST',
+	      　　 dataType : 'text',
+	      　　 //headers : {"ClientCallMode" : "text"}, //添加请求头部
+	     　　  success : function(data) {
+	        　　   if("success"==data.resultMessage){
+	        　　    alert("个人用户已成功升级为企业用户！");
+	           }
+	           else{
+	            alert("企业用户升级失败,请联系管理员！");
+	            return;
+	           }
+	       },
+	       error: function(data) {
+	    	   alert(data);
+	           alert("企业用户升级失败,请联系管理员！");
+	       }
+	    };
+	   	$("#form_upload").ajaxSubmit(option);
+	}
 }
 
 $(function(){
@@ -204,9 +205,9 @@ $(function(){
 		var headeroperate = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>');
 		var headertitle = $('<h4 class="modal-title" id="myModalLabel">请选择Excel文件</h4>  ');
 		
-		var form = $('<form method="POST"  enctype="multipart/form-data" id="form_upload" action="import.do"></form>');
+		var form = $('<form method="POST"  enctype="multipart/form-data" id="form_upload"></form>');
 		var fileinput = $('<input id="upfile" name="upfile" type="file" class="file" readonly="true">');
-		var btnimport = $('<input type="submit" onclick="return ajaxSubmitForm()">上传</button>');
+		var btnimport = $('<input type="button" value="导入" onclick="ajaxSubmitForm()">');
 		form.append(fileinput);
 		form.append(btnimport);
 		
@@ -267,5 +268,13 @@ $(function(){
 		$.loadcust();
 	});
 	
-	
+	$("#export").click(function(){
+		$.ajax({
+	        url:"downloadExcel.do?condition="+$('#txt_search').val(),
+	        type:"get",
+	        success:function(date){
+	            window.location.href=date;
+	        }
+	    })
+	});
 });

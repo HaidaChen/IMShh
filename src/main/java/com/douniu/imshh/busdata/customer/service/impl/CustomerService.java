@@ -54,5 +54,11 @@ public class CustomerService implements ICustomerService{
 	public void setDao(ICustomerDao dao) {
 		this.dao = dao;
 	}
+
+	@Override
+	public void batchAdd(List<Customer> customers) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -19,7 +19,7 @@
             <div class="options">
                 <a title="导  入" id="import"><i class="glyphicon glyphicon-log-in"></i></a>
                 <a title="新  增" id="create"><i class="glyphicon glyphicon-pencil"></i></a>
-                <a title="导  出" id="output"><i class="glyphicon glyphicon-log-out"></i></a>
+                <a title="导  出" id="export"><i class="glyphicon glyphicon-log-out"></i></a>
             </div>
         </div>
         

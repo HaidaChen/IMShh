@@ -10,4 +10,5 @@ public interface ICustomerService {
 	Customer getById(String id);
 	void save(Customer customer);
 	void delete(String id);
+	void batchAdd(List<Customer> customers);
 }
