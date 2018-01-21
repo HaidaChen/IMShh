@@ -18,19 +18,19 @@ public class POIExcelAdapter {
 	private static List<ExcelBean> mapper = new ArrayList<ExcelBean>();
 	
 	static{
-		mapper.add(new ExcelBean("¹«Ë¾Ãû³Æ","name",0));  
-		mapper.add(new ExcelBean("¹«Ë¾µØÖ·","address",0));  
-		mapper.add(new ExcelBean("ÁªÏµµç»°","phone",0));   
-		mapper.add(new ExcelBean("ÓÊÏä","email",0));  
-		mapper.add(new ExcelBean("´«Õæ","fax",0));  
-		mapper.add(new ExcelBean("ÁªÏµÈË","contacts",0));  
-		mapper.add(new ExcelBean("±¸×¢","remark",0));  
+		mapper.add(new ExcelBean("å…¬å¸åç§°","name",0));  
+		mapper.add(new ExcelBean("å…¬å¸åœ°å€","address",0));  
+		mapper.add(new ExcelBean("è”ç³»ç”µè¯","phone",0));   
+		mapper.add(new ExcelBean("é‚®ç®±","email",0));  
+		mapper.add(new ExcelBean("ä¼ çœŸ","fax",0));  
+		mapper.add(new ExcelBean("è”ç³»äºº","contacts",0));  
+		mapper.add(new ExcelBean("å¤‡æ³¨","remark",0));  
 	}
 	
 	public static Workbook toWorkBook(List<Customer> customers) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, IntrospectionException, ParseException{
 		Map<Integer,List<ExcelBean>>map=new LinkedHashMap<>();  
         map.put(0, mapper);  
-        return ExcelUtil.createExcelFile(Customer.class, customers, map, "Ó¦¸¶ÕË¿îĞÅÏ¢");  
+        return ExcelUtil.createExcelFile(Customer.class, customers, map, "Ó¦ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½Ï¢");  
 	}
 	
 	public static List<Customer> toCustomerList(List<List<Object>> data){

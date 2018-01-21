@@ -82,7 +82,7 @@ public class CustomerAction {
 	
 	
 	/** 
-     * 描述：通过 jquery.form.js 插件提供的ajax方式上传文件 
+     * 锟斤拷锟斤拷锟斤拷通锟斤拷 jquery.form.js 锟斤拷锟斤拷峁╋拷锟絘jax锟斤拷式锟较达拷锟侥硷拷 
      * @param request 
      * @param response 
      * @throws Exception 
@@ -95,7 +95,7 @@ public class CustomerAction {
         InputStream in =null;  
         MultipartFile file = multipartRequest.getFile("upfile");  
         if(file.isEmpty()){  
-            throw new Exception("文件不存在！");  
+            throw new Exception("锟侥硷拷锟斤拷锟斤拷锟节ｏ拷");  
         }  
           
         in = file.getInputStream();  
@@ -111,7 +111,6 @@ public class CustomerAction {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssms");  
         String dateStr = sdf.format(new Date());  
          
-        // 指定下载的文件名  
         response.setHeader("Content-Disposition", "attachment;filename=" +dateStr+".xlsx");  
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");  
         response.setHeader("Pragma", "no-cache");  
@@ -123,8 +122,7 @@ public class CustomerAction {
         	String condition = request.getParameter("condition");
         	Customer customer = new Customer();
         	customer.setCondition(condition);
-            //导出Excel对象  
-        	List<Customer> customers = service.query(customer);
+            List<Customer> customers = service.queryNoPage(customer);
         	workbook = POIExcelAdapter.toWorkBook(customers); 
         } catch (Exception e) {  
             e.printStackTrace();  

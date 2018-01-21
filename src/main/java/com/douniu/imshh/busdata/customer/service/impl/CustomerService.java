@@ -18,6 +18,13 @@ public class CustomerService implements ICustomerService{
 		Customer condition = LikeFlagUtil.appendLikeFlag(customer, new String[]{"condition"});
 		return dao.query(condition);
 	}
+
+	@Override
+	public List<Customer> queryNoPage(Customer customer) {
+		// TODO Auto-generated method stub
+		Customer condition = LikeFlagUtil.appendLikeFlag(customer, new String[]{"condition"});
+		return dao.queryNoPage(condition);
+	}		
 	
 	@Override
 	public int count(Customer customer) {
@@ -49,16 +56,15 @@ public class CustomerService implements ICustomerService{
 		dao.deleteById(id);
 	}
 	
-	
+	@Override
+	public void batchAdd(List<Customer> customers) {
+		// TODO Auto-generated method stub
+		dao.batchInsert(customers);
+	}
 	
 	public void setDao(ICustomerDao dao) {
 		this.dao = dao;
 	}
 
-	@Override
-	public void batchAdd(List<Customer> customers) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
 }

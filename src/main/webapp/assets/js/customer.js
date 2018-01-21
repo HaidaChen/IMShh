@@ -140,16 +140,6 @@ $.extend({'delete' : function(id){
 			data: {'id': id},
 			success: function(){
 				$.loadcust();
-			},
-			error: function(jqXHR, textStatus, errorThrown){
-				/*弹出jqXHR对象的信息*/
-	            alert(jqXHR.responseText);
-	            alert(jqXHR.status);
-	            alert(jqXHR.readyState);
-	            alert(jqXHR.statusText);
-	            /*弹出其他两个参数的信息*/
-	            alert(textStatus);
-	            alert(errorThrown);
 			}
 		});
 	}
@@ -177,18 +167,8 @@ function ajaxSubmitForm() {
 	      　　 dataType : 'text',
 	      　　 //headers : {"ClientCallMode" : "text"}, //添加请求头部
 	     　　  success : function(data) {
-	        　　   if("success"==data.resultMessage){
-	        　　    alert("个人用户已成功升级为企业用户！");
-	           }
-	           else{
-	            alert("企业用户升级失败,请联系管理员！");
-	            return;
-	           }
-	       },
-	       error: function(data) {
-	    	   alert(data);
-	           alert("企业用户升级失败,请联系管理员！");
-	       }
+	        　　   $.loadcust();
+	     }
 	    };
 	   	$("#form_upload").ajaxSubmit(option);
 	}
@@ -269,12 +249,7 @@ $(function(){
 	});
 	
 	$("#export").click(function(){
-		$.ajax({
-	        url:"downloadExcel.do?condition="+$('#txt_search').val(),
-	        type:"get",
-	        success:function(date){
-	            window.location.href=date;
-	        }
-	    })
+		$("#export").attr('href', "downloadExcel.do?condition="+$('#txt_search').val());
 	});
+	
 });

@@ -32,15 +32,15 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {  
-	private final static String excel2003L =".xls";    //2003- °æ±¾µÄexcel    
-    private final static String excel2007U =".xlsx";   //2007+ °æ±¾µÄexcel    
+	private final static String excel2003L =".xls";    //2003- ï¿½æ±¾ï¿½ï¿½excel    
+    private final static String excel2007U =".xlsx";   //2007+ ï¿½æ±¾ï¿½ï¿½excel    
     
     public static List<List<Object>> parseExcel(InputStream fis, String fileName) throws Exception {  
     	List<List<Object>> data = new ArrayList<List<Object>>();
         try {  
         	Workbook  book = getWorkbook(fis, fileName);
         	if(null == book){    
-                throw new Exception("´´½¨Excel¹¤×÷±¡Îª¿Õ£¡");    
+                throw new Exception("ï¿½ï¿½ï¿½ï¿½Excelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½");    
             } 
         	
             Sheet sheet = book.getSheetAt(0);  
@@ -61,8 +61,7 @@ public class ExcelUtil {
                     rowData.add(cellData);       
                 } 
                 data.add(rowData);
-            }  
-            System.out.println(data);  
+            }
         } catch (IOException e) {  
             e.printStackTrace();  
         }  
@@ -70,7 +69,7 @@ public class ExcelUtil {
     }  
     
     /**  
-     * ÃèÊö£º¸ù¾ÝÎÄ¼þºó×º£¬×ÔÊÊÓ¦ÉÏ´«ÎÄ¼þµÄ°æ±¾   
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½Ä°æ±¾   
      * @param inStr,fileName  
      * @return  
      * @throws Exception  
@@ -83,13 +82,13 @@ public class ExcelUtil {
         }else if(excel2007U.equals(fileType)){    
             wb = new XSSFWorkbook(inStr);  //2007+    
         }else{    
-            throw new Exception("½âÎöµÄÎÄ¼þ¸ñÊ½ÓÐÎó£¡");    
+            throw new Exception("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½");    
         }    
         return wb;    
     }   
     
     /**  
-     * ÃèÊö£º¶Ô±í¸ñÖÐÊýÖµ½øÐÐ¸ñÊ½»¯  
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ð¸ï¿½Ê½ï¿½ï¿½  
      * @param cell  
      * @return  
      */    
@@ -97,9 +96,9 @@ public class ExcelUtil {
     	if (cell == null)
     		return "";
         Object value = null;    
-        DecimalFormat df = new DecimalFormat("0");  //¸ñÊ½»¯number String×Ö·û    
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");  //ÈÕÆÚ¸ñÊ½»¯    
-        DecimalFormat df2 = new DecimalFormat("0.00");  //¸ñÊ½»¯Êý×Ö    
+        DecimalFormat df = new DecimalFormat("0");  //ï¿½ï¿½Ê½ï¿½ï¿½number Stringï¿½Ö·ï¿½    
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");  //ï¿½ï¿½ï¿½Ú¸ï¿½Ê½ï¿½ï¿½    
+        DecimalFormat df2 = new DecimalFormat("0.00");  //ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
             
         switch (cell.getCellType()) {    
         case Cell.CELL_TYPE_STRING:    
@@ -127,12 +126,12 @@ public class ExcelUtil {
     }    
     
     /** 
-     * ¶àÁÐÍ·´´½¨EXCEL 
+     * ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½EXCEL 
      *  
-     * @param sheetName ¹¤×÷²¾Ãû³Æ 
-     * @param clazz  Êý¾ÝÔ´modelÀàÐÍ 
-     * @param objs   excel±êÌâÁÐÒÔ¼°¶ÔÓ¦model×Ö¶ÎÃû 
-     * @param map  ±êÌâÁÐÐÐÊýÒÔ¼°cell×ÖÌåÑùÊ½ 
+     * @param sheetName ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+     * @param clazz  ï¿½ï¿½ï¿½ï¿½Ô´modelï¿½ï¿½ï¿½ï¿½ 
+     * @param objs   excelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½Ó¦modelï¿½Ö¶ï¿½ï¿½ï¿½ 
+     * @param map  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½cellï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ 
      * @return 
      * @throws IllegalArgumentException 
      * @throws IllegalAccessException 
@@ -143,14 +142,14 @@ public class ExcelUtil {
      */  
 	public static XSSFWorkbook createExcelFile(Class clazz, List objs,Map<Integer, List<ExcelBean>> map,String sheetName) throws IllegalArgumentException,IllegalAccessException,  
 	InvocationTargetException, ClassNotFoundException, IntrospectionException, ParseException, java.beans.IntrospectionException{  
-	        // ´´½¨ÐÂµÄExcel ¹¤×÷²¾  
+	        // ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Excel ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	        XSSFWorkbook workbook = new XSSFWorkbook();  
-	        // ÔÚExcel¹¤×÷²¾ÖÐ½¨Ò»¹¤×÷±í£¬ÆäÃûÎªÈ±Ê¡Öµ, Ò²¿ÉÒÔÖ¸¶¨SheetÃû³Æ  
+	        // ï¿½ï¿½Excelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÈ±Ê¡Öµ, Ò²ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Sheetï¿½ï¿½ï¿½ï¿½  
 	        XSSFSheet sheet = workbook.createSheet(sheetName);  
-	        // ÒÔÏÂÎªexcelµÄ×ÖÌåÑùÊ½ÒÔ¼°excelµÄ±êÌâÓëÄÚÈÝµÄ´´½¨£¬ÏÂÃæ»á¾ßÌå·ÖÎö;  
-	        createFont(workbook);//×ÖÌåÑùÊ½  
-	        createTableHeader(sheet, map);//´´½¨±êÌâ£¨Í·£©  
-	        createTableRows(sheet, map, objs, clazz);//´´½¨ÄÚÈÝ  
+	        // ï¿½ï¿½ï¿½ï¿½Îªexcelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ô¼ï¿½excelï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;  
+	        createFont(workbook);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½  
+	        createTableHeader(sheet, map);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£¨Í·ï¿½ï¿½  
+	        createTableRows(sheet, map, objs, clazz);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	        return workbook;  
 	}  
 	
@@ -158,49 +157,49 @@ public class ExcelUtil {
 	private static XSSFCellStyle fontStyle2;  
 	
 	public static void createFont(XSSFWorkbook workbook) {  
-	    // ±íÍ·  
+	    // ï¿½ï¿½Í·  
 	    fontStyle = workbook.createCellStyle();  
 	    XSSFFont font1 = workbook.createFont();  
 	    font1.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);  
-	    font1.setFontName("ºÚÌå");  
-	    font1.setFontHeightInPoints((short) 14);// ÉèÖÃ×ÖÌå´óÐ¡  
+	    font1.setFontName("ï¿½ï¿½ï¿½ï¿½");  
+	    font1.setFontHeightInPoints((short) 14);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡  
 	    fontStyle.setFont(font1);  
-	    fontStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN); // ÏÂ±ß¿ò  
-	    fontStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);// ×ó±ß¿ò  
-	    fontStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);// ÉÏ±ß¿ò  
-	    fontStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);// ÓÒ±ß¿ò  
-	    fontStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER); // ¾ÓÖÐ  
+	    fontStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN); // ï¿½Â±ß¿ï¿½  
+	    fontStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);// ï¿½ï¿½ß¿ï¿½  
+	    fontStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);// ï¿½Ï±ß¿ï¿½  
+	    fontStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);// ï¿½Ò±ß¿ï¿½  
+	    fontStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER); // ï¿½ï¿½ï¿½ï¿½  
 	
-	    // ÄÚÈÝ  
+	    // ï¿½ï¿½ï¿½ï¿½  
 	    fontStyle2=workbook.createCellStyle();  
 	    XSSFFont font2 = workbook.createFont();  
-	    font2.setFontName("ËÎÌå");  
-	    font2.setFontHeightInPoints((short) 10);// ÉèÖÃ×ÖÌå´óÐ¡  
+	    font2.setFontName("ï¿½ï¿½ï¿½ï¿½");  
+	    font2.setFontHeightInPoints((short) 10);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡  
 	    fontStyle2.setFont(font2);       
-	    fontStyle2.setBorderBottom(XSSFCellStyle.BORDER_THIN); // ÏÂ±ß¿ò  
-	    fontStyle2.setBorderLeft(XSSFCellStyle.BORDER_THIN);// ×ó±ß¿ò  
-	    fontStyle2.setBorderTop(XSSFCellStyle.BORDER_THIN);// ÉÏ±ß¿ò  
-	    fontStyle2.setBorderRight(XSSFCellStyle.BORDER_THIN);// ÓÒ±ß¿ò  
-	    fontStyle2.setAlignment(XSSFCellStyle.ALIGN_CENTER); // ¾ÓÖÐ  
+	    fontStyle2.setBorderBottom(XSSFCellStyle.BORDER_THIN); // ï¿½Â±ß¿ï¿½  
+	    fontStyle2.setBorderLeft(XSSFCellStyle.BORDER_THIN);// ï¿½ï¿½ß¿ï¿½  
+	    fontStyle2.setBorderTop(XSSFCellStyle.BORDER_THIN);// ï¿½Ï±ß¿ï¿½  
+	    fontStyle2.setBorderRight(XSSFCellStyle.BORDER_THIN);// ï¿½Ò±ß¿ï¿½  
+	    fontStyle2.setAlignment(XSSFCellStyle.ALIGN_CENTER); // ï¿½ï¿½ï¿½ï¿½  
 	}  
 	  
 	/** 
-	 * ¸ù¾ÝExcelMapping Éú³ÉÁÐÍ·£¨¶àÐÐÁÐÍ·£© 
+	 * ï¿½ï¿½ï¿½ï¿½ExcelMapping ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ 
 	 *  
 	 * @param sheet 
-	 *            ¹¤×÷²¾ 
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	 * @param map 
-	 *            Ã¿ÐÐÃ¿¸öµ¥Ôª¸ñ¶ÔÓ¦µÄÁÐÍ·ÐÅÏ¢ 
+	 *            Ã¿ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ï¢ 
 	 */  
 	public static final void createTableHeader(XSSFSheet sheet, Map<Integer, List<ExcelBean>> map) {  
-	    int startIndex=0;//cellÆðÊ¼Î»ÖÃ  
-	    int endIndex=0;//cellÖÕÖ¹Î»ÖÃ  
+	    int startIndex=0;//cellï¿½ï¿½Ê¼Î»ï¿½ï¿½  
+	    int endIndex=0;//cellï¿½ï¿½Ö¹Î»ï¿½ï¿½  
 	
 	    for (Map.Entry<Integer, List<ExcelBean>> entry : map.entrySet()) {  
 	        XSSFRow row = sheet.createRow(entry.getKey());  
 	        List<ExcelBean> excels = entry.getValue();  
 	        for (int x = 0; x < excels.size(); x++) {  
-	            //ºÏ²¢µ¥Ôª¸ñ  
+	            //ï¿½Ï²ï¿½ï¿½ï¿½Ôªï¿½ï¿½  
 	            if(excels.get(x).getCols()>1){  
 	                if(x==0){                                       
 	                    endIndex+=excels.get(x).getCols()-1;  
@@ -214,17 +213,17 @@ public class ExcelUtil {
 	                    startIndex+=excels.get(x).getCols();  
 	                }  
 	                XSSFCell cell = row.createCell(startIndex-excels.get(x).getCols());  
-	                cell.setCellValue(excels.get(x).getHeadTextName());// ÉèÖÃÄÚÈÝ  
+	                cell.setCellValue(excels.get(x).getHeadTextName());// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	                if (excels.get(x).getCellStyle() != null) {  
-	                    cell.setCellStyle(excels.get(x).getCellStyle());// ÉèÖÃ¸ñÊ½  
+	                    cell.setCellStyle(excels.get(x).getCellStyle());// ï¿½ï¿½ï¿½Ã¸ï¿½Ê½  
 	                }  
 	                cell.setCellStyle(fontStyle);  
 	            }else{  
 	
 	                XSSFCell cell = row.createCell(x);  
-	                cell.setCellValue(excels.get(x).getHeadTextName());// ÉèÖÃÄÚÈÝ  
+	                cell.setCellValue(excels.get(x).getHeadTextName());// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	                if (excels.get(x).getCellStyle() != null) {  
-	                    cell.setCellStyle(excels.get(x).getCellStyle());// ÉèÖÃ¸ñÊ½  
+	                    cell.setCellStyle(excels.get(x).getCellStyle());// ï¿½ï¿½ï¿½Ã¸ï¿½Ê½  
 	                }  
 	                cell.setCellStyle(fontStyle);  
 	            }  
@@ -262,12 +261,12 @@ public class ExcelUtil {
 	        XSSFRow row = sheet.createRow(rowindex);  
 	        for (int i = 0; i < ems.size(); i++) {  
 	            ExcelBean em = (ExcelBean) ems.get(i);  
-	            // »ñµÃget·½·¨   
+	            // ï¿½ï¿½ï¿½getï¿½ï¿½ï¿½ï¿½   
 	            PropertyDescriptor pd = new PropertyDescriptor(em.getPropertyName(), clazz);  
 	            Method getMethod = pd.getReadMethod();  
 	            Object rtn = getMethod.invoke(obj);  
 	            String value = "";  
-	            // Èç¹ûÊÇÈÕÆÚÀàÐÍ ½øÐÐ ×ª»»  
+	            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ×ªï¿½ï¿½  
 	            if (rtn != null) {  
 	                if (rtn instanceof Date) {  
 	                	value = dformat.format((Date) rtn);
@@ -284,21 +283,21 @@ public class ExcelUtil {
 	            cell.setCellValue(value);  
 	            cell.setCellType(XSSFCell.CELL_TYPE_STRING);  
 	            cell.setCellStyle(fontStyle2);  
-	            // »ñµÃ×î´óÁÐ¿í  
+	            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½  
 	            int width = value.getBytes().length * 300;  
-	            // »¹Î´ÉèÖÃ£¬ÉèÖÃµ±Ç°  
+	            // ï¿½ï¿½Î´ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ç°  
 	            if (widths.size() <= i) {  
 	                widths.add(width);  
 	                continue;  
 	            }  
-	            // ±ÈÔ­À´´ó£¬¸üÐÂÊý¾Ý  
+	            // ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ó£¬¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	            if (width > widths.get(i)) {  
 	                widths.set(i, width);  
 	            }  
 	        }  
 	        rowindex++;  
 	    }  
-	    // ÉèÖÃÁÐ¿í  
+	    // ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½  
 	    for (int index = 0; index < widths.size(); index++) {  
 	        Integer width = widths.get(index);  
 	        width = width < 2500 ? 2500 : width + 300;  

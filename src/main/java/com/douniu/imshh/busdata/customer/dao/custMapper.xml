@@ -31,6 +31,17 @@
           order by modifydate desc
           limit #{pageOffset},#{pageSize}
     </select> 
+    <select id="queryNoPage" parameterType="Customer" resultMap="custmap">
+        select * from t_customer where status = 1
+        <if test="condition != null and condition !=''">
+          and (name like #{condition} 
+          or phone like #{condition}
+          or email like #{condition}
+          or fax like #{condition}
+          or contacts like #{condition})
+        </if>        
+          order by modifydate desc
+    </select>
     <select id="count" parameterType="Customer" resultType="int">
         select count(1) from t_customer where status = 1
         <if test="condition != null and condition !=''">
@@ -45,6 +56,16 @@
         insert into t_customer(id, name, address, phone, email, fax, contacts, createDate, modifydate, remark, status) 
           values(#{id}, #{name}, #{address}, #{phone}, #{email}, #{fax}, #{contacts}, #{createDate}, sysdate(), #{remark}, #{status})
     </insert>
+    
+    <insert id="batchInsert" parameterType="java.util.List">
+        
+        insert into t_customer(id, name, address, phone, email, fax, contacts, createDate, modifydate, remark, status) 
+             values
+             <foreach collection="list" item="cust" index="index" separator=",">
+                 (CONCAT(current_timestamp()+1, #{index}) , #{cust.name}, #{cust.address}, #{cust.phone}, #{cust.email}, #{cust.fax}, #{cust.contacts}, sysdate(), sysdate(), #{cust.remark}, '1')
+             </foreach>
+    </insert>
+    
     <update id="update" parameterType="Customer">
         update t_customer set 
           name = #{name},          
