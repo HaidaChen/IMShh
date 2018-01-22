@@ -81,12 +81,7 @@ public class CustomerAction {
 	}
 	
 	
-	/** 
-     * ������ͨ�� jquery.form.js ����ṩ��ajax��ʽ�ϴ��ļ� 
-     * @param request 
-     * @param response 
-     * @throws Exception 
-     */  
+	
     @ResponseBody  
     @RequestMapping(value="ajaxUpload",method={RequestMethod.GET,RequestMethod.POST})  
     public  void  ajaxUploadExcel(HttpServletRequest request,HttpServletResponse response) throws Exception {  
@@ -95,7 +90,7 @@ public class CustomerAction {
         InputStream in =null;  
         MultipartFile file = multipartRequest.getFile("upfile");  
         if(file.isEmpty()){  
-            throw new Exception("�ļ������ڣ�");  
+            throw new Exception("文件不存在");  
         }  
           
         in = file.getInputStream();  

@@ -2,16 +2,11 @@ package com.douniu.imshh.utils;
 
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
-/** 
- *  
-* @Description: µ¼Èëµ¼³öexcel 
-* @author haipeng 
-* @date 2017Äê4ÔÂ11ÈÕ 
- */  
+
 public class ExcelBean implements java.io.Serializable {  
-     private String headTextName;//ÁĞÍ·£¨±êÌâ£©Ãû  
-     private String propertyName;//¶ÔÓ¦×Ö¶ÎÃû  
-     private Integer cols;//ºÏ²¢µ¥Ôª¸ñÊı  
+     private String headTextName;//Excelæ ‡é¢˜
+     private String propertyName;//å¯¹åº”çš„JavaBeanå±æ€§
+     private Integer cols;//åˆå¹¶åˆ—æ•°
      private XSSFCellStyle cellStyle;  
        
      public ExcelBean(){  

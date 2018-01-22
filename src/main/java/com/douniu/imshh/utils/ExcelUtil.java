@@ -32,15 +32,15 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {  
-	private final static String excel2003L =".xls";    //2003- �汾��excel    
-    private final static String excel2007U =".xlsx";   //2007+ �汾��excel    
+	private final static String excel2003L =".xls";    //2003excel    
+    private final static String excel2007U =".xlsx";   //2007excel    
     
     public static List<List<Object>> parseExcel(InputStream fis, String fileName) throws Exception {  
     	List<List<Object>> data = new ArrayList<List<Object>>();
         try {  
         	Workbook  book = getWorkbook(fis, fileName);
         	if(null == book){    
-                throw new Exception("����Excel������Ϊ�գ�");    
+                throw new Exception("文件不存在");    
             } 
         	
             Sheet sheet = book.getSheetAt(0);  
@@ -68,12 +68,7 @@ public class ExcelUtil {
         return data;  
     }  
     
-    /**  
-     * �����������ļ���׺������Ӧ�ϴ��ļ��İ汾   
-     * @param inStr,fileName  
-     * @return  
-     * @throws Exception  
-     */    
+        
     public static  Workbook getWorkbook(InputStream inStr,String fileName) throws Exception{    
         Workbook wb = null;    
         String fileType = fileName.substring(fileName.lastIndexOf("."));    
@@ -82,23 +77,19 @@ public class ExcelUtil {
         }else if(excel2007U.equals(fileType)){    
             wb = new XSSFWorkbook(inStr);  //2007+    
         }else{    
-            throw new Exception("�������ļ���ʽ����");    
+            throw new Exception("无法识别的Excel文件");    
         }    
         return wb;    
     }   
     
-    /**  
-     * �������Ա������ֵ���и�ʽ��  
-     * @param cell  
-     * @return  
-     */    
+       
     public static  Object getCellValue(Cell cell){   
     	if (cell == null)
     		return "";
         Object value = null;    
-        DecimalFormat df = new DecimalFormat("0");  //��ʽ��number String�ַ�    
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");  //���ڸ�ʽ��    
-        DecimalFormat df2 = new DecimalFormat("0.00");  //��ʽ������    
+        DecimalFormat df = new DecimalFormat("0");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+        DecimalFormat df2 = new DecimalFormat("0.00"); 
             
         switch (cell.getCellType()) {    
         case Cell.CELL_TYPE_STRING:    
@@ -125,31 +116,14 @@ public class ExcelUtil {
         return value;    
     }    
     
-    /** 
-     * ����ͷ����EXCEL 
-     *  
-     * @param sheetName ���������� 
-     * @param clazz  ����Դmodel���� 
-     * @param objs   excel�������Լ���Ӧmodel�ֶ��� 
-     * @param map  �����������Լ�cell������ʽ 
-     * @return 
-     * @throws IllegalArgumentException 
-     * @throws IllegalAccessException 
-     * @throws InvocationTargetException 
-     * @throws ClassNotFoundException 
-     * @throws IntrospectionException 
-     * @throws ParseException 
-     */  
+    
 	public static XSSFWorkbook createExcelFile(Class clazz, List objs,Map<Integer, List<ExcelBean>> map,String sheetName) throws IllegalArgumentException,IllegalAccessException,  
 	InvocationTargetException, ClassNotFoundException, IntrospectionException, ParseException, java.beans.IntrospectionException{  
-	        // �����µ�Excel ������  
 	        XSSFWorkbook workbook = new XSSFWorkbook();  
-	        // ��Excel�������н�һ����������Ϊȱʡֵ, Ҳ����ָ��Sheet����  
 	        XSSFSheet sheet = workbook.createSheet(sheetName);  
-	        // ����Ϊexcel��������ʽ�Լ�excel�ı��������ݵĴ����������������;  
-	        createFont(workbook);//������ʽ  
-	        createTableHeader(sheet, map);//�������⣨ͷ��  
-	        createTableRows(sheet, map, objs, clazz);//��������  
+	        createFont(workbook);
+	        createTableHeader(sheet, map);
+	        createTableRows(sheet, map, objs, clazz);
 	        return workbook;  
 	}  
 	
@@ -157,49 +131,41 @@ public class ExcelUtil {
 	private static XSSFCellStyle fontStyle2;  
 	
 	public static void createFont(XSSFWorkbook workbook) {  
-	    // ��ͷ  
 	    fontStyle = workbook.createCellStyle();  
 	    XSSFFont font1 = workbook.createFont();  
 	    font1.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);  
-	    font1.setFontName("����");  
-	    font1.setFontHeightInPoints((short) 14);// ���������С  
+	    font1.setFontName("雅黑");  
+	    font1.setFontHeightInPoints((short) 14);
 	    fontStyle.setFont(font1);  
-	    fontStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN); // �±߿�  
-	    fontStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);// ��߿�  
-	    fontStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);// �ϱ߿�  
-	    fontStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);// �ұ߿�  
-	    fontStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER); // ����  
+	    fontStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+	    fontStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+	    fontStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);
+	    fontStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);
+	    fontStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER); 
 	
-	    // ����  
+	    
 	    fontStyle2=workbook.createCellStyle();  
 	    XSSFFont font2 = workbook.createFont();  
-	    font2.setFontName("����");  
-	    font2.setFontHeightInPoints((short) 10);// ���������С  
+	    font2.setFontName("雅黑");  
+	    font2.setFontHeightInPoints((short) 10);
 	    fontStyle2.setFont(font2);       
-	    fontStyle2.setBorderBottom(XSSFCellStyle.BORDER_THIN); // �±߿�  
-	    fontStyle2.setBorderLeft(XSSFCellStyle.BORDER_THIN);// ��߿�  
-	    fontStyle2.setBorderTop(XSSFCellStyle.BORDER_THIN);// �ϱ߿�  
-	    fontStyle2.setBorderRight(XSSFCellStyle.BORDER_THIN);// �ұ߿�  
-	    fontStyle2.setAlignment(XSSFCellStyle.ALIGN_CENTER); // ����  
+	    fontStyle2.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+	    fontStyle2.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+	    fontStyle2.setBorderTop(XSSFCellStyle.BORDER_THIN);
+	    fontStyle2.setBorderRight(XSSFCellStyle.BORDER_THIN);
+	    fontStyle2.setAlignment(XSSFCellStyle.ALIGN_CENTER);
 	}  
 	  
-	/** 
-	 * ����ExcelMapping ������ͷ��������ͷ�� 
-	 *  
-	 * @param sheet 
-	 *            ������ 
-	 * @param map 
-	 *            ÿ��ÿ����Ԫ���Ӧ����ͷ��Ϣ 
-	 */  
+	 
 	public static final void createTableHeader(XSSFSheet sheet, Map<Integer, List<ExcelBean>> map) {  
-	    int startIndex=0;//cell��ʼλ��  
-	    int endIndex=0;//cell��ֹλ��  
+	    int startIndex=0;
+	    int endIndex=0;
 	
 	    for (Map.Entry<Integer, List<ExcelBean>> entry : map.entrySet()) {  
 	        XSSFRow row = sheet.createRow(entry.getKey());  
 	        List<ExcelBean> excels = entry.getValue();  
 	        for (int x = 0; x < excels.size(); x++) {  
-	            //�ϲ���Ԫ��  
+	            
 	            if(excels.get(x).getCols()>1){  
 	                if(x==0){                                       
 	                    endIndex+=excels.get(x).getCols()-1;  
@@ -213,17 +179,17 @@ public class ExcelUtil {
 	                    startIndex+=excels.get(x).getCols();  
 	                }  
 	                XSSFCell cell = row.createCell(startIndex-excels.get(x).getCols());  
-	                cell.setCellValue(excels.get(x).getHeadTextName());// ��������  
+	                cell.setCellValue(excels.get(x).getHeadTextName());
 	                if (excels.get(x).getCellStyle() != null) {  
-	                    cell.setCellStyle(excels.get(x).getCellStyle());// ���ø�ʽ  
+	                    cell.setCellStyle(excels.get(x).getCellStyle());
 	                }  
 	                cell.setCellStyle(fontStyle);  
 	            }else{  
 	
 	                XSSFCell cell = row.createCell(x);  
-	                cell.setCellValue(excels.get(x).getHeadTextName());// ��������  
+	                cell.setCellValue(excels.get(x).getHeadTextName());
 	                if (excels.get(x).getCellStyle() != null) {  
-	                    cell.setCellStyle(excels.get(x).getCellStyle());// ���ø�ʽ  
+	                    cell.setCellStyle(excels.get(x).getCellStyle());
 	                }  
 	                cell.setCellStyle(fontStyle);  
 	            }  
@@ -261,12 +227,12 @@ public class ExcelUtil {
 	        XSSFRow row = sheet.createRow(rowindex);  
 	        for (int i = 0; i < ems.size(); i++) {  
 	            ExcelBean em = (ExcelBean) ems.get(i);  
-	            // ���get����   
+	            
 	            PropertyDescriptor pd = new PropertyDescriptor(em.getPropertyName(), clazz);  
 	            Method getMethod = pd.getReadMethod();  
 	            Object rtn = getMethod.invoke(obj);  
 	            String value = "";  
-	            // ������������� ���� ת��  
+	            
 	            if (rtn != null) {  
 	                if (rtn instanceof Date) {  
 	                	value = dformat.format((Date) rtn);
@@ -283,21 +249,21 @@ public class ExcelUtil {
 	            cell.setCellValue(value);  
 	            cell.setCellType(XSSFCell.CELL_TYPE_STRING);  
 	            cell.setCellStyle(fontStyle2);  
-	            // �������п�  
+	            
 	            int width = value.getBytes().length * 300;  
-	            // ��δ���ã����õ�ǰ  
+	            
 	            if (widths.size() <= i) {  
 	                widths.add(width);  
 	                continue;  
 	            }  
-	            // ��ԭ���󣬸�������  
+	            
 	            if (width > widths.get(i)) {  
 	                widths.set(i, width);  
 	            }  
 	        }  
 	        rowindex++;  
 	    }  
-	    // �����п�  
+	    
 	    for (int index = 0; index < widths.size(); index++) {  
 	        Integer width = widths.get(index);  
 	        width = width < 2500 ? 2500 : width + 300;  

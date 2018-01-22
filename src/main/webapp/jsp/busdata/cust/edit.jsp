@@ -9,8 +9,8 @@
     <title>Customer Info edit</title>
     
     <link href="<%=basePath %>/thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
     <link href="<%=basePath %>/thirds/bootstrapvalidator/css/bootstrapValidator.min.css" rel="stylesheet">
+    <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
     <div class="block">

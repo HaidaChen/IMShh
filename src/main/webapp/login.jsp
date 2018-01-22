@@ -11,10 +11,8 @@
 	<title>华辉烟花信息管理系统</title>
 	
 	<link href="<%=basePath %>thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<%=basePath %>assets/css/style.css" rel="stylesheet">
-	<link href="<%=basePath %>assets/css/login.css" rel="stylesheet">
 </head>
-<body class="cm-login">
+<body style="background:#f5f5f5;overflow:auto !important">
     <div class="text-center" style="padding:90px 0 30px 0;background:#fff;border-bottom:1px solid #ddd">
       <img src="<%=basePath %>assets/images/hhlogo.png" width="260" height="85">
     </div>
