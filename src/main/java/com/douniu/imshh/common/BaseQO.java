@@ -7,8 +7,9 @@ public class BaseQO {
 	private int duration = -1;
     private Date startDate;
     private Date endDate;
+    private int currentPage;
     private int pageOffset = 0;
-    private int pageSize = 5;
+    private int pageSize = 0;
     private String condition;
     
     
@@ -43,6 +44,7 @@ public class BaseQO {
         this.pageSize = pageSize;
     }
     public int getPageOffset() {
+    	this.pageOffset = (currentPage - 1) * pageSize;
         return pageOffset;
     }
     public void setPageOffset(int pageOffset) {
@@ -66,6 +68,12 @@ public class BaseQO {
 	}
 	public void setCondition(String condition) {
 		this.condition = condition;
+	}
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;		
 	}
 	@Override
 	public String toString() {

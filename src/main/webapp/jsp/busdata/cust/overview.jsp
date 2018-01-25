@@ -9,10 +9,11 @@
 	<title>Customer Info Overview</title>
 	
 	<link href="<%=basePath %>/thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
+    <%-- <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet"> --%>
+    <link href="<%=basePath %>/assets/css/mytable.css" rel="stylesheet">
 </head>
 <body>
-	<div class="block">
+	<!-- <div class="block">
         <div class="head">
             <div class="title">客户信息列表</div>
             <div class="options">
@@ -70,12 +71,26 @@
                 </nav>  
             </div>
         </div>
-    </div>
+    </div> -->
 	<script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/jquery/jquery.form.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>    
-    <script src="<%=basePath %>assets/js/customer.js"></script>
+    <%-- <script src="<%=basePath %>assets/js/customer.js"></script> --%>
+    <script src="<%=basePath %>assets/js/mytable.js"></script>
+    
+    <script>
+    $(function(){
+    	var column = [{name: '公司名', field: 'name', width: 3}, 
+    		          {name: '电话', field: 'phone', width: 2},
+    		          {name: '邮箱', field: 'email', width: 2},
+    		          {name: '传真', field: 'fax', width: 2},
+    		          {name: '联系人', field: 'contacts', width: 2}];
+    	var table = new Table('客户信息列表', 'table table-striped table-bordered', 'loadcust.do', column);
+    	table.createTable();
+    	//table.loadData();
+    });
+    </script>
     
 </body>
 </html>

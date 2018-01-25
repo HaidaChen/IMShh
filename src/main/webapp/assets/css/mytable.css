@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+.block{
+    background-color: #fff;
+    border: 1px solid #ccc;    
+    padding: 20px;
+    -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+     -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+          box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+
+.block > .head{
+    font-size: large;
+    font-weight: 500;
+    height: 50px;
+}
+
+.block > .head > .title{
+    float: left;
+    padding: 10px 15px;
+    padding-top: 0px;
+    font-weight: normal;
+}
+
+.block > .head > .toolbar{
+    float: right;
+    padding-right: 15px;
+    font-size: small;
+}
+
+.block > .head > .toolbar > a{margin-left: 8px;}
+.block > .toolbar{
+    clear: both;
+    height: 30px;
+    margin-bottom: 5px;
+}
+.block > .filter > .pagesize{
+    float: left;
+}
+
+.block > .filter > .search{
+    
+    float: right;
+}
+
+
+.block > .content{
+    clear: both;
+}
+
+.block > .page{
+    height: 30px;
+}
+
+.block > .page > .record{
+    float: left;
+}
+
+.block > .page > .pager{float: right; margin: 0; padding: 0}
+
+.block > .page > .pager  ul{margin: 0; padding: 0;}
