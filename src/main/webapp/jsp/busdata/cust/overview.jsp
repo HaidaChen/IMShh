@@ -9,10 +9,15 @@
 	<title>Customer Info Overview</title>
 	
 	<link href="<%=basePath %>/thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <%-- <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet"> --%>
     <link href="<%=basePath %>/assets/css/mytable.css" rel="stylesheet">
 </head>
 <body>
+    <div class="block" id="block">
+        <div class="head" id="head"></div>
+        <div class="filter" id="filter"></div>
+        <div class="content" id="content"></div>
+        <div class="page" id="page"></div>
+    </div>
 	<!-- <div class="block">
         <div class="head">
             <div class="title">客户信息列表</div>
@@ -86,7 +91,7 @@
     		          {name: '邮箱', field: 'email', width: 2},
     		          {name: '传真', field: 'fax', width: 2},
     		          {name: '联系人', field: 'contacts', width: 2}];
-    	var table = new Table('客户信息列表', 'table table-striped table-bordered', 'loadcust.do', column);
+    	table = new Table('客户信息列表', 'table table-striped table-bordered', 'loadcust.do', 'edit.do', 'save.do', 'delete.do', 'ajaxUpload.do', 'downloadExcel.do', column);
     	table.createTable();
     	//table.loadData();
     });

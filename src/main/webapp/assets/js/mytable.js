@@ -15,30 +15,36 @@
  * name： 表格名称
  * style：表格样式
  * src： 表格数据来源，对应一个url
+ * editurl：增加url
+ * saveurl：修改url
+ * deleteurl：删除url
+ * importurl：导入url
+ * exporturl: 导出url
  * column：表格的列信息，由显示名、字段、列宽组成如：
  *        [{name: '字段1', field: 'col1', width: 2}, ...]
  *        name:是表格列的名字
  *        value:是指记录中的静态值，如果该属性为空则根据field字段到结果集中获取
  * filter: 过滤字段, 由显示名、字段、字段类型、默认值组成
  */
-function Table(name, style, src, column, filter){
+function Table(name, style, src, editurl, saveurl, deleteurl, importurl, exporturl,column, filter){
 	this.name = name;
 	this.style = style;
 	this.src = src;
+	this.editurl = editurl;
+	this.deleteurl = deleteurl;
+	this.saveurl = saveurl;
+	this.importurl = importurl;
+	this.exporturl = exporturl;
 	this.column = column;	
 	this.filter = filter;
 }
-
-Table.prototype.currentPage = 1;
-Table.prototype.pageSize = 10;
-Table.prototype.dataCount = 0;
 
 /**
  * 
  */
 Table.prototype.createTable = function(){
 	
-	var $box = $('<div class="block"></div>');
+	var $box = $('#block');
 	/**
 	 * 整个表格由几个部分组成：
 	 * 1、表格头部 （表格名称 + toolbar）
@@ -46,10 +52,10 @@ Table.prototype.createTable = function(){
 	 * 3、表格内容
 	 * 4、表格分页区间
 	 * **/
-	var $head = $('<div class="head"></div>');
-	var $filter = $('<div class="filter"></div>');
-	var $content = $('<div class="content"></div>');
-	var $page = $('<div class="page"></div>');
+	var $head = $('#head');
+	var $filter = $('#filter');
+	var $content = $('#content');
+	var $page = $('#page');
 	
 	$box.append($head);
 	$box.append($filter);
@@ -61,7 +67,7 @@ Table.prototype.createTable = function(){
 	
 	/****     1 表头部分构造     ****/
 	var $name = $('<div class="title">' + this.name + '</div>');
-	var $toolbar = $('<div class="toolbar"><a title="导  入" id="import"><i class="glyphicon glyphicon-log-in"></i></a><a title="新  增" id="create"><i class="glyphicon glyphicon-pencil"></i></a><a title="导  出" id="export" href=""><i class="glyphicon glyphicon-log-out"></i></a></div>');
+	var $toolbar = $('<div class="toolbar"><a title="导  入" id="import" onclick="createImportModal(\'' + table.importurl + '\')"><i class="glyphicon glyphicon-log-in"></i></a><a title="新  增" id="create" onclick="createEditModal(\'' + table.editurl + '?id=\')"><i class="glyphicon glyphicon-pencil"></i></a><a title="导  出" id="export" href="" onclick="exportData()"><i class="glyphicon glyphicon-log-out"></i></a></div>');
 	$head.append($name);
 	$head.append($toolbar);	
 	/****     表头部分构造 End    ****/
@@ -74,14 +80,14 @@ Table.prototype.createTable = function(){
 		var str = '<div class="input-group input-group-sm" style="float: right; width: 200px;">';
 		   str += '    <input type="text" id="txt_search" name="condition" value="" class="form-control" placeholder="Search for...">';
 		   str += '    <span class="input-group-btn">';
-		   str += '        <button class="btn btn-default" id="btn_search" type="button"><i class="glyphicon glyphicon-search"></i></button>';
+		   str += '        <button class="btn btn-default" id="btn_search" type="button" onclick="table.reloadData()"><i class="glyphicon glyphicon-search"></i></button>';
 		   str += '    </span>';
 		   str += '</div>';
 		$condition = $(str);
 	}else{
 		
 	}
-	$pageSize = $('<div class="pageSize"><select id="pageSize" name="pageSize"><option value="10">10</option><option value="20">20</option><option value="50">50</option></select><span>条记录每页</span></div>');
+	var $pageSize = $('<div class="pageSize"><select id="pageSize" name="pageSize" onchange="table.reloadData()"><option value="10">10</option><option value="20">20</option><option value="50">50</option></select><span>条记录每页</span></div>');
 	$filter.append($condition);
 	$filter.append($pageSize);
 	/****     查询条件部分构造End     ****/
@@ -105,6 +111,7 @@ Table.prototype.createTable = function(){
 	var str = '<div class="record">共<span id="rescount"></span>条记录</div>';
         str+= '<div class="pager" id="pagebar">';
         str+= '    <input type="hidden" id="currentPage" name="currentPage" value="1">';
+        str+= '    <input type="hidden" id="pageCount" value="0">';
         str+= '    <nav aria-label="Page navigation">';
         str+= '        <ul class="pagination pagination-sm">';
         str+= '        </ul>';    
@@ -136,7 +143,7 @@ Table.prototype.loadData = function(){
 	var $url = this.src + '?' + $param;
 	
 	var cols = this.column;
-	var pageSize = this.pageSize;
+	var pageSize = $("#pageSize").val();
 	//var loadPageInfo = this.pageInfo;
 	$.ajax({
 		type: 'POST',
@@ -151,7 +158,7 @@ Table.prototype.loadData = function(){
 					var $td = $('<td>' + item[field] + '</td>');
 					$tr.append($td);
 				});
-				$tr.append($('<td class="center"><a><i class="glyphicon glyphicon-edit" onclick="$.viewCustomer(' + item.id + ')"></i></a><a><i class="glyphicon glyphicon-remove" onclick="$.delete(' + item.id + ')"></i></a></td>'));
+				$tr.append($('<td class="center"><a><i class="glyphicon glyphicon-edit" onclick="createEditModal(\'edit.do?id=' + item.id + '\')"></i></a><a><i class="glyphicon glyphicon-remove" onclick="deleteData(\'' + table.deleteurl + '\',' + item.id + ')"></i></a></td>'));
 				$tbody.append($tr);
 			});	
 			this.pageInfo(data.resultCount, pageSize);
@@ -163,7 +170,7 @@ Table.prototype.loadData = function(){
 Table.prototype.pageInfo = function(recordCount, pageSize){
 	
 	$('#rescount').text(recordCount);
-	//$('#pageCount').val(Math.ceil(resultCount/pageSize));
+	$('#pageCount').val(Math.ceil(recordCount/pageSize));
 	
 	var $pageCount = Math.ceil(recordCount/pageSize);
 	var $pagebar = $('#pagebar').children().find('ul');		
@@ -177,7 +184,7 @@ Table.prototype.pageInfo = function(recordCount, pageSize){
 		$pagebar.append(prebtn);
 		for (var i = 0; i < $pageCount; i++){
 			var item = null;
-			item = $('<li onclick="this.gotoPage(' + (i + 1) + ')" style="display : none"><a>' + (i + 1) + '</a></li>');
+			item = $('<li onclick="gotoPage(' + (i + 1) + ')" style="display : none"><a>' + (i + 1) + '</a></li>');
 			$pagebar.append(item);
 		}
 		var nextbtn = $('<li onclick="gotoNext()"><a aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
@@ -238,23 +245,116 @@ Table.prototype.displayPage = function(pageCount){
 	});
 }
 
+Table.prototype.reloadData = function(){
+	$("#currentPage").val("1");
+	this.loadData();
+}
 
-
-Table.prototype.gotoPage = function(page){
+var gotoPage = function(page){
 	
 	if (page < 1 || page > $('#pageCount').val()){
 		return;
 	}
 	$("#currentPage").val(page);
 	
-	this.loadData();	
+	table.loadData();	
 }
 
-Table.prototype.gotoPrevious = function(){
-	this.gotoPage($("#currentPage").val() - 1);
+var gotoPrevious = function(){
+	gotoPage(parseInt($("#currentPage").val()) - 1);
 }
 
-Table.prototype.gotoNex = function(){
-	this.gotoPage($("#currentPage").val() + 1);
+var gotoNext = function(){
+	gotoPage(parseInt($("#currentPage").val()) + 1);
 }
 
+var exportData = function(){
+	$("#export").attr('href', "downloadExcel.do?condition="+$('#txt_search').val());
+}
+
+var deleteData = function(_url, id){
+	if (confirm('确定删除该记录吗?')){
+		$.ajax({
+			type: 'POST',
+			url: _url,
+			data: {'id': id},
+			success: function(){
+				$.loadcust();
+			}
+		});
+	}
+}
+var table = null;
+
+var createEditModal = function(url){
+	var modalwin = $('<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
+	var modalbox = $('<div class="modal-content"></div>');
+	
+	modalwin.append(modalbox);
+	
+	$("body").append(modalwin);
+	$("#editModal").modal({
+		remote: url
+	}).css({width: '600px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}});
+}
+
+var createImportModal = function(url){
+	var modalwin = $('<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
+	var modalbox = $('<div class="modal-content"></div>');
+	var modalheader = $('<div class="modal-header"></div>');
+	var modalcontent = $('<div class="modal-body"></div>');
+	var modalfooter = $('<div class="modal-footer"></div>');
+	
+	var headeroperate = $('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>');
+	var headertitle = $('<h4 class="modal-title" id="myModalLabel">请选择Excel文件</h4>  ');
+	
+	var form = $('<form method="POST"  enctype="multipart/form-data" id="form_upload"></form>');
+	var fileinput = $('<input id="upfile" name="upfile" type="file" class="file" readonly="true">');
+	var btnimport = $('<input type="button" value="导入" onclick="ajaxSubmitForm(\'' + url + '\')">');
+	form.append(fileinput);
+	form.append(btnimport);
+	
+	modalwin.append(modalbox);
+	modalbox.append(modalheader);
+	modalbox.append(modalcontent);
+	modalbox.append(modalfooter);
+	
+	modalheader.append(headeroperate);
+	modalheader.append(headertitle);
+	modalcontent.append(form);
+	
+	//modalfooter.append(btnimport);
+	
+	$("body").append(modalwin);
+	
+	$("#importModal").modal({'backdrop' : 'static'}).css({width: '360px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}});
+}
+
+function ajaxSubmitForm(_url) {
+	if(checkData()){
+　　　　  var option = {
+	      　　 url : _url,
+	     　　 // type : 'POST',
+	      　　 dataType : 'text',
+	      　　 //headers : {"ClientCallMode" : "text"}, //添加请求头部
+	     　　  success : function(data) {
+	        　　   table.loadData();
+	     }
+	    };
+	   	$("#form_upload").ajaxSubmit(option);
+	}
+}
+
+function checkData(){  
+    var fileDir = $("#upfile").val();  
+    var suffix = fileDir.substr(fileDir.lastIndexOf("."));  
+    if("" == fileDir){  
+        alert("选择需要导入的Excel文件！");  
+        return false;  
+    }  
+    if(".xls" != suffix && ".xlsx" != suffix ){  
+        alert("选择Excel格式的文件导入！");  
+        return false;  
+    }  
+    return true;  
+}  

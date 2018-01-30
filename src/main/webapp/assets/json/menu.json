@@ -42,7 +42,7 @@
                "url": "cust/main.do",
            "submenu": null},
              {"name": "供应商信息",
-               "url": "",
+               "url": "supp/main.do",
            "submenu": null},
              {"name": "产品信息",
                "url": "",

@@ -1,7 +1,7 @@
 /**
  * 
  */
-
+/*
 $.extend({'loadcust' : function(){
 	var cond = $("#txt_search").val();
 	var currentPage = parseInt($("#currentPage").val());
@@ -173,9 +173,9 @@ function ajaxSubmitForm() {
 	   	$("#form_upload").ajaxSubmit(option);
 	}
 }
-
+*/
 $(function(){
-	$("#import").click(function(){
+	/*$("#import").click(function(){
 		var modalwin = $('<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
 		var modalbox = $('<div class="modal-content"></div>');
 		var modalheader = $('<div class="modal-header"></div>');
@@ -217,7 +217,7 @@ $(function(){
 		$("#editModal").modal({
 			remote: "edit.do"
 		}).css({width: '600px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}});
-	});
+	});*/
 	
 	
 	$("#custform").bootstrapValidator({
@@ -238,7 +238,7 @@ $(function(){
         }
 	});
 	
-	$.loadcust();
+	/*$.loadcust();
 	
 	$("#btn_search").click(function(){
 		$.loadcust();
@@ -250,6 +250,6 @@ $(function(){
 	
 	$("#export").click(function(){
 		$("#export").attr('href', "downloadExcel.do?condition="+$('#txt_search').val());
-	});
+	});*/
 	
 });

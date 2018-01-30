@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import com.douniu.imshh.busdata.customer.adapter.POIExcelAdapter;
 import com.douniu.imshh.busdata.customer.domain.Customer;
 import com.douniu.imshh.busdata.customer.service.ICustomerService;
 import com.douniu.imshh.common.PageResult;
+import com.douniu.imshh.utils.ExcelBean;
 import com.douniu.imshh.utils.ExcelUtil;
 import com.google.gson.Gson;
 
@@ -33,6 +35,16 @@ import com.google.gson.Gson;
 @Controller
 @RequestMapping("/cust")
 public class CustomerAction {
+	private static List<ExcelBean> mapper = new ArrayList<ExcelBean>();
+	static{
+		mapper.add(new ExcelBean("公司名称","name",0));  
+		mapper.add(new ExcelBean("公司地址","address",0));  
+		mapper.add(new ExcelBean("联系电话","phone",0));   
+		mapper.add(new ExcelBean("邮箱","email",0));  
+		mapper.add(new ExcelBean("传真","fax",0));  
+		mapper.add(new ExcelBean("联系人","contacts",0));  
+		mapper.add(new ExcelBean("备注","remark",0));  
+	}
 	
 	@Autowired
 	private ICustomerService service;
@@ -95,7 +107,7 @@ public class CustomerAction {
           
         in = file.getInputStream();  
         List<List<Object>>  data = ExcelUtil.parseExcel(in, file.getOriginalFilename());
-        List<Customer> customers = POIExcelAdapter.toCustomerList(data);
+        List<Customer> customers = POIExcelAdapter.toCustomerList(data, mapper, Customer.class);
         service.batchAdd(customers);
     }  
     
@@ -118,7 +130,7 @@ public class CustomerAction {
         	Customer customer = new Customer();
         	customer.setCondition(condition);
             List<Customer> customers = service.queryNoPage(customer);
-        	workbook = POIExcelAdapter.toWorkBook(customers); 
+        	workbook = POIExcelAdapter.toWorkBook(customers, mapper, Customer.class); 
         } catch (Exception e) {  
             e.printStackTrace();  
         }  
