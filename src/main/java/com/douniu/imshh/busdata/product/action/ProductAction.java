@@ -1,4 +1,4 @@
-package com.douniu.imshh.busdata.supplier.action;
+package com.douniu.imshh.busdata.product.action;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -24,59 +24,60 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.douniu.imshh.busdata.customer.adapter.POIExcelAdapter;
-import com.douniu.imshh.busdata.supplier.domain.Supplier;
-import com.douniu.imshh.busdata.supplier.service.ISupplierService;
+import com.douniu.imshh.busdata.customer.domain.Customer;
+import com.douniu.imshh.busdata.product.domain.Product;
+import com.douniu.imshh.busdata.product.service.IProductService;
 import com.douniu.imshh.common.PageResult;
 import com.douniu.imshh.utils.ExcelBean;
 import com.douniu.imshh.utils.ExcelUtil;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping("/supp")
-public class SupplierAction {
+@RequestMapping("/pdt")
+public class ProductAction {
 	private static List<ExcelBean> mapper = new ArrayList<ExcelBean>();
 	static{
-		mapper.add(new ExcelBean("公司名称","name",0));  
-		mapper.add(new ExcelBean("公司地址","address",0));  
-		mapper.add(new ExcelBean("联系电话","phone",0));   
-		mapper.add(new ExcelBean("邮箱","email",0));  
-		mapper.add(new ExcelBean("传真","fax",0));  
-		mapper.add(new ExcelBean("联系人","contacts",0));  
+		mapper.add(new ExcelBean("产品编码","code",0));  
+		mapper.add(new ExcelBean("产品名称","name",0));  
+		mapper.add(new ExcelBean("规格","specification",0));   
+		mapper.add(new ExcelBean("型号","model",0));  
+		mapper.add(new ExcelBean("上线日期","lineDate",0));  
+		mapper.add(new ExcelBean("下线日期","downlineDate",0));  
 		mapper.add(new ExcelBean("备注","remark",0));  
 	}
 	
 	@Autowired
-	private ISupplierService service;
+	private IProductService service;
 	
 	@RequestMapping("/main")
-    public ModelAndView enter(Supplier supp){
+    public ModelAndView enter(Product pdt){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/busdata/supp/overview");
+        mav.setViewName("/busdata/pdt/overview");
         return mav;
     }
 	
 	@RequestMapping("/edit")
-	public ModelAndView edit(Supplier supp){
+	public ModelAndView edit(Product pdt){
 		ModelAndView mav = new ModelAndView();
-		if (supp.getId() != ""){
-			Supplier supplier = service.getById(supp.getId());
-			mav.addObject("supp", supplier);
+		if (pdt.getId() != ""){
+			Product product = service.getById(pdt.getId());
+			mav.addObject("pdt", product);
 		}
-        mav.setViewName("/busdata/supp/edit");
+        mav.setViewName("/busdata/pdt/edit");
         return mav;
 	}
 	
 	@RequestMapping("/save")
-	public ModelAndView save(Supplier supp){
-		service.save(supp);
-        return enter(supp);
+	public ModelAndView save(Product pdt){
+		service.save(pdt);
+        return enter(pdt);
 	}
 	
-	@RequestMapping(value ="/loadsupp", produces = "application/json; charset=utf-8")
+	@RequestMapping(value ="/loadpdt", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String loadSupplier(Supplier supp){
-		List<Supplier> res = service.query(supp);
-		int count = service.count(supp);
+	public String loadCustomer(Product pdt){
+		List<Product> res = service.query(pdt);
+		int count = service.count(pdt);
 		PageResult pr = new PageResult();
 		pr.setResult(res);
 		pr.setResultCount(count);
@@ -106,8 +107,8 @@ public class SupplierAction {
           
         in = file.getInputStream();  
         List<List<Object>>  data = ExcelUtil.parseExcel(in, file.getOriginalFilename());
-        List<Supplier> suppliers = POIExcelAdapter.toDomainList(data, mapper, Supplier.class);
-        service.batchAdd(suppliers);
+        List<Product> products = POIExcelAdapter.toDomainList(data, mapper, Product.class);
+        service.batchAdd(products);
     }  
     
     @RequestMapping(value = "downloadExcel", method = RequestMethod.GET)  
@@ -126,10 +127,10 @@ public class SupplierAction {
         Workbook workbook=null;  
         try {
         	String condition = request.getParameter("condition");
-        	Supplier supplier = new Supplier();
-        	supplier.setCondition(condition);
-            List<Supplier> suppliers = service.queryNoPage(supplier);
-        	workbook = POIExcelAdapter.toWorkBook(suppliers, mapper, Supplier.class); 
+        	Product product = new Product();
+        	product.setCondition(condition);
+            List<Product> products = service.queryNoPage(product);
+        	workbook = POIExcelAdapter.toWorkBook(products, mapper, Customer.class); 
         } catch (Exception e) {  
             e.printStackTrace();  
         }  

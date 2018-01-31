@@ -45,7 +45,7 @@
                "url": "supp/main.do",
            "submenu": null},
              {"name": "产品信息",
-               "url": "",
+               "url": "pdt/main.do",
            "submenu": null},
              {"name": "原材料信息",
                "url": "",

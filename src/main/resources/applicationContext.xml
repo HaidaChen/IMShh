@@ -30,6 +30,13 @@ xsi:schemaLocation="
           <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
       
+      <bean name="productService" class="com.douniu.imshh.busdata.product.service.impl.ProductService">
+          <property name="dao" ref="productDao"></property>
+      </bean>
+      <bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+          <property name="mapperInterface" value="com.douniu.imshh.busdata.product.dao.IProductDao"/>
+          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
       <!-- 公共部分 -->
       <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->  
 	    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  

@@ -107,7 +107,7 @@ public class CustomerAction {
           
         in = file.getInputStream();  
         List<List<Object>>  data = ExcelUtil.parseExcel(in, file.getOriginalFilename());
-        List<Customer> customers = POIExcelAdapter.toCustomerList(data, mapper, Customer.class);
+        List<Customer> customers = POIExcelAdapter.toDomainList(data, mapper, Customer.class);
         service.batchAdd(customers);
     }  
     

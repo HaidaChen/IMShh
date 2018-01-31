@@ -1,13 +1,13 @@
-var Accordion = function(el, multiple) {		
+	var Accordion = function(el, multiple) {		
 		this.el = el || {};
 		this.multiple = multiple || false;
 
 		var links = this.el.find('.link');
-		var items = $('ul.submenu').children('li');
-		var signleItems = $('ul.singlesubmenu').children('li');
+		var items = $('ul.level2').children('li');
+		var signleItems = $('ul.level1').children('li');
 		
 		items.on('click', {el: this.el, target: '.submenu'}, this.active);
-		signleItems.on('click', {el: this.el, target: '.singlesubmenu'}, this.active);
+		signleItems.on('click', {el: this.el, target: '.level1'}, this.active);
 	}
 
 	Accordion.prototype.dropdown = function(e) {
@@ -34,7 +34,6 @@ var Accordion = function(el, multiple) {
 
 jQuery.extend({
 	loadSidemenu:function(module){
-		
 		$.getJSON("assets/json/menu.json", function (data){
 			var $sidebar = $('#sidebar');
 			
@@ -52,11 +51,11 @@ jQuery.extend({
 						var item = '';
 						var listitem = '';
 												
-						if (idx1 == 0)
+						if (idx1 == 0){
 							listitem = $('<li class="active"></li>');
-						else
+						}else{
 							listitem = $('<li></li>');
-						
+						}
 						if (menu.url != ''){
 						    item = $('<a href="' + menu.url + '" target="contentFrame">' + menu.name + '</a>');
 						}else{							
@@ -99,17 +98,10 @@ $(function(){
 		menus.not($this).removeClass('active');		
 		
 		$.loadSidemenu($tip);
+		$('#contentFrame').attr('src', '');
 		//var accordion = new Accordion($('#accordion'), false);
 	});	
 	
 	$.loadSidemenu('finance');		
-	
-	$("#contentFrame").on('load', function(){
-		var iframeHeight = $(this).contents().find("body").height(); 
-        if (iframeHeight < 600)
-        	$(this).attr("height",600) ;
-        else
-        	$(this).attr("height",iframeHeight);
-	});
 	
 });

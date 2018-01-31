@@ -3,11 +3,15 @@ package com.douniu.imshh.utils;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ReflectionUtil {  
   
+	private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
     /** 
      * 循环向上转型, 获     * @param object : 子类对象 
      * @param methodName : 父类中的方法名 
@@ -124,12 +128,20 @@ public class ReflectionUtil {
           
         try {  
             //将 object 中 field 所代表的值 设置为 value  
-             field.set(object, value) ;  
-        } catch (IllegalArgumentException e) {  
+        	if (field.getType() == Date.class){
+        		String sdate = value.toString();
+        		if (sdate.equals(""))
+        			return;
+        		value = format.parse(sdate);        		
+        	}
+        	if (field.getType() == Integer.class){
+        		value = new Integer(value.toString());
+        	}
+        	field.set(object, value) ;  
+        	
+        } catch (Exception e) {  
             e.printStackTrace();  
-        } catch (IllegalAccessException e) {  
-            e.printStackTrace();  
-        }  
+        } 
           
     }  
       

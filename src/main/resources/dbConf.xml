@@ -4,12 +4,14 @@
     <typeAliases>
         <typeAlias alias="Customer" type="com.douniu.imshh.busdata.customer.domain.Customer"/>
         <typeAlias alias="Supplier" type="com.douniu.imshh.busdata.supplier.domain.Supplier"/>
+        <typeAlias alias="Product" type="com.douniu.imshh.busdata.product.domain.Product"/>
     </typeAliases>
     
      
     <mappers>
         <mapper resource="/com/douniu/imshh/busdata/customer/dao/custMapper.xml"/>
         <mapper resource="/com/douniu/imshh/busdata/supplier/dao/suppMapper.xml"/>
+        <mapper resource="/com/douniu/imshh/busdata/product/dao/pdtMapper.xml"/>
     </mappers>
     
 </configuration>

@@ -22,7 +22,7 @@ public class POIExcelAdapter {
         return ExcelUtil.createExcelFile(clazz, objects, map, "");  
 	}
 	
-	public static <T> List<T> toCustomerList(List<List<Object>> data, List<ExcelBean> mapper, Class<T> clazz){
+	public static <T> List<T> toDomainList(List<List<Object>> data, List<ExcelBean> mapper, Class<T> clazz){
 		List<T> list = new ArrayList<T>();
 		try{
 			for (List<Object> obj : data){

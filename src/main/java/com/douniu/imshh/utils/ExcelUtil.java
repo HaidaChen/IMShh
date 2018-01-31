@@ -54,8 +54,10 @@ public class ExcelUtil {
                 
                 List<Object> rowData = new ArrayList<Object>();
                 
-                Row row = sheet.getRow(i);                  
-                for(int j=firstCell; j<lastCell; j++) {                 	
+                Row row = sheet.getRow(i);      
+                if (getCellValue(row.getCell(0)).toString().equals(""))
+                	continue;
+                for(int j=firstCell; j<lastCell; j++) {                  	
                     Cell cell = row.getCell(j);
                     Object cellData = getCellValue(cell);
                     rowData.add(cellData);       

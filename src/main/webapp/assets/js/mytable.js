@@ -209,7 +209,7 @@ Table.prototype.pageInfo = function(recordCount, pageSize){
 	}
 	
 	var main = $(window.parent.document).find("#contentFrame");
-	var thisheight = $(document).height()+30;
+	var thisheight = $(document).height();
 	main.height(thisheight);
 	
 }

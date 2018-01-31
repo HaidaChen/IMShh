@@ -25,3 +25,16 @@ CREATE TABLE T_SUPPLIER(
     remark varchar(1024),
     status char(1)
 );
+
+CREATE TABLE T_Product(
+    id varchar(20) not null,
+    code varchar(20) not null,
+    name varchar(20) not null,
+    specification varchar(64),
+    model varchar(64),    
+    lineDate date, 
+    downlineDate date,
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
