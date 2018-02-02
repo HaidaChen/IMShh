@@ -48,7 +48,7 @@
                "url": "pdt/main.do",
            "submenu": null},
              {"name": "原材料信息",
-               "url": "",
+               "url": "mtl/main.do",
            "submenu": null}],
    "levels": 1
   }

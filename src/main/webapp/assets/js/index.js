@@ -27,7 +27,7 @@
 		var $el = e.data.el;
 		var target = e.data.target;
 		$this = $(this);
-		
+		$('#contentFrame').height(60);
 		$this.addClass('active');
 		$el.find(target).children('li').not($this).removeClass('active');
 	}	

@@ -27,13 +27,11 @@
     
     <script>
     $(function(){
-    	var column = [{name: '编码', field: 'code', width: 1}, 
-    		          {name: '产品名称', field: 'name', width: 2},
+    	var column = [{name: '品名', field: 'name', width: 3},
     		          {name: '规格', field: 'specification', width: 2},
-    		          {name: '型号', field: 'model', width: 2},
-    		          {name: '上线日期', field: 'lineDate', width: 2},
-    		          {name: '下线日期', field: 'downlineDate', width: 2}];
-    	table = new Table('产品列表', 'table table-striped table-bordered', 'loadpdt.do', 'pdt/edit.do', 'save.do', 'delete.do', 'ajaxUpload.do', 'downloadExcel.do', column, null, 1);
+    		          {name: '单位', field: 'unit', width: 2},
+    		          {name: '分类', field: 'category', width: 2}];
+    	table = new Table('原材料列表', 'table table-striped table-bordered', 'loadmtl.do', 'mtl/edit.do', 'save.do', 'delete.do', 'ajaxUpload.do', 'downloadExcel.do', column, null, 1);
     	table.createTable();
     	//table.loadData();
     });

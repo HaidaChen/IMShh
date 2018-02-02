@@ -1,4 +1,4 @@
-package com.douniu.imshh.busdata.product.action;
+package com.douniu.imshh.busdata.material.action;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -24,8 +24,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.douniu.imshh.busdata.customer.adapter.POIExcelAdapter;
-import com.douniu.imshh.busdata.product.domain.Product;
-import com.douniu.imshh.busdata.product.service.IProductService;
+import com.douniu.imshh.busdata.material.domain.Material;
+import com.douniu.imshh.busdata.material.service.IMaterialService;
 import com.douniu.imshh.common.PageResult;
 import com.douniu.imshh.utils.ExcelBean;
 import com.douniu.imshh.utils.ExcelUtil;
@@ -33,51 +33,49 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Controller
-@RequestMapping("/pdt")
-public class ProductAction {
+@RequestMapping("/mtl")
+public class MaterialAction {
 	private static List<ExcelBean> mapper = new ArrayList<ExcelBean>();
 	static{
-		mapper.add(new ExcelBean("产品编码","code",0));  
-		mapper.add(new ExcelBean("产品名称","name",0));  
-		mapper.add(new ExcelBean("规格","specification",0));   
-		mapper.add(new ExcelBean("型号","model",0));  
-		mapper.add(new ExcelBean("上线日期","lineDate",0));  
-		mapper.add(new ExcelBean("下线日期","downlineDate",0));  
+		mapper.add(new ExcelBean("品名","name",0));  
+		mapper.add(new ExcelBean("规格","specification",0));  
+		mapper.add(new ExcelBean("单位","unit",0));   
+		mapper.add(new ExcelBean("分类","category",0));  
 		mapper.add(new ExcelBean("备注","remark",0));  
 	}
 	
 	@Autowired
-	private IProductService service;
+	private IMaterialService service;
 	
 	@RequestMapping("/main")
-    public ModelAndView enter(Product pdt){
+    public ModelAndView enter(Material mtl){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/busdata/pdt/overview");
+        mav.setViewName("/busdata/mtl/overview");
         return mav;
     }
 	
 	@RequestMapping("/edit")
-	public ModelAndView edit(Product pdt){
+	public ModelAndView edit(Material mtl){
 		ModelAndView mav = new ModelAndView();
-		if (pdt.getId() != ""){
-			Product product = service.getById(pdt.getId());
-			mav.addObject("pdt", product);
+		if (mtl.getId() != ""){
+			Material material = service.getById(mtl.getId());
+			mav.addObject("mtl", material);
 		}
-        mav.setViewName("/busdata/pdt/edit");
+        mav.setViewName("/busdata/mtl/edit");
         return mav;
 	}
 	
 	@RequestMapping("/save")
-	public ModelAndView save(Product pdt){
-		service.save(pdt);
-        return enter(pdt);
+	public ModelAndView save(Material mtl){
+		service.save(mtl);
+        return enter(mtl);
 	}
 	
-	@RequestMapping(value ="/loadpdt", produces = "application/json; charset=utf-8")
+	@RequestMapping(value ="/loadmtl", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String loadProduct(Product pdt){
-		List<Product> res = service.query(pdt);
-		int count = service.count(pdt);
+	public String loadProduct(Material mtl){
+		List<Material> res = service.query(mtl);
+		int count = service.count(mtl);
 		PageResult pr = new PageResult();
 		pr.setResult(res);
 		pr.setResultCount(count);
@@ -107,8 +105,8 @@ public class ProductAction {
           
         in = file.getInputStream();  
         List<List<Object>>  data = ExcelUtil.parseExcel(in, file.getOriginalFilename());
-        List<Product> products = POIExcelAdapter.toDomainList(data, mapper, Product.class);
-        service.batchAdd(products);
+        List<Material> materials = POIExcelAdapter.toDomainList(data, mapper, Material.class);
+        service.batchAdd(materials);
     }  
     
     @RequestMapping(value = "downloadExcel", method = RequestMethod.GET)  
@@ -127,10 +125,10 @@ public class ProductAction {
         Workbook workbook=null;  
         try {
         	String condition = request.getParameter("condition");
-        	Product product = new Product();
-        	product.setCondition(condition);
-            List<Product> products = service.queryNoPage(product);
-        	workbook = POIExcelAdapter.toWorkBook(products, mapper, Product.class); 
+        	Material material = new Material();
+        	material.setCondition(condition);
+            List<Material> products = service.queryNoPage(material);
+        	workbook = POIExcelAdapter.toWorkBook(products, mapper, Material.class); 
         } catch (Exception e) {  
             e.printStackTrace();  
         }  

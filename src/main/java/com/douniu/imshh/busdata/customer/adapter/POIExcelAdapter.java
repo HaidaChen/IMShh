@@ -19,7 +19,7 @@ public class POIExcelAdapter {
 	public static Workbook toWorkBook(List objects, List<ExcelBean> mapper, Class clazz) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, IntrospectionException, ParseException{
 		Map<Integer,List<ExcelBean>>map=new LinkedHashMap<>();  
         map.put(0, mapper);  
-        return ExcelUtil.createExcelFile(clazz, objects, map, "");  
+        return ExcelUtil.createExcelFile(clazz, objects, map, "业务数据");  
 	}
 	
 	public static <T> List<T> toDomainList(List<List<Object>> data, List<ExcelBean> mapper, Class<T> clazz){

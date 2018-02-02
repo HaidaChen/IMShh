@@ -26,7 +26,7 @@
  *        value:是指记录中的静态值，如果该属性为空则根据field字段到结果集中获取
  * filter: 过滤字段, 由显示名、字段、字段类型、默认值组成
  */
-function Table(name, style, src, editurl, saveurl, deleteurl, importurl, exporturl,column, filter){
+function Table(name, style, src, editurl, saveurl, deleteurl, importurl, exporturl,column, filter, modal){
 	this.name = name;
 	this.style = style;
 	this.src = src;
@@ -37,6 +37,7 @@ function Table(name, style, src, editurl, saveurl, deleteurl, importurl, exportu
 	this.exporturl = exporturl;
 	this.column = column;	
 	this.filter = filter;
+	this.modal = modal;
 }
 
 /**
@@ -67,7 +68,7 @@ Table.prototype.createTable = function(){
 	
 	/****     1 表头部分构造     ****/
 	var $name = $('<div class="title">' + this.name + '</div>');
-	var $toolbar = $('<div class="toolbar"><a title="导  入" id="import" onclick="createImportModal(\'' + table.importurl + '\')"><i class="glyphicon glyphicon-log-in"></i></a><a title="新  增" id="create" onclick="createEditModal(\'' + table.editurl + '?id=\')"><i class="glyphicon glyphicon-pencil"></i></a><a title="导  出" id="export" href="" onclick="exportData()"><i class="glyphicon glyphicon-log-out"></i></a></div>');
+	var $toolbar = $('<div class="toolbar"><a title="导  入" id="import" onclick="createImportModal(\'' + table.importurl + '\')"><i class="glyphicon glyphicon-log-in"></i></a><a title="新  增" id="create" onclick="showEditPage(\'' + table.editurl + '?id=\')"><i class="glyphicon glyphicon-pencil"></i></a><a title="导  出" id="export" href="" onclick="exportData()"><i class="glyphicon glyphicon-log-out"></i></a></div>');
 	$head.append($name);
 	$head.append($toolbar);	
 	/****     表头部分构造 End    ****/
@@ -155,10 +156,13 @@ Table.prototype.loadData = function(){
 				var $tr  = $('<tr></tr>');
 				$.each(cols, function(j, col){
 					var field = col.field;
-					var $td = $('<td>' + item[field] + '</td>');
+					var content = '';
+					if (item[field] != undefined)
+						content = item[field];
+					var $td = $('<td>' + content + '</td>');
 					$tr.append($td);
 				});
-				$tr.append($('<td class="center"><a><i class="glyphicon glyphicon-edit" onclick="createEditModal(\'edit.do?id=' + item.id + '\')"></i></a><a><i class="glyphicon glyphicon-remove" onclick="deleteData(\'' + table.deleteurl + '\',' + item.id + ')"></i></a></td>'));
+				$tr.append($('<td class="center"><a><i class="glyphicon glyphicon-edit" onclick="showEditPage(\'' + table.editurl + '?id=' + item.id + '\')"></i></a><a><i class="glyphicon glyphicon-remove" onclick="deleteData(\'' + table.deleteurl + '\',' + item.id + ')"></i></a></td>'));
 				$tbody.append($tr);
 			});	
 			this.pageInfo(data.resultCount, pageSize);
@@ -279,23 +283,27 @@ var deleteData = function(_url, id){
 			url: _url,
 			data: {'id': id},
 			success: function(){
-				$.loadcust();
+				table.loadData();
 			}
 		});
 	}
 }
 var table = null;
 
-var createEditModal = function(url){
-	var modalwin = $('<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
-	var modalbox = $('<div class="modal-content"></div>');
-	
-	modalwin.append(modalbox);
-	
-	$("body").append(modalwin);
-	$("#editModal").modal({
-		remote: url
-	}).css({width: '600px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}});
+var showEditPage = function(url){
+	if (table.modal == 1){
+		$(window.parent.document).find("#contentFrame").attr("src", url);
+	}else{
+		var modalwin = $('<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
+		var modalbox = $('<div class="modal-content"></div>');
+		
+		modalwin.append(modalbox);
+		
+		$("body").append(modalwin);
+		$("#editModal").modal({
+			remote: url
+		}).css({width: '600px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}});
+	}
 }
 
 var createImportModal = function(url){

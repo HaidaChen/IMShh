@@ -38,3 +38,14 @@ CREATE TABLE T_Product(
     remark varchar(1024),
     status char(1)
 );
+
+CREATE TABLE T_MATERIAL(
+    id varchar(20) not null,
+    name varchar(20) not null,
+    specification varchar(64),
+    unit varchar(20),    
+    category varchar(20), 
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
