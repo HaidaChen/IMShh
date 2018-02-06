@@ -49,3 +49,33 @@ CREATE TABLE T_MATERIAL(
     remark varchar(1024),
     status char(1)
 );
+
+CREATE TABLE T_ORDER(
+    id varchar(20) not null,
+    identify varchar(20) not null unique,
+    custID varchar(20),
+    custName varchar(20),    
+    orderDate date,
+    amount numeric(10,2),
+    state char(1),
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
+
+CREATE TABLE T_ORDERDETAIL(
+    id varchar(20) not null,
+    orderId varchar(20) not null,
+    pdtNo varchar(20) not null unique,
+    pdtID varchar(20),
+    pdtName varchar(20),    
+    quantity int,
+    priceRMB numeric(10,2),
+    priceDollar numeric(10,2),
+    totlemnt numeric(10,2),
+    progress int,
+    
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);

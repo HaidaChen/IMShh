@@ -1,4 +1,4 @@
-package com.douniu.imshh.busdata.customer.adapter;
+package com.douniu.imshh.utils;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
@@ -9,10 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
-
-import com.douniu.imshh.utils.ExcelBean;
-import com.douniu.imshh.utils.ExcelUtil;
-import com.douniu.imshh.utils.ReflectionUtil;
 
 public class POIExcelAdapter {
 	

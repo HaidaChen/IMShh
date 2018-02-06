@@ -1,4 +1,4 @@
-package com.douniu.imshh.busdata.supplier.action;
+package com.douniu.imshh.finance.order.action;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -23,77 +23,106 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.douniu.imshh.busdata.supplier.domain.Supplier;
-import com.douniu.imshh.busdata.supplier.service.ISupplierService;
 import com.douniu.imshh.common.PageResult;
+import com.douniu.imshh.finance.order.domain.Order;
+import com.douniu.imshh.finance.order.domain.OrderAndDetail;
+import com.douniu.imshh.finance.order.service.IOrderService;
 import com.douniu.imshh.utils.ExcelBean;
 import com.douniu.imshh.utils.ExcelUtil;
 import com.douniu.imshh.utils.POIExcelAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
-@RequestMapping("/supp")
-public class SupplierAction {
+@RequestMapping("/order")
+public class OrderAction {
 	private static List<ExcelBean> mapper = new ArrayList<ExcelBean>();
 	static{
-		mapper.add(new ExcelBean("公司名称","name",0));  
-		mapper.add(new ExcelBean("公司地址","address",0));  
-		mapper.add(new ExcelBean("联系电话","phone",0));   
-		mapper.add(new ExcelBean("邮箱","email",0));  
-		mapper.add(new ExcelBean("传真","fax",0));  
-		mapper.add(new ExcelBean("联系人","contacts",0));  
-		mapper.add(new ExcelBean("备注","remark",0));  
+		mapper.add(new ExcelBean("订单编号","identify",0));  
+		mapper.add(new ExcelBean("订购客户","custName",0));  
+		mapper.add(new ExcelBean("订购日期","orderDate",0));   
+		mapper.add(new ExcelBean("订购总金额","amount",0));  
+		mapper.add(new ExcelBean("备注","remark",0)); 
+		mapper.add(new ExcelBean("货号","pdtNo",0));  
+		mapper.add(new ExcelBean("产品名称","pdtName",0));
+		mapper.add(new ExcelBean("数量","quantity",0));
+		mapper.add(new ExcelBean("人民币单价","priceRMB",0));
+		mapper.add(new ExcelBean("美元单价","priceDollar",0));
+		mapper.add(new ExcelBean("合计金额","totlemnt",0));
+		mapper.add(new ExcelBean("交付进度","progress",0));  
+		mapper.add(new ExcelBean("订单项备注","detailRemark",0)); 
 	}
 	
 	@Autowired
-	private ISupplierService service;
+	private IOrderService service;
 	
 	@RequestMapping("/main")
-    public ModelAndView enter(Supplier supp){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/busdata/supp/overview");
-        return mav;
-    }
-	
-	@RequestMapping("/edit")
-	public ModelAndView edit(Supplier supp){
+	public ModelAndView enter(){
 		ModelAndView mav = new ModelAndView();
-		if (supp.getId() != ""){
-			Supplier supplier = service.getById(supp.getId());
-			mav.addObject("supp", supplier);
+		mav.setViewName("/finance/order/overview");
+		return mav;
+	}
+	
+	/**
+	 * 查询订单，需要根据订单号、状态、日期、客户查询订单
+	 */
+	@RequestMapping(value ="/loadOrder", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String queryOrder(Order condition){
+		List<Order> res = service.query(condition);
+		int count = service.count(condition);
+		PageResult pr = new PageResult();
+		pr.setTotal(count);
+		pr.setRows(res);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return gson.toJson(pr);
+	}
+	
+	/**
+	 * 根据订单编号查询订单项
+	 */
+	public void queryOrderDetail(){}
+	
+	/**
+	 * 进入订单编辑页面，要求同时显示订单项信息
+	 */
+	@RequestMapping("/edit")
+	public ModelAndView editOrder(Order order){
+		ModelAndView mav = new ModelAndView();
+		if (order.getId() != ""){
+			Order Order = service.getById(order.getId());
+			mav.addObject("oder", Order);
 		}
-        mav.setViewName("/busdata/supp/edit");
+        mav.setViewName("/finance/order/edit");
         return mav;
 	}
 	
-	@RequestMapping("/save")
-	public ModelAndView save(Supplier supp){
-		service.save(supp);
-        return enter(supp);
+	/**
+	 * 保存订单信息，要求同时可以保存订单项
+	 */
+	public ModelAndView saveOrder(Order order){
+		service.save(order);
+        return enter();
 	}
 	
-	@RequestMapping(value ="/loadsupp", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public String loadSupplier(Supplier supp){
-		List<Supplier> res = service.query(supp);
-		int count = service.count(supp);
-		PageResult pr = new PageResult();
-		pr.setResult(res);
-		pr.setResultCount(count);
-		Gson gson = new Gson();
-        String resJson = gson.toJson(pr);
-		return resJson;
+	/**
+	 * 显示订单信息，不允许编辑
+	 */
+	@RequestMapping("/showOne")
+	public ModelAndView showOrder(Order order){
+		ModelAndView mav = new ModelAndView();
+		Order res = service.getById(order.getId());
+		mav.setViewName("/finance/order/view");
+		mav.addObject("order", res);
+		return mav;
 	}
 	
 	@RequestMapping("/delete")
-	@ResponseBody
-	public void delete(String id){
+	public void deleteOrder(String id){
 		service.delete(id);
 	}
 	
-	
-	
-    @ResponseBody  
+	@ResponseBody  
     @RequestMapping(value="ajaxUpload",method={RequestMethod.GET,RequestMethod.POST})  
     public  void  ajaxUploadExcel(HttpServletRequest request,HttpServletResponse response) throws Exception {  
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;    
@@ -106,8 +135,8 @@ public class SupplierAction {
           
         in = file.getInputStream();  
         List<List<Object>>  data = ExcelUtil.parseExcel(in, file.getOriginalFilename());
-        List<Supplier> suppliers = POIExcelAdapter.toDomainList(data, mapper, Supplier.class);
-        service.batchAdd(suppliers);
+        List<OrderAndDetail> Orders = POIExcelAdapter.toDomainList(data, mapper, OrderAndDetail.class);
+        service.batchAdd(Orders);
     }  
     
     @RequestMapping(value = "downloadExcel", method = RequestMethod.GET)  
@@ -126,10 +155,10 @@ public class SupplierAction {
         Workbook workbook=null;  
         try {
         	String condition = request.getParameter("condition");
-        	Supplier supplier = new Supplier();
-        	supplier.setCondition(condition);
-            List<Supplier> suppliers = service.queryNoPage(supplier);
-        	workbook = POIExcelAdapter.toWorkBook(suppliers, mapper, Supplier.class); 
+        	Order Order = new Order();
+        	Order.setCondition(condition);
+            List<OrderAndDetail> Orders = service.queryNoPage(Order);
+        	workbook = POIExcelAdapter.toWorkBook(Orders, mapper, OrderAndDetail.class); 
         } catch (Exception e) {  
             e.printStackTrace();  
         }  

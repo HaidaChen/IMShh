@@ -3,7 +3,7 @@
                "url": "", 
               "icon": "glyphicon glyphicon-th-list",
            "submenu":[{"name": "订单", 
-                        "url": "http://www.baidu.com",
+                        "url": "order/main.do",
                     "submenu": null}, 
                       {"name": "采购单", 
                         "url": "",

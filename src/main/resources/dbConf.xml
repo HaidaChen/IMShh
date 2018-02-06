@@ -6,6 +6,8 @@
         <typeAlias alias="Supplier" type="com.douniu.imshh.busdata.supplier.domain.Supplier"/>
         <typeAlias alias="Product" type="com.douniu.imshh.busdata.product.domain.Product"/>
         <typeAlias alias="Material" type="com.douniu.imshh.busdata.material.domain.Material"/>
+        <typeAlias alias="Order" type="com.douniu.imshh.finance.order.domain.Order"/>
+        <typeAlias alias="OrderDetail" type="com.douniu.imshh.finance.order.domain.OrderDetail"/>
     </typeAliases>
     
      
@@ -14,6 +16,8 @@
         <mapper resource="/com/douniu/imshh/busdata/supplier/dao/suppMapper.xml"/>
         <mapper resource="/com/douniu/imshh/busdata/product/dao/pdtMapper.xml"/>
         <mapper resource="/com/douniu/imshh/busdata/material/dao/mtlMapper.xml"/>
+        <mapper resource="/com/douniu/imshh/finance/order/dao/orderMapper.xml"/>
+        <mapper resource="/com/douniu/imshh/finance/order/dao/orderDetailMapper.xml"/>
     </mappers>
     
 </configuration>
