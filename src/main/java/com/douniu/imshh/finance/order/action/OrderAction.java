@@ -43,13 +43,13 @@ public class OrderAction {
 		mapper.add(new ExcelBean("订购日期","orderDate",0));   
 		mapper.add(new ExcelBean("订购总金额","amount",0));  
 		mapper.add(new ExcelBean("备注","remark",0)); 
-		mapper.add(new ExcelBean("货号","pdtNo",0));  
-		mapper.add(new ExcelBean("产品名称","pdtName",0));
-		mapper.add(new ExcelBean("数量","quantity",0));
-		mapper.add(new ExcelBean("人民币单价","priceRMB",0));
-		mapper.add(new ExcelBean("美元单价","priceDollar",0));
+		mapper.add(new ExcelBean("货号","pdtNo",0)); 
+		mapper.add(new ExcelBean("含量", "content", 0));
+		mapper.add(new ExcelBean("品名","pdtName",0));
+		mapper.add(new ExcelBean("数量(箱)","quantity",0));
+		mapper.add(new ExcelBean("单价(¥)","priceRMB",0));
+		mapper.add(new ExcelBean("单价($)","priceDollar",0));
 		mapper.add(new ExcelBean("合计金额","totlemnt",0));
-		mapper.add(new ExcelBean("交付进度","progress",0));  
 		mapper.add(new ExcelBean("订单项备注","detailRemark",0)); 
 	}
 	

@@ -45,6 +45,23 @@ xsi:schemaLocation="
           <property name="mapperInterface" value="com.douniu.imshh.busdata.material.dao.IMaterialDao"/>
           <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
+      
+      <bean name="orderService" class="com.douniu.imshh.finance.order.service.impl.OrderService">
+          <property name="dao" ref="orderDao"></property>
+          <property name="detailService" ref="orderDetailService"></property>
+      </bean>
+      <bean id="orderDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+          <property name="mapperInterface" value="com.douniu.imshh.finance.order.dao.IOrderDao"/>
+          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      
+      <bean name="orderDetailService" class="com.douniu.imshh.finance.order.service.impl.OrderDetailService">
+          <property name="dao" ref="orderDetailDao"></property>
+      </bean>
+      <bean id="orderDetailDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+          <property name="mapperInterface" value="com.douniu.imshh.finance.order.dao.IOrderDetailDao"/>
+          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
       <!-- 公共部分 -->
       <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->  
 	    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  

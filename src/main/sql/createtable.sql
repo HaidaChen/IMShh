@@ -74,6 +74,7 @@ CREATE TABLE T_ORDERDETAIL(
     priceDollar numeric(10,2),
     totlemnt numeric(10,2),
     progress int,
+    content varchar(20),
     
     modifyDate datetime,
     remark varchar(1024),

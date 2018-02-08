@@ -64,15 +64,22 @@ public class OrderService implements IOrderService{
 		List<OrderDetail> details = new ArrayList<OrderDetail>();
 		int index = 0;
 		for (OrderAndDetail orderAndDetail : orderandDetails){
-			String orderId = "";
 			String identify = orderAndDetail.getIdentify();
-			if (identifys.contains(identify)){
-				OrderDetail detail = new OrderDetail();
-			}else{
-				orderId = System.currentTimeMillis() + "" + index++;
+			if (!identifys.contains(identify)){
+				String orderId = System.currentTimeMillis() + "" + index++;
 				Order order = new Order(orderId, orderAndDetail.getIdentify(), orderAndDetail.getCustName(), orderAndDetail.getOrderDate(), orderAndDetail.getAmount(), orderAndDetail.getRemark());
 				orders.add(order);
 			}
+			String detailId = System.currentTimeMillis() + "" + index++;
+			String orderId = "";
+			for (Order order : orders){
+				if (order.getIdentify().equals(orderAndDetail.getIdentify())){
+					orderId = order.getId();
+					break;
+				}
+			}
+			OrderDetail detail = new OrderDetail(detailId, orderId, orderAndDetail.getPdtNo(), orderAndDetail.getPdtName(), orderAndDetail.getContent(),orderAndDetail.getQuantity(), orderAndDetail.getPriceRMB(), orderAndDetail.getPriceDollar(), orderAndDetail.getTotlemnt(), orderAndDetail.getDetailRemark() );
+			details.add(detail);
 		}
 		dao.batchInsert(orders);
 		detailService.batchAdd(details);
@@ -81,5 +88,11 @@ public class OrderService implements IOrderService{
 	public void setDao(IOrderDao dao) {
 		this.dao = dao;
 	}
+
+	public void setDetailService(IOrderDetailService detailService) {
+		this.detailService = detailService;
+	}
+	
+	
 
 }

@@ -10,6 +10,7 @@ public class OrderAndDetail {
 	private String remark;
 	private String pdtNo;
 	private String pdtName;
+	private String content;
 	private int quantity;
 	private float priceRMB;
 	private float priceDollar;
@@ -93,6 +94,12 @@ public class OrderAndDetail {
 	}
 	public void setDetailRemark(String detailRemark) {
 		this.detailRemark = detailRemark;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	
