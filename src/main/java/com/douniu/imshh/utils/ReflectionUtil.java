@@ -128,14 +128,17 @@ public class ReflectionUtil {
           
         try {  
             //将 object 中 field 所代表的值 设置为 value  
+        	String sdate = value.toString();
+    		if (sdate.equals("") || sdate.equals("null"))
+    			return;
         	if (field.getType() == Date.class){
-        		String sdate = value.toString();
-        		if (sdate.equals(""))
-        			return;
         		value = format.parse(sdate);        		
         	}
-        	if (field.getType() == Integer.class){
+        	if (field.getType() == int.class || field.getType() == Integer.class){
         		value = new Integer(value.toString());
+        	}
+        	if (field.getType() == float.class || field.getType() == Float.class){
+        		value = new Float(value.toString());
         	}
         	field.set(object, value) ;  
         	

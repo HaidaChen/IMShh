@@ -64,9 +64,9 @@ var TableInit = function () {
 
     //得到查询的参数
     oTableInit.queryParams = function (params) {
-        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+    	var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
         	pageSize: params.limit,   //页面大小
-            pageOffset: (params.offset - 1) * params.limit,  //页码
+            pageOffset: params.offset * params.limit,  //页码
             departmentname: $("#txt_search_departmentname").val(),
             statu: $("#txt_search_statu").val()
         };
@@ -82,7 +82,8 @@ var ButtonInit = function () {
     var postdata = {};
 
     oInit.Init = function () {
-        //初始化页面上面的按钮事件
+        $("#btn_import").click(function(){
+        	createImportModal("ajaxUpload.do");});
     };
 
     return oInit;

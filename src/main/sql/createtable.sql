@@ -66,7 +66,7 @@ CREATE TABLE T_ORDER(
 CREATE TABLE T_ORDERDETAIL(
     id varchar(20) not null,
     orderId varchar(20) not null,
-    pdtNo varchar(20) not null unique,
+    pdtNo varchar(20) not null,
     pdtID varchar(20),
     pdtName varchar(20),    
     quantity int,

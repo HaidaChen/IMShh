@@ -69,6 +69,7 @@ public class OrderService implements IOrderService{
 				String orderId = System.currentTimeMillis() + "" + index++;
 				Order order = new Order(orderId, orderAndDetail.getIdentify(), orderAndDetail.getCustName(), orderAndDetail.getOrderDate(), orderAndDetail.getAmount(), orderAndDetail.getRemark());
 				orders.add(order);
+				identifys.add(identify);
 			}
 			String detailId = System.currentTimeMillis() + "" + index++;
 			String orderId = "";
@@ -81,6 +82,7 @@ public class OrderService implements IOrderService{
 			OrderDetail detail = new OrderDetail(detailId, orderId, orderAndDetail.getPdtNo(), orderAndDetail.getPdtName(), orderAndDetail.getContent(),orderAndDetail.getQuantity(), orderAndDetail.getPriceRMB(), orderAndDetail.getPriceDollar(), orderAndDetail.getTotlemnt(), orderAndDetail.getDetailRemark() );
 			details.add(detail);
 		}
+		
 		dao.batchInsert(orders);
 		detailService.batchAdd(details);
 	}

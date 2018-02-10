@@ -63,6 +63,7 @@
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>vendors/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath %>vendors/bootstrap-table/local/bootstrap-table-zh-CN.js"></script>
+    <script src="<%=basePath %>assets/js/mytable.js"></script>
     <script src="<%=basePath %>assets/js/orderIndex.js"></script>
 </body>
 </html>
