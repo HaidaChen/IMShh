@@ -308,7 +308,7 @@ var showEditPage = function(url){
 
 var createImportModal = function(url){
 	var modalwin = $('<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document" ></div></div>');
-	var modalbox = $('<div class="modal-content"></div>');
+	var modalbox = $('<div class="modal-content" id="importBox"></div>');
 	var modalheader = $('<div class="modal-header"></div>');
 	var modalcontent = $('<div class="modal-body"></div>');
 	var modalfooter = $('<div class="modal-footer"></div>');
@@ -338,18 +338,53 @@ var createImportModal = function(url){
 	$("#importModal").modal({'backdrop' : 'static'}).css({width: '360px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}});
 }
 
+function showLoadWin(){
+	$("#importModal").modal("hide");
+	var win = $('<div id="laodingWind" class="modal fade" data-keyboard="false" data-backdrop="static" data-role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>');
+	var load = $('<div id="loading" class="loading">数据导入中...</div>');
+	/*load.css("width", "260px");
+	load.css("height", "56px"); 
+	load.css("line-height", "56px");  
+	load.css("color", "#fff");  
+	load.css("padding-left", "60px");  
+	load.css("font-size", "15px");  
+	load.css("background", "#000 url(../assets/images/loader.gif) no-repeat 10px 50%");  
+	load.css("opacity", "0.7");  
+	load.css("z-index", "9999");  
+	load.css("-moz-border-radius", "20px");  
+	load.css("-webkit-border-radius", "20px");  
+	load.css("border-radius", "20px");  
+	*/
+	win.append(load);
+	$("body").append(win); 
+	$("#laodingWind").modal({'backdrop' : 'static'}).css({width: '360px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}});
+	
+}
+
 function ajaxSubmitForm(_url) {
-	if(checkData()){
-　　　　  var option = {
-	      　　 url : _url,
-	     　　 // type : 'POST',
-	      　　 dataType : 'text',
-	      　　 //headers : {"ClientCallMode" : "text"}, //添加请求头部
-	     　　  success : function(data) {
-	        　　   table.loadData();
-	     }
-	    };
-	   	$("#form_upload").ajaxSubmit(option);
+	if(checkData()){		
+		showLoadWin();
+	    setTimeout(function(){
+		   var option = {
+			      　　 url : _url,
+			     　　 // type : 'POST',
+			      　　 dataType : 'text',
+			      　　 //headers : {"ClientCallMode" : "text"}, //添加请求头部
+			     　　  success : function(data) {
+			    	 $("#laodingWind").modal("hide");
+			    	 $(".modal-backdrop").remove();  
+			         $("body").removeClass('modal-open');  
+			        　　      table.loadData();	         
+			     },
+			     error : function(XmlHttpRequest, textStatus, errorThrown){
+			    	 $("#laodingWind").modal("hide");
+			    	 $("#importModal").modal("show");
+			    	 $("#importBox").find(".modal-footer").text("数据导入失败");			  	     
+			     }
+			    };
+			   	$("#form_upload").ajaxSubmit(option);
+	    }, 2000);
+　　　　 
 	}
 }
 

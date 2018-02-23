@@ -10,12 +10,16 @@
 	
 	<link href="<%=basePath %>/thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%=basePath %>/vendors/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+    <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
+    <link href="<%=basePath %>/assets/css/mytable.css" rel="stylesheet">
 </head>
 <body>
     
     <div class="panel-body" style="padding-bottom: 0px">
         <div class="panel panel-default">
-            <div class="panel-heading">查询条件</div>
+            <div class="panel-heading">查询条件
+            	<button type="button" id="btn_collapse" class="btn btn-default btn-circle" style="float : right; "><i class="glyphicon glyphicon-chevron-up"></i></button>
+            </div>
             <div class="panel-body">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">

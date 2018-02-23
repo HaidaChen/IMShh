@@ -16,6 +16,9 @@ $(function () {
 	var thisheight = $(document).height();
 	main.height(thisheight + 30);
 	
+	$("#btn_collapse").click(function(){
+		$("#btn_collapse").rotate(90);
+	});	
 	
 });
 
@@ -84,6 +87,10 @@ var ButtonInit = function () {
     oInit.Init = function () {
         $("#btn_import").click(function(){
         	createImportModal("ajaxUpload.do");});
+        
+        $("#btn_add").click(function(){
+        	showLoadWin();
+        });
     };
 
     return oInit;

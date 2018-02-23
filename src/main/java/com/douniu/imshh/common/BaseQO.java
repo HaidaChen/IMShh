@@ -44,7 +44,7 @@ public class BaseQO {
         this.pageSize = pageSize;
     }
     public int getPageOffset() {
-    	this.pageOffset = (currentPage - 1) * pageSize;
+    	//this.pageOffset = (currentPage - 1) * pageSize;
         return pageOffset;
     }
     public void setPageOffset(int pageOffset) {
