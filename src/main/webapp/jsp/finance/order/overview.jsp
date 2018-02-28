@@ -20,21 +20,34 @@
             <div class="panel-heading">查询条件
             	<button type="button" id="btn_collapse" class="btn btn-default btn-circle" style="float : right; "><i class="glyphicon glyphicon-chevron-up"></i></button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="panel_condition">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
-                        <label class="control-label col-sm-1" for="txt_search_departmentname">部门名称</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="txt_search_departmentname">
+                        <label class="control-label col-sm-2" for="txt_search_orderNo">订单编号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_orderNo" name="identify">
                         </div>
-                        <label class="control-label col-sm-1" for="txt_search_statu">状态</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="txt_search_statu">
-                        </div>
-                        <div class="col-sm-4" style="text-align:left;">
-                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
-                        </div>
+                        <label class="control-label col-sm-2" for="txt_search_cust">客户名称</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_cust" name="custName">
+                        </div>                        
                     </div>
+                    <div class="form-group" style="margin-top:15px">
+                        <label class="control-label col-sm-2" for="txt_search_startDate">开始日期</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control selectData" id="txt_search_startDate" name="startDate">
+                        </div>
+                        <label class="control-label col-sm-2" for="txt_search_endDate">结束日期</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control selectData" id="txt_search_endDate" name="endDate">
+                        </div>                        
+                    </div>
+                    <div class="form-group" style="margin-top:15px">
+                        <div class="col-sm-1 col-sm-offset-11">
+                            <button type="button" id="btn_query" class="btn btn-primary">查询</button>
+                        </div>                        
+                    </div>
+                    
                 </form>
             </div>
         </div>
@@ -64,9 +77,12 @@
     
 	<script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/jquery/jquery.form.js"></script>
+    <script src="<%=basePath %>thirds/jquery/jquery.rotate.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>vendors/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath %>vendors/bootstrap-table/local/bootstrap-table-zh-CN.js"></script>
+    <script src="<%=basePath %>vendors/datepicker/bootstrap-datepicker.js"></script>
+    <script src="<%=basePath %>assets/js/product.js"></script>
     <script src="<%=basePath %>assets/js/mytable.js"></script>
     <script src="<%=basePath %>assets/js/orderIndex.js"></script>
 </body>

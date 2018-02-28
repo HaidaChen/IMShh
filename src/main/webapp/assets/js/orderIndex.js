@@ -16,15 +16,29 @@ $(function () {
 	var thisheight = $(document).height();
 	main.height(thisheight + 30);
 	
+	
+	var showCondition = true;
 	$("#btn_collapse").click(function(){
-		$("#btn_collapse").rotate(90);
+		if (showCondition){
+			$(this).rotate({angle: 0, animateTo: 180});
+			$("#panel_condition").hide();
+		}else{
+			$(this).rotate({angle: 180, animateTo: 0});
+			$("#panel_condition").show();
+		}	
+		showCondition = !showCondition;
 	});	
 	
+	$("#btn_query").click(function(){
+		$('#tb_orders').bootstrapTable('refresh', {url: 'loadOrder.do'});
+	});
 });
 
 
 var TableInit = function () {
     var oTableInit = new Object();
+    var oInit = new Object();
+    
     //初始化Table
     oTableInit.Init = function () {
         $('#tb_orders').bootstrapTable({
@@ -46,7 +60,7 @@ var TableInit = function () {
             height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
             cardView: false,                    //是否显示详细视图
-            detailView: false,                   //是否显示父子表
+            detailView: true,                   //是否显示父子表
             columns: [{
                 checkbox: true
             }, {
@@ -61,17 +75,61 @@ var TableInit = function () {
             }, {
                 field: 'amount',
                 title: '订单金额'
-            }, ]
+            }, ],
+            onExpandRow: function(index, row, $detail){
+            	oInit.InitSubTable(index, row, $detail);
+            }
         });
     };
 
+    oInit.InitSubTable = function (index, row, $detail) {
+        var parentid = row.id;
+        var cur_table = $detail.html('<table></table>').find('table');
+        $(cur_table).bootstrapTable({
+            url: 'loadOrderDetail.do',
+            method: 'get',
+            queryParams: { orderId: parentid },
+            clickToSelect: true,
+            detailView: false,//父子表
+            uniqueId: "id",
+            pageSize: 10,
+            pageList: [10, 25],
+            columns: [{
+                checkbox: false
+            }, {
+                field: 'pdtNo',
+                title: '货号'
+            }, {
+                field: 'pdtName',
+                title: '品名'
+            }, {
+                field: 'content',
+                title: '含量'
+            }, {
+                field: 'quantity',
+                title: '数量'
+            }, {
+                field: 'priceRMB',
+                title: '人民币单价'
+            }, {
+                field: 'priceDollar',
+                title: '美元单价'
+            }, {
+                field: 'totlemnt',
+                title: '合计'
+            }, ]
+        });
+    };
+    
     //得到查询的参数
     oTableInit.queryParams = function (params) {
     	var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
         	pageSize: params.limit,   //页面大小
             pageOffset: params.offset * params.limit,  //页码
-            departmentname: $("#txt_search_departmentname").val(),
-            statu: $("#txt_search_statu").val()
+            identify: $("#txt_search_orderNo").val(),
+            custName: $("#txt_search_cust").val(),
+            startDate: $("#txt_search_startDate").val(),
+            endDate: $("#txt_search_endDate").val()
         };
         
         return temp;

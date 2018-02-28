@@ -102,7 +102,7 @@
         insert into t_Order(id, identify, custid, custName, orderDate, amount, state, modifydate, remark, status) 
              values
              <foreach collection="list" item="order" index="index" separator=",">
-                 (CONCAT(current_timestamp()+1, #{index}) , #{order.identify}, #{order.custId}, #{order.custName}, #{order.orderDate}, #{order.amount}, #{order.state}, sysdate(), #{order.remark}, '1')
+                 (#{order.id} , #{order.identify}, #{order.custId}, #{order.custName}, #{order.orderDate}, #{order.amount}, #{order.state}, sysdate(), #{order.remark}, '1')
              </foreach>
     </insert>
     

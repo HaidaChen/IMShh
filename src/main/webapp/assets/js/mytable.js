@@ -342,19 +342,7 @@ function showLoadWin(){
 	$("#importModal").modal("hide");
 	var win = $('<div id="laodingWind" class="modal fade" data-keyboard="false" data-backdrop="static" data-role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>');
 	var load = $('<div id="loading" class="loading">数据导入中...</div>');
-	/*load.css("width", "260px");
-	load.css("height", "56px"); 
-	load.css("line-height", "56px");  
-	load.css("color", "#fff");  
-	load.css("padding-left", "60px");  
-	load.css("font-size", "15px");  
-	load.css("background", "#000 url(../assets/images/loader.gif) no-repeat 10px 50%");  
-	load.css("opacity", "0.7");  
-	load.css("z-index", "9999");  
-	load.css("-moz-border-radius", "20px");  
-	load.css("-webkit-border-radius", "20px");  
-	load.css("border-radius", "20px");  
-	*/
+	
 	win.append(load);
 	$("body").append(win); 
 	$("#laodingWind").modal({'backdrop' : 'static'}).css({width: '360px', 'margin-left': function(){return ($(this).parent().width()/2 - $(this).width()/2);}});

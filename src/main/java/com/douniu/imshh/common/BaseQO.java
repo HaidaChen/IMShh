@@ -3,9 +3,13 @@ package com.douniu.imshh.common;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class BaseQO {
 	private int duration = -1;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
     private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
     private Date endDate;
     private int currentPage;
     private int pageOffset = 0;

@@ -26,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.douniu.imshh.common.PageResult;
 import com.douniu.imshh.finance.order.domain.Order;
 import com.douniu.imshh.finance.order.domain.OrderAndDetail;
+import com.douniu.imshh.finance.order.domain.OrderDetail;
+import com.douniu.imshh.finance.order.service.IOrderDetailService;
 import com.douniu.imshh.finance.order.service.IOrderService;
 import com.douniu.imshh.utils.ExcelBean;
 import com.douniu.imshh.utils.ExcelUtil;
@@ -55,6 +57,8 @@ public class OrderAction {
 	
 	@Autowired
 	private IOrderService service;
+	@Autowired
+	private IOrderDetailService dService;
 	
 	@RequestMapping("/main")
 	public ModelAndView enter(){
@@ -81,7 +85,13 @@ public class OrderAction {
 	/**
 	 * 根据订单编号查询订单项
 	 */
-	public void queryOrderDetail(){}
+	@RequestMapping(value="/loadOrderDetail", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String queryOrderDetail(OrderDetail detail){
+		List<OrderDetail> details = dService.queryByOrder(detail.getOrderId());		
+		Gson gson = new Gson();
+		return gson.toJson(details);
+	}
 	
 	/**
 	 * 进入订单编辑页面，要求同时显示订单项信息

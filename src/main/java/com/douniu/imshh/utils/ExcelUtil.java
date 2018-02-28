@@ -1,5 +1,6 @@
 package com.douniu.imshh.utils;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import java.beans.IntrospectionException;
-
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -93,7 +93,14 @@ public class ExcelUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
         DecimalFormat df2 = new DecimalFormat("0.00"); 
             
-        switch (cell.getCellType()) {    
+        switch (cell.getCellType()) { 
+        case HSSFCell.CELL_TYPE_FORMULA: 
+        	try {  
+                value = cell.getStringCellValue();  
+            } catch (IllegalStateException e) {  
+                value = String.valueOf(cell.getNumericCellValue());  
+            }  
+            break; 
         case Cell.CELL_TYPE_STRING:    
             value = cell.getRichStringCellValue().getString();    
             break;    
