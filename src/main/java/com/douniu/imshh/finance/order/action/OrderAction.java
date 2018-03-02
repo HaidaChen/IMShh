@@ -96,10 +96,10 @@ public class OrderAction {
 	/**
 	 * 进入订单编辑页面，要求同时显示订单项信息
 	 */
-	@RequestMapping("/edit")
+	@RequestMapping("/enterEdit")
 	public ModelAndView editOrder(Order order){
 		ModelAndView mav = new ModelAndView();
-		if (order.getId() != ""){
+		if (order.getId() != null && !order.getId().equals("")){
 			Order Order = service.getById(order.getId());
 			mav.addObject("oder", Order);
 		}

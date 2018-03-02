@@ -123,9 +123,10 @@ var TableInit = function () {
     
     //得到查询的参数
     oTableInit.queryParams = function (params) {
+    	
     	var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
         	pageSize: params.limit,   //页面大小
-            pageOffset: params.offset * params.limit,  //页码
+            pageOffset: params.offset,  //页码
             identify: $("#txt_search_orderNo").val(),
             custName: $("#txt_search_cust").val(),
             startDate: $("#txt_search_startDate").val(),
@@ -147,7 +148,7 @@ var ButtonInit = function () {
         	createImportModal("ajaxUpload.do");});
         
         $("#btn_add").click(function(){
-        	showLoadWin();
+        	$(window.parent.document).find("#contentFrame").attr("src", "order/enterEdit.do");
         });
     };
 

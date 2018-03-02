@@ -41,7 +41,7 @@
     </resultMap>
     
     <select id="findById" parameterType="String" resultMap="orderdtlmap">
-        select order.*, detail.* from t_Order order, t_orderdetail detail where id = #{id}
+        select order.*, detail.* from t_Order order, t_orderdetail detail where t_Order.id = #{id}
     </select>
     
     <select id="query" parameterType="Order" resultMap="ordermap">
