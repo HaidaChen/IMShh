@@ -10,6 +10,7 @@
     
     <link href="<%=basePath %>/thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%=basePath %>/thirds/bootstrapvalidator/css/bootstrapValidator.min.css" rel="stylesheet">
+    <link href="<%=basePath %>/vendors/bootstrap-table/bootstrap-table.css" rel="stylesheet">
     <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -53,6 +54,13 @@
                 </div>
               </div>
             </div>
+            
+            <div class="panel panel-default">
+              <div class="panel-heading">订单明细<div style="float: right"><button id="btn_add_detail" type="button" class="btn btn-sm btn-primary">新增明细</button></div></div>
+              
+              <table id="tbl_detail" class="table"></table>
+            </div>
+            
             <div class="modal-footer">
               <button id="btn_save" type="submit" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-check"></span>保存
@@ -66,6 +74,9 @@
     <script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script src="<%=basePath %>assets/js/customer.js"></script>
+    <script src="<%=basePath %>vendors/bootstrap-table/bootstrap-table.js"></script>
+    <script src="<%=basePath %>vendors/bootstrap-table/local/bootstrap-table-zh-CN.js"></script>
+    <script src="<%=basePath %>assets/js/order_edit.js"></script>
+    
 </body>
 </html>

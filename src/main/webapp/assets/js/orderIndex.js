@@ -117,7 +117,7 @@ var TableInit = function () {
             }, {
                 field: 'totlemnt',
                 title: '合计'
-            }, ]
+            }]
         });
     };
     
