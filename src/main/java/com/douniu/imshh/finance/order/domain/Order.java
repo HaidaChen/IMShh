@@ -3,6 +3,8 @@ package com.douniu.imshh.finance.order.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.douniu.imshh.common.BaseQO;
 
 public class Order extends BaseQO {
@@ -10,6 +12,7 @@ public class Order extends BaseQO {
 	private String identify; /*订单编号*/
 	private String custId;   /*客户ID*/
 	private String custName; /*客户名称*/
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	private Date orderDate;  /*订单生成日期*/
 	private float amount;    /*订单总金额*/
 	private int state = 1;   /*订单状态*/

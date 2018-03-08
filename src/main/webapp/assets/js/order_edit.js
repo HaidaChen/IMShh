@@ -9,8 +9,8 @@ $(function(){
 	var $orderId = $("#id").val();
 	
 	$("#tbl_detail").bootstrapTable({
-		url: data,
-		queryParams: {orderId : $orderId},
+		data: data,
+		cache: false,
 		columns: [
 			{field: 'pdtNo', title: '货号', formatter: function(value, row, index){return colContent(row, index, 'pdtNo')}}, 
 			{field: 'pdtName', title: '品名', formatter: function(value, row, index){return colContent(row, index, 'pdtName')}}, 
@@ -21,13 +21,13 @@ $(function(){
 			{field: 'totlemnt', title: '合计', formatter: function(value, row, index){return colContent(row, index, 'totlemnt')}},
 			{field: '', title: '操作', width: '60', formatter: function(value,row,index){
 				var strHtml = '<a href="javascript:void(0);" onclick="saveDetail('+index+', this)">';
-				if (data[index].id == ""){
+				if (!data[index]["saved"]){
 					strHtml += '<i class="glyphicon glyphicon-floppy-saved"></i>';
 				}else{
 					strHtml += '<i class="glyphicon glyphicon-edit"></i>';
 				}
 				
-				strHtml += '</a>&nbsp;<a href="javascript:deleteDetail()"><i class="glyphicon glyphicon-floppy-remove"></a>';
+				strHtml += '</a>&nbsp;<a href="javascript:deleteDetail(' + index + ')"><i class="glyphicon glyphicon-floppy-remove"></a>';
 				return strHtml;
 			}}
 		]
@@ -39,6 +39,23 @@ $(function(){
 		var index = rows.length;		
 		addRow(index);		
 	});
+	
+	
+	$("#btn_save").click(function(){
+		var $form = $("form");
+		$.each(data, function(index, e){
+			$form.append('<input type="hidden" name="details['+index+'].pdtNo" value="' + e.pdtNo + '">');
+			$form.append('<input type="hidden" name="details['+index+'].pdtName" value="' + e.pdtName + '">');
+			$form.append('<input type="hidden" name="details['+index+'].content" value="' + e.content + '">');
+			$form.append('<input type="hidden" name="details['+index+'].quantity" value="' + e.quantity + '">');
+			$form.append('<input type="hidden" name="details['+index+'].priceRMB" value="' + e.priceRMB + '">');
+			$form.append('<input type="hidden" name="details['+index+'].priceDollar" value="' + e.priceDollar + '">');
+			$form.append('<input type="hidden" name="details['+index+'].totlemnt" value="' + e.totlemnt + '">');			
+		});
+		$form.submit();
+		//alert('');
+	});
+	
 });
 
 
@@ -59,7 +76,7 @@ function saveDetail(index, obj){
 		data[index]["saved"] = false;
 		$(obj).html('<i class="glyphicon glyphicon-floppy-saved"></i>');
 	}
-	
+	//$("#tbl_detail").bootstrapTable('refreshOptions', {data: data, cache: false});
 	currentTr.children("td").eq(0).html(colContent(row, index, "pdtNo"));
 	currentTr.children("td").eq(1).html(colContent(row, index, "pdtName"));
 	currentTr.children("td").eq(2).html(colContent(row, index, "content"));
@@ -67,13 +84,12 @@ function saveDetail(index, obj){
 	currentTr.children("td").eq(4).html(colContent(row, index, "priceRMB"));
 	currentTr.children("td").eq(5).html(colContent(row, index, "priceDollar"));
 	currentTr.children("td").eq(6).html(colContent(row, index, "totlemnt"));
-	//obj.find("i").html();
-	//$('#tbl_detail').bootstrapTable('refresh', {url: data});
-	
 	
 }
 
-function deleteDetail(value,row,index, key){
+function deleteDetail(index){
+	data.splice(index, 1);
+	$("#tbl_detail").bootstrapTable('refreshOptions', {data: data, cache: false});
 	
 }
 

@@ -110,6 +110,7 @@ public class OrderAction {
 	/**
 	 * 保存订单信息，要求同时可以保存订单项
 	 */
+	@RequestMapping("/save")
 	public ModelAndView saveOrder(Order order){
 		service.save(order);
         return enter();
