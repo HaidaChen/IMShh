@@ -41,7 +41,7 @@
     </resultMap>
     
     <select id="findById" parameterType="String" resultMap="orderdtlmap">
-        select order.*, detail.* from t_Order order, t_orderdetail detail where t_Order.id = #{id}
+        select * from t_order left join t_orderdetail on t_order.id = t_orderdetail.orderid where t_order.id = #{id}
     </select>
     
     <select id="query" parameterType="Order" resultMap="ordermap">
@@ -61,7 +61,7 @@
           order by modifydate desc
           limit #{pageOffset},#{pageSize}
     </select> 
-    <select id="queryNoPage" parameterType="Order" resultMap="orderdtlmap">
+    <!-- <select id="queryNoPage" parameterType="Order" resultMap="orderdtlmap">
         select order.*, detail.* from t_Order order, t_orderdetail detail where status = 1
         <if test="identify != null and identify !=''">
           and identify like #{identify}
@@ -76,7 +76,7 @@
           and orderDate &lt;= #{endDate}
         </if>
           order by modifydate desc
-    </select>
+    </select> -->
     <select id="count" parameterType="Order" resultType="int">
         select count(1) from t_Order where status = 1
         <if test="identify != null and identify !=''">
@@ -109,7 +109,6 @@
     <update id="update" parameterType="Order">
         update t_Order set 
           identify = #{identify},
-          custid = #{custid},          
           custName = #{custName},
           orderDate = #{orderDate},
           amount = #{amount},

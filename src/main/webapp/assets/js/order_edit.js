@@ -6,7 +6,35 @@ var data = [];
 $(function(){
 	
 	initOrderDetail();
-	var $orderId = $("#id").val();
+	
+	
+	$("#btn_add_detail").click(function(){
+		var myTable = $("#tbl_detail");
+		var rows = myTable.bootstrapTable('getData');
+		var index = rows.length;		
+		addRow(index);		
+	});
+	
+	
+	$("#btn_save").click(function(){
+		var $form = $("form");
+		$("input[name=details]").val(JSON.stringify(data));
+		$.each(data, function(index, e){
+			$form.append('<input type="hidden" name="details['+index+'].pdtNo" value="' + e.pdtNo + '">');
+			$form.append('<input type="hidden" name="details['+index+'].pdtName" value="' + e.pdtName + '">');
+			$form.append('<input type="hidden" name="details['+index+'].content" value="' + e.content + '">');
+			$form.append('<input type="hidden" name="details['+index+'].quantity" value="' + e.quantity + '">');
+			$form.append('<input type="hidden" name="details['+index+'].priceRMB" value="' + e.priceRMB + '">');
+			$form.append('<input type="hidden" name="details['+index+'].priceDollar" value="' + e.priceDollar + '">');
+			$form.append('<input type="hidden" name="details['+index+'].totlemnt" value="' + e.totlemnt + '">');			
+		});
+		$form.submit();
+	});
+	
+});
+
+function loadDetail(){
+var $orderId = $("#id").val();
 	
 	$("#tbl_detail").bootstrapTable({
 		data: data,
@@ -32,35 +60,10 @@ $(function(){
 			}}
 		]
 	});
-	
-	$("#btn_add_detail").click(function(){
-		var myTable = $("#tbl_detail");
-		var rows = myTable.bootstrapTable('getData');
-		var index = rows.length;		
-		addRow(index);		
-	});
-	
-	
-	$("#btn_save").click(function(){
-		var $form = $("form");
-		$.each(data, function(index, e){
-			$form.append('<input type="hidden" name="details['+index+'].pdtNo" value="' + e.pdtNo + '">');
-			$form.append('<input type="hidden" name="details['+index+'].pdtName" value="' + e.pdtName + '">');
-			$form.append('<input type="hidden" name="details['+index+'].content" value="' + e.content + '">');
-			$form.append('<input type="hidden" name="details['+index+'].quantity" value="' + e.quantity + '">');
-			$form.append('<input type="hidden" name="details['+index+'].priceRMB" value="' + e.priceRMB + '">');
-			$form.append('<input type="hidden" name="details['+index+'].priceDollar" value="' + e.priceDollar + '">');
-			$form.append('<input type="hidden" name="details['+index+'].totlemnt" value="' + e.totlemnt + '">');			
-		});
-		$form.submit();
-		//alert('');
-	});
-	
-});
-
+}
 
 function addRow(index){	
-    data[index] = {"id":"","pdtNo":"","pdtName":"","content":"","quantity":"","priceRMB":"","priceDollar":"","totlemnt":""};
+    data[index] = {"id":"","pdtNo":"","pdtName":"","content":"","quantity":0,"priceRMB":0.0,"priceDollar":0.0,"totlemnt":0.0};
     var params = {index:index, row:data[index]};
     $('#tbl_detail').bootstrapTable('insertRow', params);
 }
@@ -108,10 +111,14 @@ function reloadRowData(obj, row, key, index){
 }
 
 function initOrderDetail(){
-    var orderId = $("#id").val();
+    var orderId = $("input[name=id]").val();    
 	if (orderId != ""){
 		$.ajax({url: "loadOrderDetail.do?orderId="+orderId, success: function(result){
 			data = result;
+			$.each(data, function(){
+				this.saved = true;
+			});
+			loadDetail();
 		}});
 	}
 }

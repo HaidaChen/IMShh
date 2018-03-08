@@ -1,19 +1,12 @@
 package com.douniu.imshh.finance.order.action;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,7 +94,7 @@ public class OrderAction {
 		ModelAndView mav = new ModelAndView();
 		if (order.getId() != null && !order.getId().equals("")){
 			Order Order = service.getById(order.getId());
-			mav.addObject("oder", Order);
+			mav.addObject("order", Order);
 		}
         mav.setViewName("/finance/order/edit");
         return mav;
@@ -129,6 +122,7 @@ public class OrderAction {
 	}
 	
 	@RequestMapping("/delete")
+	@ResponseBody
 	public void deleteOrder(String id){
 		service.delete(id);
 	}
@@ -150,7 +144,7 @@ public class OrderAction {
         service.batchAdd(Orders);
     }  
     
-    @RequestMapping(value = "downloadExcel", method = RequestMethod.GET)  
+    /*@RequestMapping(value = "downloadExcel", method = RequestMethod.GET)  
     @ResponseBody  
     public void downloadExcel(HttpServletRequest request,HttpServletResponse response,HttpSession session){  
         response.reset();  
@@ -185,5 +179,5 @@ public class OrderAction {
         } catch (IOException e) {  
             e.printStackTrace();  
         }  
-    }  
+    }  */
 }

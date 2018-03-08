@@ -58,6 +58,7 @@ var TableInit = function () {
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
             height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            exportDataType : "all",             //
             uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
             cardView: false,                    //是否显示详细视图
             detailView: true,                   //是否显示父子表
@@ -149,6 +150,47 @@ var ButtonInit = function () {
         
         $("#btn_add").click(function(){
         	$(window.parent.document).find("#contentFrame").attr("src", "order/enterEdit.do");
+        });
+        
+        $("#btn_edit").click(function(){
+        	var selections = $('#tb_orders').bootstrapTable('getSelections');
+        	if (selections.length == 0){
+        		alert("请选择需要修改的订单");
+        		return;
+        	}
+        	if (selections.length > 1){
+        		alert("一次只能够删除一条记录");
+        		return;
+        	}
+        	orderId = selections[0].id;
+        	$(window.parent.document).find("#contentFrame").attr("src", "order/enterEdit.do?id=" + orderId);
+        });
+        
+        $("#btn_delete").click(function(){
+        	var selections = $('#tb_orders').bootstrapTable('getSelections');
+        	if (selections.length == 0){
+        		alert("请选择需要修改的订单");
+        		return;
+        	}
+        	if (selections.length > 1){
+        		alert("一次只能够删除一条记录");
+        		return;
+        	}
+        	
+        	if (confirm('确定删除该记录吗?')){        		
+        		$.ajax({
+        			type: 'POST',
+        			url: 'delete.do',
+        			data: {'id': selections[0].id},
+        			success: function(result){
+        				$("#tb_orders").bootstrapTable('refresh', {data: 'loadOrder.do', cache: false});
+        			}
+        		});
+        	}
+        });
+        
+        $("#btn_export").click(function(){
+        	$('#tb_orders').tableExport({ type: 'excel', escape: 'false', exportDataType: 'all'});
         });
     };
 

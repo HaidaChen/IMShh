@@ -18,8 +18,7 @@
     <div class="block">
         
         <form id="custform" class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
-            <input type="hidden" name="id" value="${order.id }">
-            <!-- <input type="hidden" name="details"> -->
+            <input type="hidden" name="id" value="${order.id }">            
             <div class="modal-header">
                 <h4 class="modal-title" style="color: black">订单信息</h4>
             </div>
@@ -52,7 +51,7 @@
               <div class="form-group">
                 <label for="remark" class="col-sm-2 control-label">备注</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="remark" value="${cust.remark }" placeholder="备注" >
+                  <input type="text" class="form-control" name="remark" value="${order.remark }" placeholder="备注" >
                 </div>
               </div>
             </div>

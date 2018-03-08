@@ -22,17 +22,17 @@
           order by modifydate desc
     </select>
     
-    <insert id="insert" parameterType="OrderDetail">
-        insert into t_OrderDetail(id, orderId, pdtNo, pdtId, pdtName, quantity, priceRMB, priceDollar, totlemnt, progress, modifyDate, remark, status) 
-          values(#{id}, #{orderId}, #{pdtNo}, #{pdtId}, #{pdtName}, #{quantity}, #{priceRMB}, #{priceDollar}, #{totlemnt}, #{progress}, sysdate(), #{remark}, #{status})
-    </insert>
+    <!-- <insert id="insert" parameterType="OrderDetail">
+        insert into t_OrderDetail(id, orderId, pdtNo, pdtId, pdtName, content, quantity, priceRMB, priceDollar, totlemnt, progress, modifyDate, remark, status) 
+          values(#{id}, #{orderId}, #{pdtNo}, #{pdtId}, #{pdtName}, #{content}, #{quantity}, #{priceRMB}, #{priceDollar}, #{totlemnt}, #{progress}, sysdate(), #{remark}, #{status})
+    </insert> -->
     
     <insert id="batchInsert" parameterType="java.util.List">
         
-        insert into t_OrderDetail(id, orderId, pdtNo, pdtId, pdtName, quantity, priceRMB, priceDollar, totlemnt, progress, modifyDate, remark, status) 
+        insert into t_OrderDetail(id, orderId, pdtNo, pdtId, pdtName, content, quantity, priceRMB, priceDollar, totlemnt, progress, modifyDate, remark, status) 
              values
              <foreach collection="list" item="orderdtl" index="index" separator=",">
-                 (CONCAT(current_timestamp()+1, #{index}) , #{orderdtl.orderId}, #{orderdtl.pdtNo}, #{orderdtl.pdtId}, #{orderdtl.pdtName}, #{orderdtl.quantity}, #{orderdtl.priceRMB}, #{orderdtl.priceDollar}, #{orderdtl.totlemnt}, #{orderdtl.progress}, sysdate(), #{orderdtl.remark}, '1')
+                 (CONCAT(current_timestamp()+1, #{index}) , #{orderdtl.orderId}, #{orderdtl.pdtNo}, #{orderdtl.pdtId}, #{orderdtl.pdtName}, #{orderdtl.content}, #{orderdtl.quantity}, #{orderdtl.priceRMB}, #{orderdtl.priceDollar}, #{orderdtl.totlemnt}, #{orderdtl.progress}, sysdate(), #{orderdtl.remark}, '1')
              </foreach>
     </insert>
     
@@ -50,11 +50,17 @@
           modifydate = sysdate()
     where id = #{id}
     </update>
-    <update id="deleteById" parameterType="String">
+    
+    <update id="deleteByOrderId" parameterType="String">
         update t_OrderDetail set 
-          status = '0',
-          modifydate = sysdate()
-        where id = #{id}
+               status = '0',
+               modifydate = sysdate()
+         where orderId = #{orderId}
+    </update>
+    
+    <update id="killByOrderId" parameterType="String">
+        delete from t_OrderDetail 
+         where orderId = #{orderId}
     </update>
     
 </mapper>

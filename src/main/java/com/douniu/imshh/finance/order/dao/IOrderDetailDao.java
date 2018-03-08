@@ -6,8 +6,7 @@ import com.douniu.imshh.finance.order.domain.OrderDetail;
 
 public interface IOrderDetailDao {
 	List<OrderDetail> queryByOrder(String orderId);
-	void update(OrderDetail orderDetail);
-	void insert(OrderDetail orderDetail);
-	void delete(String id);
+	void killByOrderId(String orderId);
+	void deleteByOrderId(String orderId);
 	void batchInsert(List<OrderDetail> orderDetails);
 }

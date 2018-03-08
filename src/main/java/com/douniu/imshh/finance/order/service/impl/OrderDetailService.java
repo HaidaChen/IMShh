@@ -17,22 +17,16 @@ public class OrderDetailService implements IOrderDetailService{
 	@Override
 	public void batchAdd(List<OrderDetail> details) {
 		dao.batchInsert(details);
+	}	
+	
+	@Override
+	public void killByOrderId(String orderId) {
+		dao.killByOrderId(orderId);
 	}
 
 	@Override
-	public void save(OrderDetail detail) {
-		if (detail.getId().equals("")){
-			detail.setId(System.currentTimeMillis()+"");
-			detail.setStatus(1);
-			dao.insert(detail);
-		}else{
-			dao.update(detail);
-		}
-	}
-
-	@Override
-	public void delete(String id) {
-		dao.delete(id);
+	public void deleteByOrderId(String orderId) {
+		dao.deleteByOrderId(orderId);
 	}
 
 	public void setDao(IOrderDetailDao dao) {

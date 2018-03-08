@@ -81,6 +81,8 @@
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>vendors/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath %>vendors/bootstrap-table/local/bootstrap-table-zh-CN.js"></script>
+    <script src="<%=basePath %>vendors/bootstrap-table/tableExport.js"></script>
+    <script src="<%=basePath %>vendors/bootstrap-table/tableExport.min.js"></script>
     <script src="<%=basePath %>vendors/datepicker/bootstrap-datepicker.js"></script>
     <script src="<%=basePath %>assets/js/ins_datepicker.js"></script>
     <script src="<%=basePath %>assets/js/mytable.js"></script>

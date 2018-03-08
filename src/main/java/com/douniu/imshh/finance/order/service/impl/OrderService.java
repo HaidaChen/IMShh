@@ -22,12 +22,12 @@ public class OrderService implements IOrderService{
 		return dao.query(condition);
 	}
 
-	@Override
+	/*@Override
 	public List<OrderAndDetail> queryNoPage(Order order) {
 		Order condition = LikeFlagUtil.appendLikeFlag(order, new String[]{"identify", "custName"});
 		List<Order> result = dao.queryNoPage(condition);
 		return null;
-	}
+	}*/
 
 	@Override
 	public int count(Order order) {
@@ -43,17 +43,27 @@ public class OrderService implements IOrderService{
 	@Override
 	public void save(Order order) {
 		if (order.getId().equals("")){
-			order.setId(System.currentTimeMillis()+"");
+			String orderId = System.currentTimeMillis()+"";
+			order.setId(orderId);
 			order.setStatus(1);
+			for(OrderDetail detail : order.getDetails()){
+				detail.setOrderId(orderId);
+			}
+			detailService.batchAdd(order.getDetails());
 			dao.insert(order);
-			//detailService.batchAdd(order.getDetails());
 		}else{
+			detailService.killByOrderId(order.getId());
+			for(OrderDetail detail : order.getDetails()){
+				detail.setOrderId(order.getId());
+			}
+			detailService.batchAdd(order.getDetails());
 			dao.update(order);
 		}
 	}
 
 	@Override
 	public void delete(String id) {
+		detailService.deleteByOrderId(id);
 		dao.deleteById(id);
 	}
 

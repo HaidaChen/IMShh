@@ -7,6 +7,6 @@ import com.douniu.imshh.finance.order.domain.OrderDetail;
 public interface IOrderDetailService {
 	List<OrderDetail> queryByOrder(String orderId);
 	void batchAdd(List<OrderDetail> details);
-	void save(OrderDetail detail);
-	void delete(String id);
+	void deleteByOrderId(String orderId);
+	void killByOrderId(String orderId);
 }
