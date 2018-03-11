@@ -16,7 +16,7 @@
                     "submenu": null}]},
              {"name": "账务管理",
                "url": "",
-              "icon": "glyphicon glyphicon-yen",
+              "icon": "glyphicon glyphicon-usd",
            "submenu":[{"name": "应收", 
                         "url": "",
                     "submenu": null},

@@ -3,33 +3,26 @@
 		this.multiple = multiple || false;
 
 		var links = this.el.find('.link');
-		var items = $('ul.level2').children('li');
+		var items = $('ul.level2').children('li').children('ul').children('li');
 		var signleItems = $('ul.level1').children('li');
 		
-		items.on('click', {el: this.el, target: '.submenu'}, this.active);
-		signleItems.on('click', {el: this.el, target: '.level1'}, this.active);
+		items.on('click', {el: this.el, level: 2}, this.active);
+		signleItems.on('click', {el: this.el, level: 1}, this.active);
 	}
-
-	Accordion.prototype.dropdown = function(e) {
-		var $el = e.data.el;
-		$this = $(this);
-		$next = $this.next();
-
-		$next.slideToggle();
-		$this.parent().toggleClass('open');
-
-		if (!e.data.multiple) {
-			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-		};
-	}	
 	
 	Accordion.prototype.active = function(e){
+		
 		var $el = e.data.el;
-		var target = e.data.target;
 		$this = $(this);
-		$('#contentFrame').height(60);
 		$this.addClass('active');
-		$el.find(target).children('li').not($this).removeClass('active');
+		if (e.data.level == 1){
+			$el.children('ul').children('li').not($this).removeClass('active');
+		}else if(e.data.level == 2){
+			var $parent = $this.parent().parent();
+			$parent.addClass('active');
+			$el.children('ul').children('li').children('ul').children('li').not($this).removeClass('active');
+			$el.children('ul').children('li').not($parent).removeClass('active');
+		}		
 	}	
 
 jQuery.extend({

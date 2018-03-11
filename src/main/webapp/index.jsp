@@ -68,22 +68,19 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-2">
-                <div class="sidebar" style="display: block;" id="sidebar">
+                <div class="sidebar" style="display: block; " id="sidebar" >
                 </div>
             </div>
             
-            <div class="col-md-10" id="content">
+            <div class="col-md-10" id="content" style="padding: 0; margin: 0" >
                 <div class="container-fluid">
-                    <iframe id="contentFrame" name="contentFrame"  src="cust/main.do" width="100%" scrolling="no" frameborder="0"></iframe>
+                    <iframe id="contentFrame" name="contentFrame"  src="cust/main.do" width="100%" scrolling="no" frameborder="0" ></iframe>
                     
                 </div>
             </div>
         </div>
     </div>
 	
-	<!-- 
-	<iframe id="contentFrame" name="contentFrame" class="col-md-10 col-md-offset-2 col-xs-9 col-xs-offset-3" src="" width="100%" height="100%" scrolling="auto" frameborder="0" ></iframe>
-	 -->
 	<script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>assets/js/index.js"></script>
