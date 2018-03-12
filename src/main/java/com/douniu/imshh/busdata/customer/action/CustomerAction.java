@@ -30,6 +30,7 @@ import com.douniu.imshh.utils.ExcelBean;
 import com.douniu.imshh.utils.ExcelUtil;
 import com.douniu.imshh.utils.POIExcelAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 @Controller
@@ -79,11 +80,12 @@ public class CustomerAction {
 		List<Customer> res = service.query(cust);
 		int count = service.count(cust);
 		PageResult pr = new PageResult();
-		pr.setResult(res);
-		pr.setResultCount(count);
+		
+		pr.setTotal(count);
+		pr.setRows(res);
+		
 		Gson gson = new Gson();
-        String resJson = gson.toJson(pr);
-		return resJson;
+        return gson.toJson(pr);
 	}
 	
 	@RequestMapping("/delete")
@@ -96,7 +98,7 @@ public class CustomerAction {
 	
     @ResponseBody  
     @RequestMapping(value="ajaxUpload",method={RequestMethod.GET,RequestMethod.POST})  
-    public  void  ajaxUploadExcel(HttpServletRequest request,HttpServletResponse response) throws Exception {  
+    public void ajaxUploadExcel(HttpServletRequest request,HttpServletResponse response) throws Exception {  
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;    
           
         InputStream in =null;  

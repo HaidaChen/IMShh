@@ -6,17 +6,13 @@ $(function () {
     //1.初始化Table
     var oTable = new TableInit();
     oTable.Init();
+    oTable.afterLoad();
 
     //2.初始化Button的点击事件
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
 
-    
-    var main = $(window.parent.document).find("#contentFrame");
-	var thisheight = $(document).height();
-	main.height(thisheight + 30);
-	
-	
+    	
 	var showCondition = true;
 	$("#btn_collapse").click(function(){
 		if (showCondition){
@@ -37,7 +33,7 @@ $(function () {
 
 var TableInit = function () {
     var oTableInit = new Object();
-    var oInit = new Object();
+    var oInit = new Object();    
     
     //初始化Table
     oTableInit.Init = function () {
@@ -136,6 +132,12 @@ var TableInit = function () {
         
         return temp;
     };
+    
+    oTableInit.afterLoad = function(){
+		$("#tb_orders").on('load-success.bs.table',function(data){
+			adjuster();
+		});
+	}
     return oTableInit;
 };
 

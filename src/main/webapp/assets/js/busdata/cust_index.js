@@ -1,19 +1,38 @@
 $(function(){
 	var oTable = new TableInit();
 	oTable.Init();
+	oTable.afterLoad();
+	
+	var opt = {
+		queryElement: $("#span_search"),
+		queryUrl: "loadcust.do",
+		importElement: $("#btn_import"),
+		importUrl: "ajaxUpload.do",
+		addElement: $("#btn_add"),
+		addUrl: "cust/edit.do",
+		updateElement: $("#btn_update"),
+		updateUrl: "cust/edit.do?id=",
+		deleteElement: $("#btn_delete"),
+		deleteUrl: "delete.do?id=",
+		exportElement: $("#btn_export"),
+		exportUrl: ""
+	}
+	var oOperation = new DataOperation();
+	oOperation.init($("#tb_cust"), opt);
 })
 
 var TableInit = function(){
 	var oTableInit = new Object();
 	
-	oTableInit.Init() = function(){
+	oTableInit.Init = function(){
 		$("#tb_cust").bootstrapTable({
 			url: "loadcust.do",
 			queryParams: oTableInit.queryParams,
-			method: "post",
+			method: "get",
 			striped: true,
 			cache: false,
 			pagination: true,
+			sidePagination: "server", 
 			pageList: [10, 25, 50],
 			columns: [{
                 checkbox: true
@@ -36,9 +55,29 @@ var TableInit = function(){
 		});
 	}
 	
-	oTableInit.queryParams = function(){
-		
+	oTableInit.queryParams = function(params){
+		var search = $("#txt_search").val();
+		var Qparams =  {
+			pageSize: params.limit,   //页面大小
+            pageOffset: params.offset,  //页码
+            condition: search
+		};
+		return Qparams;
 	}
 	
+	oTableInit.afterLoad = function(){
+		$("#tb_cust").on('load-success.bs.table',function(data){
+			adjuster();
+		});
+	}
 	return oTableInit;
 }
+
+var ButtonInit = function(){
+	var oButtonInt = new Object();
+	
+	
+	
+	return oButtonInt;
+}
+
