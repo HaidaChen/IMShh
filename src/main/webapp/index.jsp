@@ -74,7 +74,7 @@
             
             <div class="col-md-10" id="content" style="padding: 0; margin: 0" >
                 <div class="container-fluid">
-                    <iframe id="contentFrame" name="contentFrame"  src="cust/main.do" width="100%" scrolling="no" frameborder="0" ></iframe>
+                    <iframe id="contentFrame" name="contentFrame"  src="" width="100%" scrolling="no" frameborder="0" ></iframe>
                     
                 </div>
             </div>

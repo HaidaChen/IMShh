@@ -14,64 +14,84 @@
     <link href="<%=basePath %>/assets/css/mytable.css" rel="stylesheet">
 </head>
 <body>
+    <div class="well title">订单列表</div>
+    <table id="tb_orders" data-toolbar="#toolbar"></table>
     
-    <div class="panel-body" style="padding-bottom: 0px">
-        <div class="panel panel-default">
-            <div class="panel-heading">查询条件
-            	<button type="button" id="btn_collapse" class="btn btn-default btn-circle" style="float : right; "><i class="glyphicon glyphicon-chevron-up"></i></button>
-            </div>
-            <div class="panel-body" id="panel_condition">
-                <form id="formSearch" class="form-horizontal">
-                    <div class="form-group" style="margin-top:15px">
-                        <label class="control-label col-sm-2" for="txt_search_orderNo">订单编号</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="txt_search_orderNo" name="identify">
-                        </div>
-                        <label class="control-label col-sm-2" for="txt_search_cust">客户名称</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="txt_search_cust" name="custName">
-                        </div>                        
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                        <label class="control-label col-sm-2" for="txt_search_startDate">开始日期</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control selectData" id="txt_search_startDate" name="startDate">
-                        </div>
-                        <label class="control-label col-sm-2" for="txt_search_endDate">结束日期</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control selectData" id="txt_search_endDate" name="endDate">
-                        </div>                        
-                    </div>
-                    <div class="form-group" style="margin-top:15px">
-                        <div class="col-sm-1 col-sm-offset-11">
-                            <button type="button" id="btn_query" class="btn btn-primary">查询</button>
-                        </div>                        
-                    </div>
-                    
-                </form>
-            </div>
-        </div>
-        
-        <div id="toolbar" class="btn-group">
-            <button id="btn_import" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-import" aria-hidden="true"></span>导入
-            </button>
-            <button id="btn_add" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
-            </button>
-            <button id="btn_edit" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
-            </button>
-            <button id="btn_export" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>导出
-            </button>
-            <button id="btn_delete" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-            </button>
-        </div>
-        
-        <table id="tb_orders"></table>
+    <div id="toolbar">
+    	<div class="btn-group" role="group">
+    		<button type="button" class="btn btn-default" id="btn_import">
+    			<i class="glyphicon glyphicon-import"></i>导入
+    		</button>
+    		<button type="button" class="btn btn-default" id="btn_add">
+    			<i class="glyphicon glyphicon-plus"></i>新增
+    		</button>
+    		<button type="button" class="btn btn-default" id="btn_update">
+    			<i class="glyphicon glyphicon-pencil"></i>修改
+    		</button>    		
+    		<button type="button" class="btn btn-default" id="btn_delete">
+    			<i class="glyphicon glyphicon-remove"></i>删除
+    		</button>
+    		<button type="button" class="btn btn-default" id="btn_export">
+    			<i class="glyphicon glyphicon-export"></i>导出
+    		</button>
+    	</div>
+    	
+    	<div class="input-group" style="width: 260px; float: right" id="block_search">
+    	    <input type="text" id="txt_search" name="condition" class="form-control col-sm-2" placeholder="查询条件">
+    	    <span class="input-group-addon" id="span_search">
+    	        <i class="glyphicon glyphicon-search"></i>
+    	    </span>
+    	    <span class="input-group-addon" id="span_search_more" data-toggle="modal" data-target="#myModal">
+    	        <i class="glyphicon glyphicon-chevron-down"></i>
+    	    </span>
+    	</div>
     </div>
+    
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+	    <div class="modal-dialog" role="document">  
+	        <div class="modal-content">  
+	            <div class="modal-header">  
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+	                    <span aria-hidden="true">×</span>  
+	                </button>  
+	                <h4 class="modal-title" id="myModalLabel">查询条件</h4>  
+	            </div>  
+	            <div class="modal-body">  
+	                <form id="formSearch" class="form-horizontal">
+	                    <div class="form-group" style="margin-top:15px">
+	                        <label class="control-label col-sm-2" for="txt_search_orderNo">订单编号</label>
+	                        <div class="col-sm-8">
+	                            <input type="text" class="form-control" id="txt_search_orderNo" name="identify">
+	                        </div>	                                                
+	                    </div>
+	                    <div class="form-group" style="margin-top:15px">
+ 							<label class="control-label col-sm-2" for="txt_search_cust">客户名称</label>
+	                        <div class="col-sm-8">
+	                            <input type="text" class="form-control" id="txt_search_cust" name="custName">
+	                        </div>
+	                    </div>   
+	                    <div class="form-group" style="margin-top:15px">
+	                    	<label class="control-label col-sm-2" for="txt_search_startDate">开始日期</label>
+	                        <div class="col-sm-8">
+	                            <input type="text" class="form-control selectData" id="txt_search_startDate" name="startDate">
+	                        </div>
+	                    </div>
+	                    <div class="form-group" style="margin-top:15px">
+	                    	<label class="control-label col-sm-2" for="txt_search_endDate">结束日期</label>
+	                        <div class="col-sm-8">
+	                            <input type="text" class="form-control selectData" id="txt_search_endDate" name="endDate">
+	                        </div> 
+	                    </div>
+	                </form>  
+	            </div>  
+	            <div class="modal-footer">  
+	                
+	                <button type="button" class="btn btn-primary">查询</button>  
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+	            </div>  
+	        </div>  
+	    </div>  
+	</div>  
     
     
     
@@ -84,7 +104,9 @@
     <script src="<%=basePath %>vendors/bootstrap-table/tableExport.min.js"></script>
     <script src="<%=basePath %>vendors/datepicker/bootstrap-datepicker.js"></script>
     <script src="<%=basePath %>assets/js/ins_datepicker.js"></script>
+    <script src="<%=basePath %>assets/js/importModal.js"></script>
     <script src="<%=basePath %>assets/js/iframeAdjuster.js"></script>
-    <script src="<%=basePath %>assets/js/orderIndex.js"></script>
+    <script src="<%=basePath %>assets/js/table_operation.js"></script>
+    <script src="<%=basePath %>assets/js/finance/order_index.js"></script>
 </body>
 </html>

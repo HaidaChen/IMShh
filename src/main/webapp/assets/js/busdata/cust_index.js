@@ -3,20 +3,8 @@ $(function(){
 	oTable.Init();
 	oTable.afterLoad();
 	
-	var opt = {
-		queryElement: $("#span_search"),
-		queryUrl: "loadcust.do",
-		importElement: $("#btn_import"),
-		importUrl: "ajaxUpload.do",
-		addElement: $("#btn_add"),
-		addUrl: "cust/edit.do",
-		updateElement: $("#btn_update"),
-		updateUrl: "cust/edit.do?id=",
-		deleteElement: $("#btn_delete"),
-		deleteUrl: "delete.do?id=",
-		exportElement: $("#btn_export"),
-		exportUrl: ""
-	}
+	
+	var opt = operationParam();
 	var oOperation = new DataOperation();
 	oOperation.init($("#tb_cust"), opt);
 })
@@ -73,11 +61,22 @@ var TableInit = function(){
 	return oTableInit;
 }
 
-var ButtonInit = function(){
-	var oButtonInt = new Object();
-	
-	
-	
-	return oButtonInt;
+function operationParam(){
+	var opt = {
+			queryElement: $("#span_search"),
+			queryUrl: "loadcust.do",
+			importElement: $("#btn_import"),
+			importUrl: "ajaxUpload.do",
+			addElement: $("#btn_add"),
+			addUrl: "cust/edit.do",
+			updateElement: $("#btn_update"),
+			updateUrl: "cust/edit.do?id=",
+			deleteElement: $("#btn_delete"),
+			deleteUrl: "delete.do?id=",
+			exportElement: $("#btn_export"),
+			exportUrl: "downloadExcel.do",
+			exportParams: {condition: $("#txt_search").val()}
+		}
+	return opt;
 }
 

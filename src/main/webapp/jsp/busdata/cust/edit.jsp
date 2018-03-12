@@ -18,7 +18,6 @@
         <form id="custform" class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
             <input type="hidden" name="id" value="${cust.id }">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" style="color: black">客户信息</h4>
             </div>
             
@@ -80,6 +79,6 @@
     <script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script src="<%=basePath %>assets/js/customer.js"></script>
+    <script src="<%=basePath %>assets/js/busdata/cust_edit.js"></script>
 </body>
 </html>

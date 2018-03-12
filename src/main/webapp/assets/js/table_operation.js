@@ -64,10 +64,16 @@ var DataOperation = function(){
 		});
 		
 		option.exportElement.click(function(){
+			var url = option.exportUrl;
+			var params = "";
+			$.each(option.exportParams, function(key, val){
+				params += key + "=" + val + "&";
+			});
 			
-		});
-		
-		
+			if(params != "")
+				url += "?" + params;
+			window.open(url);
+		});		
 	}
 	
 	return operation;

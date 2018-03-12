@@ -62,7 +62,6 @@ jQuery.extend({
 							$.each(menu.submenu, function(idx2, submenu){
 								var subitem = '';
 								if (idx1 == 0 && idx2 == 0){
-									//listitem.removeClass("active");
 									subitem = $('<li class="active"><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
 								}else{
 									subitem = $('<li><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
@@ -74,6 +73,7 @@ jQuery.extend({
 					});					
 				}
 			});
+			initContent();
 			var accordion = new Accordion($('#sidebar'), false);
 		});
 	}
@@ -91,10 +91,21 @@ $(function(){
 		menus.not($this).removeClass('active');		
 		
 		$.loadSidemenu($tip);
-		$('#contentFrame').attr('src', '');
+		
 		//var accordion = new Accordion($('#accordion'), false);
 	});	
 	
 	$.loadSidemenu('finance');		
 	
 });
+
+function initContent(){
+	$('#contentFrame').attr('src', '');
+	
+	var level = $("#sidebar").children("ul").attr("class");
+	if (level == "level1"){
+		$('#contentFrame').attr('src', $("#sidebar").children("ul").children("li").children("a").attr("href"));
+	} else if (level == "level2"){
+		$('#contentFrame').attr('src', $("#sidebar").children("ul").children("li").children("ul").children("li").children("a").attr("href"));
+	}
+}
