@@ -6,7 +6,7 @@
                         "url": "order/main.do",
                     "submenu": null}, 
                       {"name": "采购单", 
-                        "url": "",
+                        "url": "purchase/main.do",
                     "submenu": null}, 
                       {"name": "发货单", 
                         "url": "",

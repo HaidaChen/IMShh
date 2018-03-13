@@ -66,15 +66,36 @@ CREATE TABLE T_ORDER(
 CREATE TABLE T_ORDERDETAIL(
     id varchar(20) not null,
     orderId varchar(20) not null,
+    pdtNo varchar(20) not null unique,
     pdtNo varchar(20) not null,
     pdtID varchar(20),
-    pdtName varchar(20),    
+    pdtName varchar(20),   
+    content varchar(20), 
     quantity int,
     priceRMB numeric(10,2),
     priceDollar numeric(10,2),
     totlemnt numeric(10,2),
-    progress int,
-    content varchar(20),
+    progress int,    
+    
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
+
+CREATE TABLE T_PURCHASE(
+    id varchar(20) not null,
+    purchaseDate date,
+    materialId varchar(20),
+    materialName varchar(20) not null,
+    supplierId varchar(20),
+    supplierName varchar(20),    
+    specification varchar(20),
+    unit varchar(20),
+    quantity int,
+    unitPrice numeric(10,2),
+    totlemnt numeric(10,2),
+    paid numeric(10,2),
+    balance numeric(10,2),    
     
     modifyDate datetime,
     remark varchar(1024),

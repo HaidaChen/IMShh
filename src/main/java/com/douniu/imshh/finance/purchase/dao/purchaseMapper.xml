@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.douniu.imshh.finance.purchase.dao.IPurchaseDao">
+    <resultMap type="Purchase" id="pchmap">
+        <result property="id" column="id"/>
+        <result property="purchaseDate" column="purchaseDate"/>
+        <result property="materialId" column="materialId"/>
+        <result property="materialName" column="materialName"/>
+        <result property="supplierId" column="supplierId"/>
+        <result property="supplierName" column="supplierName"/>
+        <result property="specification" column="specification"/>
+        <result property="unit" column="unit"/>
+        <result property="quantity" column="quantity"/>
+        <result property="unitPrice" column="unitPrice"/>
+        <result property="totlemnt" column="totlemnt"/>
+        <result property="paid" column="paid"/>
+        <result property="balance" column="balance"/>
+        <result property="remark" column="remark"/>
+        <result property="createDate" column="createDate"/>
+        <result property="status" column="status"/>
+    </resultMap>
+    
+    <select id="findById" parameterType="String" resultMap="pchmap">
+        select * from t_purchase where id = #{id}
+    </select>
+    
+    <select id="query" parameterType="Purchase" resultMap="pchmap">
+        select * from t_purchase where status = 1
+        <if test="supplierName != null and supplierName !=''">
+          and supplierName like #{supplierName}           
+        </if>       
+        <if test="materialName != null and materialName !=''">
+          and materialName like #{materialName}           
+        </if> 
+        <if test="startDate != null">
+          and purchaseDate &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+          and purchaseDate &lt;= #{endDate}
+        </if>
+          order by modifydate desc
+          limit #{pageOffset},#{pageSize}
+    </select> 
+    <select id="queryNoPage" parameterType="Purchase" resultMap="pchmap">
+        select * from t_purchase where status = 1
+        <if test="supplierName != null and supplierName !=''">
+          and supplierName like #{supplierName}           
+        </if>       
+        <if test="materialName != null and materialName !=''">
+          and materialName like #{materialName}           
+        </if> 
+        <if test="startDate != null">
+          and purchaseDate &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+          and purchaseDate &lt;= #{endDate}
+        </if>
+          order by modifydate desc
+    </select>
+    <select id="count" parameterType="Purchase" resultType="int">
+        select count(1) from t_purchase where status = 1
+        <if test="supplierName != null and supplierName !=''">
+          and supplierName like #{supplierName}           
+        </if>       
+        <if test="materialName != null and materialName !=''">
+          and materialName like #{materialName}           
+        </if> 
+        <if test="startDate != null">
+          and purchaseDate &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+          and purchaseDate &lt;= #{endDate}
+        </if> 
+    </select>   
+    <insert id="insert" parameterType="Purchase">
+        insert into t_purchase(id, purchaseDate, materialId, materialName, supplierId, supplierName, specification, unit, quantity, unitPrice, totlemnt, paid, balance, modifydate, remark, status) 
+          values(#{id}, #{purchaseDate}, #{materialId}, #{materialName}, #{supplierId}, #{supplierName}, #{specification}, #{unit}, #{quantity}, #{unitPrice}, #{totlemnt}, #{paid}, #{balance}, sysdate(), #{remark}, #{status})
+    </insert>
+    
+    <insert id="batchInsert" parameterType="java.util.List">
+        
+        insert into t_purchase(id, purchaseDate, materialId, materialName, supplierId, supplierName, specification, unit, quantity, unitPrice, totlemnt, paid, balance, modifydate, remark, status) 
+             values
+             <foreach collection="list" item="pch" index="index" separator=",">
+                 (CONCAT(current_timestamp()+1, #{index}), #{pch.purchaseDate}, #{pch.materialId}, #{pch.materialName}, #{pch.supplierId}, #{pch.supplierName}, #{pch.specification}, #{pch.unit}, #{pch.quantity}, #{pch.unitPrice}, #{pch.totlemnt}, #{pch.paid}, #{pch.balance}, sysdate(), #{pch.remark}, '1')
+             </foreach>
+    </insert>
+    
+    <update id="update" parameterType="Purchase">
+        update t_purchase set 
+          purchaseDate = #{purchaseDate},          
+          materialName = #{materialName},
+          supplierName = #{supplierName},
+          specification = #{specification},
+          unit = #{unit},
+          quantity = #{quantity},
+          unitPrice = #{unitPrice},
+          paid = #{paid},
+          
+          remark = #{remark},
+          modifydate = sysdate()
+    where id = #{id}
+    </update>
+    <update id="deleteById" parameterType="String">
+        update t_purchase set 
+          status = '0',
+          modifydate = sysdate()
+        where id = #{id}
+    </update>
+    
+</mapper>

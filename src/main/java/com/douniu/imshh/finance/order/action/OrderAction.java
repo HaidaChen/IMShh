@@ -29,6 +29,7 @@ import com.douniu.imshh.finance.order.domain.OrderAndDetail;
 import com.douniu.imshh.finance.order.domain.OrderDetail;
 import com.douniu.imshh.finance.order.service.IOrderDetailService;
 import com.douniu.imshh.finance.order.service.IOrderService;
+import com.douniu.imshh.utils.DateUtil;
 import com.douniu.imshh.utils.ExcelBean;
 import com.douniu.imshh.utils.ExcelUtil;
 import com.douniu.imshh.utils.POIExcelAdapter;
@@ -166,10 +167,18 @@ public class OrderAction {
   
         Workbook workbook=null;  
         try {
-        	String condition = request.getParameter("condition");
-        	Order Order = new Order();
-        	Order.setCondition(condition);
-            List<OrderAndDetail> Orders = service.queryNoPage(Order);
+        	String identify = request.getParameter("identify");
+        	String custName = request.getParameter("custName");
+        	Date startDate = DateUtil.string2Date(request.getParameter("startDate"));
+        	Date endDate = DateUtil.string2Date(request.getParameter("endDate"));
+        	
+        	Order order = new Order();
+        	order.setIdentify(identify);
+        	order.setCustName(custName);
+        	order.setStartDate(startDate);
+        	order.setEndDate(endDate);
+        	
+            List<OrderAndDetail> Orders = service.queryNoPage(order);
         	workbook = POIExcelAdapter.toWorkBook(Orders, mapper, OrderAndDetail.class); 
         } catch (Exception e) {  
             e.printStackTrace();  

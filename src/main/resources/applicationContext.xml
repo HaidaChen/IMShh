@@ -55,11 +55,21 @@ xsi:schemaLocation="
           <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
       
+      
       <bean name="orderDetailService" class="com.douniu.imshh.finance.order.service.impl.OrderDetailService">
           <property name="dao" ref="orderDetailDao"></property>
       </bean>
       <bean id="orderDetailDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
           <property name="mapperInterface" value="com.douniu.imshh.finance.order.dao.IOrderDetailDao"/>
+          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      
+      
+      <bean name="purchaseService" class="com.douniu.imshh.finance.purchase.service.impl.PurchaseService">
+          <property name="dao" ref="purchaseDao"></property>
+      </bean>
+      <bean id="purchaseDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+          <property name="mapperInterface" value="com.douniu.imshh.finance.purchase.dao.IPurchaseDao"/>
           <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
       <!-- 公共部分 -->

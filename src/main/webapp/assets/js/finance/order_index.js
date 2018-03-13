@@ -142,10 +142,10 @@ function operationParam(){
 			deleteUrl: "delete.do?id=",
 			exportElement: $("#btn_export"),
 			exportUrl: "downloadExcel.do",
-			exportParams: {identify: $("#txt_search_orderNo").val(), 
-				custName: $("#txt_search_cust").val(), 
-				startDate: $("#txt_search_startDate").val(),
-				endDate: $("#txt_search_endDate").val()}
+			exportParams: {identify: $("#txt_search_orderNo"), 
+				custName: $("#txt_search_cust"), 
+				startDate: $("#txt_search_startDate"),
+				endDate: $("#txt_search_endDate")}
 			}
 	return opt;
 }
