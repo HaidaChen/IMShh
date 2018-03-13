@@ -67,13 +67,21 @@ var DataOperation = function(){
 			var url = option.exportUrl;
 			var params = "";
 			$.each(option.exportParams, function(key, val){
-				params += key + "=" + val + "&";
+				params += key + "=" + val.val() + "&";
 			});
 			
 			if(params != "")
 				url += "?" + params;
+			
 			window.open(url);
 		});		
+		
+		if (option.gradeQueryElement){
+			option.gradeQueryElement.click(function(){
+				$("#grandQueryModal").modal('hide');
+				table.bootstrapTable('refresh', {data: option.queryUrl, cache: false});
+			});
+		}
 	}
 	
 	return operation;

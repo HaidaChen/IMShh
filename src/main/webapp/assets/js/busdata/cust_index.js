@@ -75,7 +75,7 @@ function operationParam(){
 			deleteUrl: "delete.do?id=",
 			exportElement: $("#btn_export"),
 			exportUrl: "downloadExcel.do",
-			exportParams: {condition: $("#txt_search").val()}
+			exportParams: {condition: $("#txt_search")}
 		}
 	return opt;
 }

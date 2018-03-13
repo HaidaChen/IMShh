@@ -77,12 +77,14 @@ public class SupplierAction {
 	public String loadSupplier(Supplier supp){
 		List<Supplier> res = service.query(supp);
 		int count = service.count(supp);
+		
 		PageResult pr = new PageResult();
-		pr.setResult(res);
-		pr.setResultCount(count);
+		
+		pr.setTotal(count);
+		pr.setRows(res);
+		
 		Gson gson = new Gson();
-        String resJson = gson.toJson(pr);
-		return resJson;
+        return gson.toJson(pr);
 	}
 	
 	@RequestMapping("/delete")

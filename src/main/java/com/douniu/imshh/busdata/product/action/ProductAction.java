@@ -78,9 +78,11 @@ public class ProductAction {
 	public String loadProduct(Product pdt){
 		List<Product> res = service.query(pdt);
 		int count = service.count(pdt);
+
 		PageResult pr = new PageResult();
-		pr.setResult(res);
-		pr.setResultCount(count);
+		pr.setTotal(count);
+		pr.setRows(res);
+				
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String resJson = gson.toJson(pr);
 		return resJson;

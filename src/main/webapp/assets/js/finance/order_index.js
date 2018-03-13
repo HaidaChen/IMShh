@@ -3,33 +3,16 @@
  */
 $(function () {
 
-    //1.初始化Table
     var oTable = new TableInit();
     oTable.Init();
     oTable.afterLoad();
-
-    //2.初始化Button的点击事件
-    //var oButtonInit = new ButtonInit();
-    //oButtonInit.Init();
-
+   
     var opt = operationParam();
 	var oOperation = new DataOperation();
-	oOperation.init($("#tb_orders"), opt);	
-	/*var showCondition = true;
-	$("#btn_collapse").click(function(){
-		if (showCondition){
-			$(this).rotate({angle: 0, animateTo: 180});
-			$("#panel_condition").hide();
-		}else{
-			$(this).rotate({angle: 180, animateTo: 0});
-			$("#panel_condition").show();
-		}	
-		showCondition = !showCondition;
-	});	
+	oOperation.init($("#tb_orders"), opt);		
 	
-	$("#btn_query").click(function(){
-		$('#tb_orders').bootstrapTable('refresh', {url: 'loadOrder.do'});
-	});*/
+	$("#txt_search").change(function(){$("#txt_search_orderNo").val($("#txt_search").val())});
+	$("#txt_search_orderNo").change(function(){$("#txt_search").val($("#txt_search_orderNo").val())});
 });
 
 
@@ -147,6 +130,8 @@ function operationParam(){
 	var opt = {
 			queryElement: $("#span_search"),
 			queryUrl: "loadOrder.do",
+			gradeQueryElement:$("#btn_grade_query"),
+			gradeQueryUrl:"loadOrder.do",
 			importElement: $("#btn_import"),
 			importUrl: "ajaxUpload.do",
 			addElement: $("#btn_add"),
@@ -165,60 +150,3 @@ function operationParam(){
 	return opt;
 }
 
-
-/*var ButtonInit = function () {
-    var oInit = new Object();
-    var postdata = {};
-
-    oInit.Init = function () {
-        $("#btn_import").click(function(){
-        	createImportModal("ajaxUpload.do");});
-        
-        $("#btn_add").click(function(){
-        	$(window.parent.document).find("#contentFrame").attr("src", "order/enterEdit.do");
-        });
-        
-        $("#btn_edit").click(function(){
-        	var selections = $('#tb_orders').bootstrapTable('getSelections');
-        	if (selections.length == 0){
-        		alert("请选择需要修改的订单");
-        		return;
-        	}
-        	if (selections.length > 1){
-        		alert("一次只能够删除一条记录");
-        		return;
-        	}
-        	orderId = selections[0].id;
-        	$(window.parent.document).find("#contentFrame").attr("src", "order/enterEdit.do?id=" + orderId);
-        });
-        
-        $("#btn_delete").click(function(){
-        	var selections = $('#tb_orders').bootstrapTable('getSelections');
-        	if (selections.length == 0){
-        		alert("请选择需要修改的订单");
-        		return;
-        	}
-        	if (selections.length > 1){
-        		alert("一次只能够删除一条记录");
-        		return;
-        	}
-        	
-        	if (confirm('确定删除该记录吗?')){        		
-        		$.ajax({
-        			type: 'POST',
-        			url: 'delete.do',
-        			data: {'id': selections[0].id},
-        			success: function(result){
-        				$("#tb_orders").bootstrapTable('refresh', {data: 'loadOrder.do', cache: false});
-        			}
-        		});
-        	}
-        });
-        
-        $("#btn_export").click(function(){
-        	$('#tb_orders').tableExport({ type: 'excel', escape: 'false', exportDataType: 'all'});
-        });
-    };
-
-    return oInit;
-};*/

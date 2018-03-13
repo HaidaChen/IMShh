@@ -40,13 +40,13 @@
     	    <span class="input-group-addon" id="span_search">
     	        <i class="glyphicon glyphicon-search"></i>
     	    </span>
-    	    <span class="input-group-addon" id="span_search_more" data-toggle="modal" data-target="#myModal">
+    	    <span class="input-group-addon" id="span_search_more" data-toggle="modal" data-target="#grandQueryModal">
     	        <i class="glyphicon glyphicon-chevron-down"></i>
     	    </span>
     	</div>
     </div>
     
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+    <div class="modal fade" id="grandQueryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
 	    <div class="modal-dialog" role="document">  
 	        <div class="modal-content">  
 	            <div class="modal-header">  
@@ -85,7 +85,7 @@
 	            </div>  
 	            <div class="modal-footer">  
 	                
-	                <button type="button" class="btn btn-primary">查询</button>  
+	                <button id="btn_grade_query" type="button" class="btn btn-primary">查询</button>  
 	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
 	            </div>  
 	        </div>  

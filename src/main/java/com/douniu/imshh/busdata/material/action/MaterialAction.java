@@ -77,11 +77,12 @@ public class MaterialAction {
 		List<Material> res = service.query(mtl);
 		int count = service.count(mtl);
 		PageResult pr = new PageResult();
-		pr.setResult(res);
-		pr.setResultCount(count);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-        String resJson = gson.toJson(pr);
-		return resJson;
+		
+		pr.setTotal(count);
+		pr.setRows(res);
+		
+		Gson gson = new Gson();
+        return gson.toJson(pr);
 	}
 	
 	@RequestMapping("/delete")
