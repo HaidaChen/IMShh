@@ -17,6 +17,31 @@ public class OrderAndDetail {
 	private float totlemnt;
 	private float progress;
 	private String detailRemark;
+	
+	public OrderAndDetail(){super();}	
+	
+	public OrderAndDetail(String identify, String custName, Date orderDate, float amount, String remark, String pdtNo,
+			String pdtName, String content, int quantity, float priceRMB, float priceDollar, float totlemnt,
+			float progress, String detailRemark) {
+		super();
+		this.identify = identify;
+		this.custName = custName;
+		this.orderDate = orderDate;
+		this.amount = amount;
+		this.remark = remark;
+		this.pdtNo = pdtNo;
+		this.pdtName = pdtName;
+		this.content = content;
+		this.quantity = quantity;
+		this.priceRMB = priceRMB;
+		this.priceDollar = priceDollar;
+		this.totlemnt = totlemnt;
+		this.progress = progress;
+		this.detailRemark = detailRemark;
+	}
+
+
+
 	public String getIdentify() {
 		return identify;
 	}

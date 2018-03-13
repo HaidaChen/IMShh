@@ -11,7 +11,6 @@
 	<link href="<%=basePath %>/thirds/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%=basePath %>/vendors/bootstrap-table/bootstrap-table.css" rel="stylesheet">
     <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
-    <link href="<%=basePath %>/assets/css/mytable.css" rel="stylesheet">
 </head>
 <body>
     <div class="well title">订单列表</div>
@@ -96,12 +95,11 @@
     
     
 	<script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
-    <script src="<%=basePath %>thirds/jquery/jquery.rotate.js"></script>
+    <script src="<%=basePath %>thirds/jquery/jquery.form.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>vendors/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath %>vendors/bootstrap-table/local/bootstrap-table-zh-CN.js"></script>
-    <script src="<%=basePath %>vendors/bootstrap-table/tableExport.js"></script>
-    <script src="<%=basePath %>vendors/bootstrap-table/tableExport.min.js"></script>
+
     <script src="<%=basePath %>vendors/datepicker/bootstrap-datepicker.js"></script>
     <script src="<%=basePath %>assets/js/ins_datepicker.js"></script>
     <script src="<%=basePath %>assets/js/importModal.js"></script>

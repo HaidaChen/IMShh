@@ -121,4 +121,5 @@ function initOrderDetail(){
 			loadDetail();
 		}});
 	}
+	loadDetail();
 }

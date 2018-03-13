@@ -66,7 +66,7 @@
               <button id="btn_save" type="button" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-check"></span>保存
               </button> 
-              <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+              <button id="btn_close" type="button" class="btn btn-default btn-sm" onclick="history.go(-1)">
                 <span class="glyphicon glyphicon-share"></span>关闭
               </button>
             </div>
@@ -80,6 +80,6 @@
     <script src="<%=basePath %>vendors/bootstrap-table/local/bootstrap-table-zh-CN.js"></script>
     <script src="<%=basePath %>vendors/datepicker/bootstrap-datepicker.js"></script>
     <script src="<%=basePath %>assets/js/ins_datepicker.js"></script>
-    <script src="<%=basePath %>assets/js/order_edit.js"></script>    
+    <script src="<%=basePath %>assets/js/finance/order_edit.js"></script>    
 </body>
 </html>

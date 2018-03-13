@@ -25,7 +25,7 @@
         <result property="status" column="status"/>
         
         <collection property="details" ofType="OrderDetail">
-            <id property="id" column="id"/>
+            <id property="id" column="detailid"/>
 	        <result property="orderId" column="orderId"/>
 	        <result property="pdtNo" column="pdtNo"/>
 	        <result property="pdtId" column="pdtId"/>
@@ -35,7 +35,7 @@
 	        <result property="priceDollar" column="priceDollar"/>
 	        <result property="totlemnt" column="totlemnt"/>
 	        <result property="progress" column="progress"/>
-	        <result property="remark" column="remark"/>
+	        <result property="remark" column="detailremark"/>
 	        <result property="status" column="status"/>
         </collection>
     </resultMap>
@@ -61,8 +61,9 @@
           order by modifydate desc
           limit #{pageOffset},#{pageSize}
     </select> 
-    <!-- <select id="queryNoPage" parameterType="Order" resultMap="orderdtlmap">
-        select order.*, detail.* from t_Order order, t_orderdetail detail where status = 1
+    <select id="queryNoPage" parameterType="Order" resultMap="orderdtlmap">
+        <!-- select t_order.id, identify, custName, orderDate, amount, t_Order.remark, orderId, t_orderdetail.id as detailid, pdtno,content,pdtName, quantity,priceRMB,priceDollar,totlemnt,t_orderdetail.remark as detailremark  from t_Order, t_orderdetail where t_Order.id = t_orderdetail.orderid and t_Order.status = 1 -->
+        select * from t_order left join t_orderdetail on t_order.id = t_orderdetail.orderid where t_Order.status = 1
         <if test="identify != null and identify !=''">
           and identify like #{identify}
         </if>        
@@ -75,8 +76,8 @@
         <if test="endDate != null">
           and orderDate &lt;= #{endDate}
         </if>
-          order by modifydate desc
-    </select> -->
+          order by t_order.modifydate desc
+    </select>
     <select id="count" parameterType="Order" resultType="int">
         select count(1) from t_Order where status = 1
         <if test="identify != null and identify !=''">

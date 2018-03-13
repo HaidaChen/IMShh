@@ -35,7 +35,7 @@ public class ExcelUtil {
 	private final static String excel2003L =".xls";    //2003excel    
     private final static String excel2007U =".xlsx";   //2007excel    
     
-    public static List<List<Object>> parseExcel(InputStream fis, String fileName) throws Exception {  
+    public static List<List<Object>> parseExcel(InputStream fis, String fileName, int merge) throws Exception {  
     	List<List<Object>> data = new ArrayList<List<Object>>();
         try {  
         	Workbook  book = getWorkbook(fis, fileName);
@@ -55,8 +55,10 @@ public class ExcelUtil {
                 List<Object> rowData = new ArrayList<Object>();
                 
                 Row row = sheet.getRow(i);      
-                if (getCellValue(row.getCell(0)).toString().equals(""))
+                if (getCellValue(row.getCell(merge)).toString().equals("")){
                 	continue;
+                }
+                	
                 for(int j=firstCell; j<lastCell; j++) {                  	
                     Cell cell = row.getCell(j);
                     Object cellData = getCellValue(cell);
@@ -70,6 +72,9 @@ public class ExcelUtil {
         return data;  
     }  
     
+    public static List<List<Object>> parseExcel(InputStream fis, String fileName) throws Exception {  
+    	return parseExcel(fis, fileName, 0);
+    }
         
     public static  Workbook getWorkbook(InputStream inStr,String fileName) throws Exception{    
         Workbook wb = null;    

@@ -22,12 +22,12 @@ public class OrderService implements IOrderService{
 		return dao.query(condition);
 	}
 
-	/*@Override
+	@Override
 	public List<OrderAndDetail> queryNoPage(Order order) {
 		Order condition = LikeFlagUtil.appendLikeFlag(order, new String[]{"identify", "custName"});
 		List<Order> result = dao.queryNoPage(condition);
-		return null;
-	}*/
+		return tileOrder(result);
+	}
 
 	@Override
 	public int count(Order order) {
@@ -95,6 +95,20 @@ public class OrderService implements IOrderService{
 		
 		dao.batchInsert(orders);
 		detailService.batchAdd(details);
+	}
+	
+	private List<OrderAndDetail> tileOrder(List<Order> orderList){
+		List<OrderAndDetail> orderAndDetails = new ArrayList<OrderAndDetail>();
+		for (Order order : orderList){
+			for (OrderDetail detail : order.getDetails()){
+				OrderAndDetail orderAndDetail = new OrderAndDetail(order.getIdentify(), order.getCustName(), 
+						order.getOrderDate(), order.getAmount(), order.getRemark(), detail.getPdtNo(),
+						detail.getPdtName(), detail.getContent(), detail.getQuantity(), detail.getPriceRMB(), 
+						detail.getPriceDollar(), detail.getTotlemnt(), detail.getProgress(), detail.getRemark());
+				orderAndDetails.add(orderAndDetail);
+			} 
+		}
+		return orderAndDetails;
 	}
 
 	public void setDao(IOrderDao dao) {
