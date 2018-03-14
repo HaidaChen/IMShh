@@ -12,7 +12,7 @@
                         "url": "",
                     "submenu": null}, 
                       {"name": "开票", 
-                        "url": "",
+                        "url": "invoice/main.do",
                     "submenu": null}]},
              {"name": "账务管理",
                "url": "",

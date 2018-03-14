@@ -9,6 +9,7 @@
         <typeAlias alias="Order" type="com.douniu.imshh.finance.order.domain.Order"/>
         <typeAlias alias="OrderDetail" type="com.douniu.imshh.finance.order.domain.OrderDetail"/>
         <typeAlias alias="Purchase" type="com.douniu.imshh.finance.purchase.domain.Purchase"/>
+        <typeAlias alias="Invoice" type="com.douniu.imshh.finance.invoice.domain.Invoice"/>
     </typeAliases>
     
      
@@ -20,6 +21,7 @@
         <mapper resource="/com/douniu/imshh/finance/order/dao/orderMapper.xml"/>
         <mapper resource="/com/douniu/imshh/finance/order/dao/orderDetailMapper.xml"/>
         <mapper resource="/com/douniu/imshh/finance/purchase/dao/purchaseMapper.xml"/>
+        <mapper resource="/com/douniu/imshh/finance/invoice/dao/invoiceMapper.xml"/>
     </mappers>
     
 </configuration>

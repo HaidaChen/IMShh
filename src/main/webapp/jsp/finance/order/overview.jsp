@@ -36,7 +36,7 @@
     	</div>
     	
     	<div class="input-group" style="width: 260px; float: right" id="block_search">
-    	    <input type="text" id="txt_search" name="condition" class="form-control col-sm-2" placeholder="查询条件">
+    	    <input type="text" id="txt_search" name="condition" class="form-control col-sm-2" placeholder="订单编号">
     	    <span class="input-group-addon" id="span_search">
     	        <i class="glyphicon glyphicon-search"></i>
     	    </span>

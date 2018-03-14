@@ -13,8 +13,8 @@
     <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="well title">采购单列表</div>
-    <table id="tb_purchase" data-toolbar="#toolbar"></table>
+    <div class="well title">开票列表</div>
+    <table id="tb_invoice" data-toolbar="#toolbar"></table>
     
     <div id="toolbar">
     	<div class="btn-group" role="group">
@@ -36,7 +36,7 @@
     	</div>
     	
     	<div class="input-group" style="width: 260px; float: right" id="block_search">
-    	    <input type="text" id="txt_search" name="condition" class="form-control col-sm-2" placeholder="物料名称">
+    	    <input type="text" id="txt_search" name="condition" class="form-control col-sm-2" placeholder="客户名称">
     	    <span class="input-group-addon" id="span_search">
     	        <i class="glyphicon glyphicon-search"></i>
     	    </span>
@@ -58,17 +58,12 @@
 	            <div class="modal-body">  
 	                <form id="formSearch" class="form-horizontal">
 	                    <div class="form-group" style="margin-top:15px">
-	                        <label class="control-label col-sm-3" for="txt_search_materialName">物料名称</label>
+	                        <label class="control-label col-sm-3" for="txt_search_customerName">客户名称</label>
 	                        <div class="col-sm-8">
-	                            <input type="text" class="form-control" id="txt_search_materialName" name="materialName">
+	                            <input type="text" class="form-control" id="txt_search_customerName" name="customerName">
 	                        </div>	                                                
 	                    </div>
-	                    <div class="form-group" style="margin-top:15px">
- 							<label class="control-label col-sm-3" for="txt_search_supplierName">供应商名称</label>
-	                        <div class="col-sm-8">
-	                            <input type="text" class="form-control" id="txt_search_supplierName" name="supplierName">
-	                        </div>
-	                    </div>   
+	                      
 	                    <div class="form-group" style="margin-top:15px">
 	                    	<label class="control-label col-sm-3" for="txt_search_startDate">开始日期</label>
 	                        <div class="col-sm-8">
@@ -105,6 +100,6 @@
     <script src="<%=basePath %>assets/js/importModal.js"></script>
     <script src="<%=basePath %>assets/js/iframeAdjuster.js"></script>
     <script src="<%=basePath %>assets/js/table_operation.js"></script>
-    <script src="<%=basePath %>assets/js/finance/purchase_index.js"></script>
+    <script src="<%=basePath %>assets/js/finance/invoice_index.js"></script>
 </body>
 </html>

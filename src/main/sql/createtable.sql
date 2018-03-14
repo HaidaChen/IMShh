@@ -84,7 +84,7 @@ CREATE TABLE T_ORDERDETAIL(
 
 CREATE TABLE T_PURCHASE(
     id varchar(20) not null,
-    purchaseDate date,
+    purchaseDate date not null,
     materialId varchar(20),
     materialName varchar(20) not null,
     supplierId varchar(20),
@@ -96,6 +96,24 @@ CREATE TABLE T_PURCHASE(
     totlemnt numeric(10,2),
     paid numeric(10,2),
     balance numeric(10,2),    
+    
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
+
+CREATE TABLE T_INVOICE(
+    id varchar(20) not null,
+    invoiceDate date not null,
+    customerId varchar(20),
+    customerName varchar(20) not null,
+    amountWithTax  numeric(10,2),
+    valueAddTax  numeric(10,2),
+    exciseTax  numeric(10,2),
+    constructionTax  numeric(10,2),
+    educationFee  numeric(10,2),
+    totalTax  numeric(10,2),
+    drawback  numeric(10,2),
     
     modifyDate datetime,
     remark varchar(1024),

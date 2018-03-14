@@ -93,7 +93,7 @@
               <button id="btn_save" type="submit" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-check"></span>保存
               </button> 
-              <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+              <button type="button" class="btn btn-default btn-sm" onclick="history.go(-1)">
                 <span class="glyphicon glyphicon-share"></span>关闭
               </button>
             </div>

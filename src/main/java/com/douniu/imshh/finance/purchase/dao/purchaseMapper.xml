@@ -17,7 +17,6 @@
         <result property="paid" column="paid"/>
         <result property="balance" column="balance"/>
         <result property="remark" column="remark"/>
-        <result property="createDate" column="createDate"/>
         <result property="status" column="status"/>
     </resultMap>
     
