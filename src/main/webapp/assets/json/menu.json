@@ -18,7 +18,7 @@
                "url": "",
               "icon": "glyphicon glyphicon-usd",
            "submenu":[{"name": "应收", 
-                        "url": "",
+                        "url": "http://localhost:8080/IMShh/jsp/finance/teller/overview.html",
                     "submenu": null},
                       {"name": "应付", 
                         "url": "",
