@@ -2,8 +2,8 @@
  * 
  */
 $(function(){
-	switchFilterCycle();
-	loadIncomeData();
+	//switchFilterCycle();
+	//loadIncomeData();
 });
 
 var switchFilterCycle = function(){
@@ -30,7 +30,7 @@ var loadIncomeData = function(){
 	}
 	
 	var options = {
-			cutoutPercentage: 90,
+			cutoutPercentage: 60,
 			tooltips: {
 	            mode: 'index'
 	        },
