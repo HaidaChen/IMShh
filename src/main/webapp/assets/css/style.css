@@ -153,3 +153,32 @@ body{
 .lager {
   font-size: 20px;
 }
+
+.model-select-box { 
+  width: 197px; 
+  height: 27px; 
+  line-height: 27px; 
+  border: 1px solid #aaa; 
+  float: left; 
+  margin-right: 20px; 
+  text-indent: 5px; 
+  position: relative; 
+}
+
+.model-select-option { 
+  display: none; 
+  position: absolute; 
+  background: #fff; 
+  width: 100%; 
+  left: -1px; 
+  border: 1px solid #aaa; 
+}
+
+.model-select-option li { 
+  height: 22px; 
+  line-height: 22px; 
+  color: #555; 
+  cursor: pointer; 
+}
+
+.model-select-option li.seleced { background: #06C; color: #fff; }
