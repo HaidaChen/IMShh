@@ -111,14 +111,14 @@ var selectModel = function(){
      * 并隐藏页面中其他下拉列表
      */
     $txt.click(function(e) {
-            $option.not($(this).siblings('ul.model-select-option')).slideUp(speed, function(){
-                int($(this));
-            });
-            $(this).siblings('ul.model-select-option').slideToggle(speed, function(){
-                int($(this));
-            });
-            return false;
+        $option.not($(this).siblings('ul.model-select-option')).slideUp(speed, function(){
+            int($(this));
         });
+        $(this).siblings('ul.model-select-option').slideToggle(speed, function(){
+            int($(this));
+        });
+        return false;
+    });
     //点击选择，关闭其他下拉
     /*
      * 为每个下拉列表框中的选项设置默认选中标识 data-selected
@@ -126,23 +126,23 @@ var selectModel = function(){
      * 为选项添加 mouseover 事件
      */
     $option.find('li').each(function(index, element) {
-            if($(this).hasClass('seleced')){
-                $(this).addClass('data-selected');
-            }
-        })
-        .mousedown(function(){
-            $(this).parent().siblings('div.model-select-text').text($(this).text())
-                .attr('data-value', $(this).attr('data-option'));
-            
-            $option.slideUp(speed, function(){
-                int($(this));
-            });
-            $(this).addClass('seleced data-selected').siblings('li').removeClass('seleced data-selected');
-            return false;
-        })
-        .mouseover(function(){
-            $(this).addClass('seleced').siblings('li').removeClass('seleced');
+        if($(this).hasClass('seleced')){
+            $(this).addClass('data-selected');
+        }
+    })
+    .mousedown(function(){
+        $(this).parent().siblings('div.model-select-text').text($(this).text())
+            .attr('data-value', $(this).attr('data-option'));
+        
+        $option.slideUp(speed, function(){
+            int($(this));
         });
+        $(this).addClass('seleced data-selected').siblings('li').removeClass('seleced data-selected');
+        return false;
+    })
+    .mouseover(function(){
+        $(this).addClass('seleced').siblings('li').removeClass('seleced');
+    });
     //点击文档，隐藏所有下拉
     $(document).click(function(e) {
         $option.slideUp(speed, function(){
