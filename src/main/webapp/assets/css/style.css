@@ -156,14 +156,16 @@ body{
 
 .model-select-box { 
   width: 197px; 
-  height: 27px; 
+  /* height: 27px; 
   line-height: 27px; 
-  border: 1px solid #aaa; 
+  border: 1px solid #aaa;  */
   float: left; 
   margin-right: 20px; 
   text-indent: 5px; 
   position: relative; 
 }
+
+ .model-select-box li {list-style-type:none;}
 
 .model-select-option { 
   display: none; 
