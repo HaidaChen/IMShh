@@ -17,7 +17,7 @@
         
         <form id="transactionform" class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
             <input type="hidden" name="id" value="${transaction.id }">
-            <input type="hidden" name="accountNo" value="${transaction.accountNo }">
+            <input type="hidden" name="accountId" value="${transaction.accountId }">
             <div class="modal-header">
                 <h4 class="modal-title" style="color: black">交易明细</h4>
             </div>

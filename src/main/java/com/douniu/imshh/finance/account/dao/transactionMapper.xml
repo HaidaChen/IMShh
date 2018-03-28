@@ -4,7 +4,7 @@
 <mapper namespace="com.douniu.imshh.finance.account.dao.ITransactionDao">
     <resultMap type="Transaction" id="tranmap">
         <result property="id" column="id"/>
-        <result property="accountNo" column="accountNo"/>
+        <result property="accountId" column="accountNo"/>
         <result property="tranDate" column="tranDate"/>
         <result property="tranType" column="tranType"/>
         <result property="tranAmount" column="tranAmount"/>
@@ -85,12 +85,12 @@
     
     <insert id="insert" parameterType="Transaction">
         insert into t_transaction(id, accountNo, tranDate, tranType, tranAmount, balance, tranUser, tranBank, tranAccountNo, orderId, purchaseId, modifydate, remark, status) 
-          values(#{id}, #{accountNo}, #{tranDate}, #{tranType}, #{tranAmount}, #{balance}, #{tranUser}, #{tranBank}, #{tranAccountNo}, #{orderId}, #{purchaseId}, sysdate(), #{remark}, #{status})
+          values(#{id}, #{accountId}, #{tranDate}, #{tranType}, #{tranAmount}, #{balance}, #{tranUser}, #{tranBank}, #{tranAccountNo}, #{orderId}, #{purchaseId}, sysdate(), #{remark}, #{status})
     </insert>
     
     <update id="update" parameterType="Transaction">
         update t_transaction set 
-          accountNo = #{accountNo},          
+          accountNo = #{accountId},          
           tranDate = #{tranDate},
           tranType = #{tranType},
           tranAmount = #{tranAmount},

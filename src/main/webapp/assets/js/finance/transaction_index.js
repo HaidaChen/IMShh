@@ -76,9 +76,9 @@ function operationParam(){
 			gradeQueryElement:$("#btn_grade_query"),
 			gradeQueryUrl:"loadinvoice.do",
 			addElement: $("#btn_add"),
-			addUrl: "transaction/edit.do",
+			addUrl: "transaction/edit.do?accountId=" + accountId,
 			updateElement: $("#btn_update"),
-			updateUrl: "transaction/edit.do?accountNo=" +  + "&id=",
+			updateUrl: "transaction/edit.do?id=",
 			deleteElement: $("#btn_delete"),
 			deleteUrl: "delete.do?id="
 		}

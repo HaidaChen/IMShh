@@ -26,9 +26,10 @@ public class TransactionAction {
 	private IAccountService accountService;
 	
 	@RequestMapping("/main")
-    public ModelAndView enter(String accountNo, String bank){
+    public ModelAndView enter(String accountId, String accountNo, String bank){
         ModelAndView mav = new ModelAndView();
         String maskNo = accountNo.substring(0, 4) + "****" + accountNo.substring(accountNo.length() - 4);
+        mav.addObject("accountId", accountId);
         mav.addObject("bank", bank);
         mav.addObject("maskNo", maskNo);
         mav.setViewName("/finance/account/transaction");
@@ -38,9 +39,11 @@ public class TransactionAction {
 	@RequestMapping("/edit")
 	public ModelAndView edit(Transaction transaction){
 		ModelAndView mav = new ModelAndView();
-		if (transaction.getId() != ""){
+		if (transaction.getId() != null && transaction.getId() != ""){
 			Transaction oTransaction = service.getById(transaction.getId());
 			mav.addObject("transaction", oTransaction);
+		}else{
+			mav.addObject("transaction", transaction);
 		}
         mav.setViewName("/finance/account/edit");
         return mav;
@@ -49,8 +52,8 @@ public class TransactionAction {
 	@RequestMapping("/save")
 	public ModelAndView save(Transaction transaction){
 		service.save(transaction);
-		Account account = accountService.findById(transaction.getAccountNo());
-        return enter(account.getAccountNo(), account.getBank());
+		Account account = accountService.findById(transaction.getAccountId());
+        return enter(transaction.getAccountId(), account.getAccountNo(), account.getBank());
 	}
 	
 	@RequestMapping(value ="/loadtransaction", produces = "application/json; charset=utf-8")

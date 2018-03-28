@@ -93,7 +93,7 @@ var CreditCard = function(){
 	var createOptDetail = function(){
 		var oOpt_detail = $("<span class='pull-right tool'><a><i class='glyphicon glyphicon-eye-open'></i></a></span>");
 		oOpt_detail.click(function(){
-			$(window.parent.document).find("#contentFrame").attr("src", baseURL + "transaction/main.do?accountNo=" + cardData.accountNo + "&bank=" + cardData.bank);
+			$(window.parent.document).find("#contentFrame").attr("src", baseURL + "transaction/main.do?accountId=" + cardData.id + "&accountNo=" + cardData.accountNo + "&bank=" + cardData.bank);
 		});
 		return oOpt_detail;
 	}
