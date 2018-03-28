@@ -1,112 +1,49 @@
-/**
- * 
- */
+var baseURL = "";
+
 $(function(){	
+	getBaseURL();
+	loadAccounts();
 	
 	$("#div_add_pub").click(function(){
-		$("#div_public").append(createNewCard("div_public"));
+		var card = new CreditCard();
+		card.createCard($("#div_public"));
 	});
-
+	$("#div_add_pri").click(function(){
+		var card = new CreditCard();
+		card.createCard($("#div_private"));
+	});
 });
 
-var bankLogos = [{}];
-
-var createNewCard = function(){
-	var newCard = $("<div class='col-md-3'>");
-	var panel = $("<div class='panel panel-default'>");
-	var panelHead = $("<div class='panel-heading'></div>");
-	var headRow = $("<div class='row'></div>");
-	var bankLogoBox = $("<div class='col-xs-2'>");
-	var bankLogo = $("<div class='dropdown'></div>");
-	var defaultLogo = $("<span class='dropdown-toggle' id='banklogoMenu' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='fa fa-image fa-2x'></i></span>");
-	
-	var logoMenu = $("<ul class='dropdown-menu' style='height:160px;overflow:scroll' aria-labelledby='banklogoMenu'>");
-	var cardInfo = $("<div class='col-xs-10'>"); 
-	var cardBank = $("<div><input type='text' name='bank' class='form-control' placeholder='请输入开户行' required='required'></div>");
-	var cardBrachBank = $("<div><input type='text' name='brachBank' class='form-control' placeholder='请输入支行'></div>");
-	var cardNo = $("<div><input type='text' name='cardNo' class='form-control' placeholder='请输入卡号' required='required'></div>");
-	var cardUser = $("<div><input type='text' name='cardUser' class='form-control' placeholder='请输入用户名' required='required'></div>");
-	var panelFooter = $("<div class='panel-footer'></div>");
-	var operate = $("<span class='pull-right' style='cursor:pointer' onclick='removeNewCard(this)'><i class='glyphicon glyphicon-remove'></i>取消</span> <span class='pull-right' style='cursor:pointer' onclick='saveCard(this)'><i class='glyphicon glyphicon glyphicon-ok'></i>保存</span><div class='clearfix'></div>");
-	
-	newCard.append(panel);
-	panel.append(panelHead);
-	panel.append(panelFooter);
-	panelHead.append(headRow);
-	headRow.append(bankLogoBox);
-	headRow.append(cardInfo);
-	cardInfo.append(cardBank);
-	cardInfo.append(cardBrachBank);
-	cardInfo.append(cardNo);
-	cardInfo.append(cardUser);
-	bankLogoBox.append(bankLogo);
-	bankLogo.append(defaultLogo);
-	bankLogo.append(logoMenu);
-	panelFooter.append(operate);	
-	
-	appendLogoOption(logoMenu);
-	
-	return newCard;
-};
-
-var choseLogo = function(obj){
-	obj.parent().prev().html("<img alt='' src='" + obj.find("img").attr("src") + "'>");
+var getBaseURL = function(){
+	var fullPath = window.location.pathname;
+	baseURL = fullPath.substr(0, fullPath.indexOf("IMShh") + 6);
 }
 
-var appendLogoOption = function(obj){
-	var oul = $(obj);
-	$.getJSON("../../../assets/json/bankLogo.json", function (data){
-		$.each(data, function(index, value){
-			var oli = $("<li><a><img alt='' src='../../../assets/images/bank/" + value.icon + ".ico'>" + value.label + "</a></li>");
-			oli.click(function(){choseLogo(oli)});
-			oul.append(oli);
-		});
+var loadAccounts = function(){
+	$.ajax({
+		url: baseURL+"account/query.do",
+		success: function(result){
+			var accounts = result;
+			
+			$.each(accounts, function(index, account){
+				account.bankLogo
+				var card = new CreditCard();
+				if (account.accountType == 1){
+					card.createCard($("#div_public"), account);
+				}
+				
+				if (account.accountType == 2){
+					card.createCard($("#div_private"), account);
+				}
+			});
+		}
 	});
-}
-
-var saveCard = function(obj){
-	var card = $(obj).parents("div[class=col-md-3]");
-	var panel = card.children();
-	var panelCardInfo = card.find("div[class=col-xs-10]");
-	var cardBank = panelCardInfo.find("input[name=bank]").val();
-	var brachBank = panelCardInfo.find("input[name=brachBank]").val();
-	var cardNo = panelCardInfo.find("input[name=cardNo]").val();
-	var cardUser = panelCardInfo.find("input[name=cardUser]").val();
-	if ($.trim(cardBank) == ''){
-		alert("开户行信息不能为空");
-		panelCardInfo.find("input[name=bank]").focus();
-		return;
-	}
-	
-	if ($.trim(cardNo) == ''){
-		alert("卡号不能为空");
-		panelCardInfo.find("input[name=cardNo]").focus();
-		return;
-	}
-	
-	if ($.trim(cardUser) == ''){
-		alert("银行卡用户不能为空");
-		panelCardInfo.find("input[name=cardUser]").focus();
-		return;
-	}
-	
-	var cardNoMask = cardNo.substr(0, 4) + " **** " + cardNo.substr(cardNo.length - 4);
-		
-	panel.attr("class", "panel panel-success");
-	panelCardInfo.attr("class", "col-xs-9 col-xs-offset-1");
-	
-	panelCardInfo.html("<div class='lager'>" + cardBank + "</div><div>" + cardNoMask + "</div>");
-	
-}
-
-var removeNewCard = function(obj){
-	$(obj).parents("div[class=col-md-3]").remove();
 }
 
 var CreditCard = function(){
 	var cardData = {};
 	
-	var root = $("<div class='col-md-3'>");
+	var cardRoot = $("<div class='col-md-3'>");
 	var panel = $("<div class='panel panel-default'>");
 	var panelHead = $("<div class='panel-heading'>");
 	var panelFooter = $("<div class='panel-footer'>");
@@ -115,73 +52,102 @@ var CreditCard = function(){
 	var logoArea = $("<div class='col-xs-2'>");
 	var bankInfoArea = $("<div class='col-xs-9 col-xs-offset-1'>");
 	
-	var oOpt_edit = $("<span class='pull-right'><i class='glyphicon glyphicon-edit'></i></span>");
-	var oOpt_detail = $("<span class='pull-right'><i class='glyphicon glyphicon-eye-open'></i></span>");
-	var oOpt_save = $("<span class='pull-right'><i class='glyphicon glyphicon-floppy-saved'></i></span>");
-	var oOpt_remove = $("<span class='pull-right'><i class='glyphicon glyphicon-remove-sign'></i></span>");
-	var oOpt_cancel = $("<span class='pull-right'><i class='glyphicon glyphicon-share'></i></span>");
-	
 	this.createCard = function(container, cardInfo){
 		init(container, cardInfo);		
 		
-		if (cardData.cardNo){
-			var cardNoMask = cardData.cardNo.substr(0, 4) + " **** " + cardData.cardNo.substr(cardNo.length - 4);
-			
-			var oCardLogo = $("<img alt='找不到Logo' src='../../../assets/images/bank/" + cardData.bankLogo + ".ico'>");
-			var oBankName = $("<div class='lager'>" + cardData.bankName + "</div>");
-			var oCardNo = $("<div>" + carNoMask + "</div>");
-			
-			
-			
-			logoArea.append(oCardLogo);
-			bankInfoArea.append(oBankName);
-			bankInfoArea.append(oCardNo);
+		if (cardData.accountNo){
+			viewCard();
+		}else{
+			editCard();
 		}
-		
-		
 	}	
 	
 	var init = function(container, cardInfo){
-		container.append(root);
-		root.append(panel);
+		container.append(cardRoot);
+		cardRoot.append(panel);
 		panel.append(panelHead);
 		panel.append(panelFooter);
 		panelHead.append(cardInfoArea);
 		cardInfoArea.append(logoArea);
 		cardInfoArea.append(bankInfoArea);	
 		
+		if (container.attr("id") == "div_public"){
+			cardData.accountType = 1;
+		}else{
+			cardData.accountType = 2;
+		}
+		
 		if (cardInfo){
-			cardData = cardInfo;			
+			cardData = cardInfo;
 		}
 		
 		
+	}
+	
+	var createOptEdit = function(){
+		var oOpt_edit = $("<span class='pull-right tool'><a><i class='glyphicon glyphicon-edit'></i></a></span>");
 		oOpt_edit.click(function(){
 			editCard();
 		});
+		return oOpt_edit;
+	}
+	
+	var createOptDetail = function(){
+		var oOpt_detail = $("<span class='pull-right tool'><a><i class='glyphicon glyphicon-eye-open'></i></a></span>");
 		
-		oOpt_detail.click(function(){
-			
-		});
-		
+		return oOpt_detail;
+	}
+	
+	var createOptSave = function(){
+		var oOpt_save = $("<span class='pull-right tool'><a><i class='glyphicon glyphicon-floppy-saved'></i></a></span>");
 		oOpt_save.click(function(){
-			
+			saveCardInfo();
 		});
-		
+		return oOpt_save;
+	}
+	
+	var createOptRemove = function(){
+		var oOpt_remove = $("<span class='pull-right tool'><a><i class='glyphicon glyphicon-remove-sign'></i></a></span>");
 		oOpt_remove.click(function(){
-			
+			bootbox.confirm("确定要删除银行卡吗？", function(){
+				$.ajax({
+					url: baseURL+"account/delete.do?id=" + cardData.id,
+					success: function(result){
+						cardRoot.remove();
+					}
+				});
+				
+			});
 		});
-		
+		return oOpt_remove;
+	}
+	
+	var createOptCancel = function(){
+		var oOpt_cancel = $("<span class='pull-right tool'><a><i class='glyphicon glyphicon-share'></i></a></span>");
 		oOpt_cancel.click(function(){
-			
+			if (cardData.accountNo){
+				viewCard();
+			}else{
+				cardRoot.remove();
+			}
 		});
+		return oOpt_cancel;
 	}
 	
 	var viewCard = function(){
-		var cardNoMask = cardData.cardNo.substr(0, 4) + " **** " + cardData.cardNo.substr(cardNo.length - 4);
+		var bankLogo = "";
+		var cardBank = "";
+		var cardNoMask = "";
 		
-		var oCardLogo = $("<img alt='找不到Logo' src='../../../assets/images/bank/" + cardData.bankLogo + ".ico'>");
-		var oBankName = $("<div class='lager'>" + cardData.bank + "</div>");
-		var oCardNo = $("<div>" + carNoMask + "</div>");
+		if(cardData.accountNo){
+			bankLogo = cardData.bankLogo;
+			cardBank = cardData.bank;
+			cardNoMask = cardData.accountNo.substr(0, 4) + " **** " + cardData.accountNo.substr(cardData.accountNo.length - 4);
+		}
+		
+		var oCardLogo = $("<img alt='找不到Logo' src='../../../assets/images/bank/" + bankLogo + ".ico'>");
+		var oBankName = $("<div class='lager'>" + cardBank + "</div>");
+		var oCardNo = $("<div>" + cardNoMask + "</div>");
 				
 		clearCard();
 		
@@ -189,59 +155,106 @@ var CreditCard = function(){
 		bankInfoArea.append(oBankName);
 		bankInfoArea.append(oCardNo);
 		
-		panelFooter.append(oOpt_edit);
-		panelFooter.append(oOpt_detail);
+		panelFooter.append(createOptEdit());
+		panelFooter.append(createOptDetail());
+		panel.attr("class", "panel panel-success");
+		clearFix();
 	}
 	
 	var editCard = function(){
-		var bankLogo = $("<div class='dropdown'></div>");
-		var defaultLogo = $("<span class='dropdown-toggle' id='banklogoMenu' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='fa fa-image fa-2x'></i></span>");
-		
-		var logoMenu = $("<ul class='dropdown-menu' style='height:160px;overflow:scroll' aria-labelledby='banklogoMenu'>");
-		
-		var cardNoMask = cardData.cardNo.substr(0, 4) + " **** " + cardData.cardNo.substr(cardNo.length - 4);
+		var cardBank = "";
+		var cardBrachBank = "";
+		var cardNo = "";
+		var cardUser = "";
+		if(cardData.accountNo){
+			cardBank = cardData.bank;
+			cardBrachBank = cardData.brachBank;
+			cardNo = cardData.accountNo;
+			cardUser = cardData.accountUser;
+		}
 		
 		var oLogoMenu = $("<div class='dropdown'>");
 		var oLogoMenuBox = $("<span class='dropdown-toggle' id='banklogoMenu' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>");
-		var oLogo =  $("<img alt='找不到Logo' src='../../../assets/images/bank/" + cardData.bankLogo + ".ico'>");
-		
-		var oCardBank = $("<div><input type='text' name='bank' class='form-control' placeholder='请输入开户行' value='" + cardData.bank + "' required='required'></div>");
-		var oCardBrachBank = $("<div><input type='text' name='brachBank' value='" + cardData.brachBank + "' class='form-control' placeholder='请输入支行'></div>");
-		var oCardNo = $("<div><input type='text' name='cardNo' value='" + cardData.cardNo + "' class='form-control' placeholder='请输入卡号' required='required'></div>");
-		var oCardUser = $("<div><input type='text' name='cardUser' value='" + cardData.cardUser + "' class='form-control' placeholder='请输入用户名' required='required'></div>");
+		var oLogo =  $("<img alt='Logo' src='../../../assets/images/bank/" + cardData.bankLogo + ".ico'>");
+		var oLogoOptions = $("<ul class='dropdown-menu' style='height:160px;overflow:scroll' aria-labelledby='banklogoMenu'>");
+			
+		var oCardBank = $("<div><input type='text' name='bank' class='form-control' placeholder='请输入开户行' value='" + cardBank + "' required='required'></div>");
+		var oCardBrachBank = $("<div><input type='text' name='brachBank' value='" + cardBrachBank + "' class='form-control' placeholder='请输入支行'></div>");
+		var oCardNo = $("<div><input type='text' name='accountNo' value='" + cardNo + "' class='form-control' placeholder='请输入卡号' required='required'></div>");
+		var oCardUser = $("<div><input type='text' name='accountUser' value='" + cardUser + "' class='form-control' placeholder='请输入用户名' required='required'></div>");
 				
 		clearCard();
 		
 		oLogoMenu.append(oLogoMenuBox);
+		oLogoMenu.append(oLogoOptions);
 		oLogoMenuBox.append(oLogo);		
-		loadLogoOptions(oLogo);
+		loadLogoOptions(oLogoOptions);
 		
 		logoArea.append(oLogoMenu);
 		bankInfoArea.attr("class", "col-xs-10");
 		bankInfoArea.append(oCardBank);
 		bankInfoArea.append(oCardBrachBank);
 		bankInfoArea.append(oCardNo);
-		bankInfoArea.append(oCardUser);
+		bankInfoArea.append(oCardUser);		
 		
-		panelFooter.append(oOpt_save);
-		panelFooter.append(oOpt_cancel);
-		if (cardData.No)
-			panelFooter.append(oOpt_remove);
+		panelFooter.append(createOptCancel());
+		if (cardData.id)
+			panelFooter.append(createOptRemove());
+		panelFooter.append(createOptSave());
 		
-		
+		clearFix();
 	}
 	
-	var loadLogoOptions = function(obj){
-		var oul = $(obj);
+	var loadLogoOptions = function(oul){
+		
 		$.getJSON("../../../assets/json/bankLogo.json", function (data){
 			$.each(data, function(index, value){
 				var oli = $("<li><a><img alt='' src='../../../assets/images/bank/" + value.icon + ".ico'>" + value.label + "</a></li>");
 				oli.click(function(){
-					oul.prev().html("<img alt='' src='" + oli.attr("src") + "'>");
+					oul.prev().html("<img alt='' src='../../../assets/images/bank/" + value.icon + ".ico'>");
+					cardData.bankLogo = value.icon;
 				});
 				oul.append(oli);
 			});
 		});
+	}
+	
+	var saveCardInfo = function(){
+		var cardBank = bankInfoArea.find("input[name=bank]").val();
+		var brachBank = bankInfoArea.find("input[name=brachBank]").val();
+		var cardNo = bankInfoArea.find("input[name=accountNo]").val();
+		var cardUser = bankInfoArea.find("input[name=accountUser]").val();
+		if ($.trim(cardBank) == ''){
+			alert("开户行信息不能为空");
+			panelCardInfo.find("input[name=bank]").focus();
+			return;
+		}
+		
+		if ($.trim(cardNo) == ''){
+			alert("卡号不能为空");
+			panelCardInfo.find("input[name=accountNo]").focus();
+			return;
+		}
+		
+		if ($.trim(cardUser) == ''){
+			alert("银行卡用户不能为空");
+			panelCardInfo.find("input[name=accountUser]").focus();
+			return;
+		}		
+		cardData.bank = cardBank;
+		cardData.brachBank = brachBank;
+		cardData.accountNo = cardNo;
+		cardData.accountUser = cardUser;
+		
+		$.ajax({
+			url: baseURL+"account/save.do",
+			type: "POST",
+			data: cardData,
+			success: function(result){
+				cardData.id = result;
+				viewCard();
+			}
+		});		
 	}
 	
 	var clearCard = function(){
@@ -249,5 +262,9 @@ var CreditCard = function(){
 		bankInfoArea.html("");
 		panelFooter.html("");
 		bankInfoArea.attr("class", "col-xs-9 col-xs-offset-1");
+	}
+	
+	var clearFix = function(){
+		panelFooter.append($("<div class='clearfix'></div>"));
 	}
 };

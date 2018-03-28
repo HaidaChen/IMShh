@@ -119,3 +119,36 @@ CREATE TABLE T_INVOICE(
     remark varchar(1024),
     status char(1)
 );
+
+CREATE TABLE T_ACCOUNT(
+    id varchar(20) not null,
+    accountNo varchar(20) not null,
+    bank varchar(20) not null,
+    brachBank varchar(64),
+    bankLogo varchar(20),
+    accountUser varchar(20) not null,
+    accountType char(1) not null,
+        
+    modifyDate datetime,
+    status char(1)
+);
+
+CREATE TABLE T_TRANSACTION (
+    id varchar(20) not null,
+    accountNo varchar(20) not null,
+    tranDate datetime not null,
+    tranType char(1) not null,
+    tranAmount numeric(10,2) not null,
+    balance numeric(10,2) not null,
+    
+    tranUser  varchar(120), 
+    tranBank  varchar(120),
+    tranAccountNo varchar(20),
+    
+    orderId varchar(20),
+    purchaseId varchar(20),
+    
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
