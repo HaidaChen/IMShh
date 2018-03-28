@@ -17,6 +17,12 @@ public class AccountService implements IAccountService{
 	}
 
 	@Override
+	public Account findById(String id) {
+		// TODO Auto-generated method stub
+		return dao.findById(id);
+	}
+
+	@Override
 	public void save(Account account) {
 		// TODO Auto-generated method stub
 		if (account.getId() == null || account.getId().equals("")){

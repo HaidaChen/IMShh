@@ -28,11 +28,11 @@
                left join t_order on t_transaction.orderid = t_order.id 
                left join t_purchase on t_transaction.purchaseid = t_purchase.id 
                where t_transaction.status = 1
-        <if test="orderid != null and orderid !=''">
-          and t_order.identify like #{orderid} 
+        <if test="orderId != null and orderId !=''">
+          and t_order.identify like #{orderId} 
         </if>
-        <if test="purchaseid != null and purchaseid !=''">
-          and t_purchase.supplierName like #{purchaseid} 
+        <if test="purchaseId != null and purchaseId !=''">
+          and t_purchase.supplierName like #{purchaseId} 
         </if> 
         <if test="tranUser != null and tranUser !=''">
           and tranUser like #{tranUser} 
@@ -53,11 +53,11 @@
                left join t_order on t_transaction.orderid = t_order.id 
                left join t_purchase on t_transaction.purchaseid = t_purchase.id 
                where t_transaction.status = 1
-        <if test="orderid != null and orderid !=''">
-          and t_order.identify like #{orderid} 
+        <if test="orderId != null and orderId !=''">
+          and t_order.identify like #{orderId} 
         </if>
-        <if test="purchaseid != null and purchaseid !=''">
-          and t_purchase.supplierName like #{purchaseid} 
+        <if test="purchaseId != null and purchaseId !=''">
+          and t_purchase.supplierName like #{purchaseId} 
         </if> 
         <if test="tranUser != null and tranUser !=''">
           and tranUser like #{tranUser} 
