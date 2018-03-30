@@ -139,8 +139,8 @@ public class PurchaseAction {
         	Date endDate = DateUtil.string2Date(request.getParameter("endDate"));
         	
         	Purchase purchase = new Purchase();
-        	purchase.setSupplierName(supplierName);
-        	purchase.setMaterialName(materialName);
+        	//purchase.setSupplierName(supplierName);
+        	//purchase.setMaterialName(materialName);
         	purchase.setStartDate(startDate);
         	purchase.setEndDate(endDate);
         	

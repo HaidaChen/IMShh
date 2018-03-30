@@ -17,7 +17,9 @@ public class Transaction extends BaseQO{
 	private String tranAccountNo;
     
 	private String orderId;
+	private String orderIdentify;
 	private String purchaseId;
+	private String purchaseIdentify;
     
     private String remark;
     private int status;
@@ -101,12 +103,24 @@ public class Transaction extends BaseQO{
 		this.status = status;
 	}
 	
+	public String getOrderIdentify() {
+		return orderIdentify;
+	}
+	public void setOrderIdentify(String orderIdentify) {
+		this.orderIdentify = orderIdentify;
+	}
+	public String getPurchaseIdentify() {
+		return purchaseIdentify;
+	}
+	public void setPurchaseIdentify(String purchaseIdentify) {
+		this.purchaseIdentify = purchaseIdentify;
+	}
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", accountId=" + accountId + ", tranDate=" + tranDate + ", tranType="
 				+ tranType + ", tranAmount=" + tranAmount + ", balance=" + balance + ", tranUser=" + tranUser
 				+ ", tranBank=" + tranBank + ", tranAccountNo=" + tranAccountNo + ", orderId=" + orderId
-				+ ", purchaseId=" + purchaseId + ", remark=" + remark + ", status=" + status + "]";
+				+ ", orderIdentify=" + orderIdentify + ", purchaseId=" + purchaseId + ", purchaseIdentify="
+				+ purchaseIdentify + ", remark=" + remark + ", status=" + status + "]";
 	}
-       
 }
