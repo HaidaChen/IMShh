@@ -82,20 +82,63 @@ CREATE TABLE T_ORDERDETAIL(
     status char(1)
 );
 
-CREATE TABLE T_PURCHASE(
+
+CREATE TABLE T_PURCHASEPLAN(
     id varchar(20) not null,
-    purchaseDate date not null,
+    identify varchar(120),
+    orderId varchar(20),
+    createDate date not null,
+    
+    money numeric(10,2),
+    paid numeric(10,2),  
+    
+    planStatus char(1),
+    
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
+
+CREATE TABLE T_PURCHASEDETAIL(
+    id varchar(20) not null,
+    planId varchar(20) not null,
     materialId varchar(20),
     materialName varchar(20) not null,
     supplierId varchar(20),
     supplierName varchar(20),    
     specification varchar(20),
     unit varchar(20),
-    quantity int,
+    amount int,
+    deliverAmount int,
     unitPrice numeric(10,2),
     totlemnt numeric(10,2),
-    paid numeric(10,2),
-    balance numeric(10,2),    
+    paid numeric(10,2),   
+    
+    modifyDate datetime,
+    status char(1)
+);
+
+CREATE TABLE T_DELIVERDETAIL(
+    id varchar(20) not null,
+    purchaseDetailId varchar(20) not null,
+    amount int not null,
+    deliverDate date not null,
+    
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
+
+CREATE TABLE T_PAYMENTDETAIL(
+    id varchar(20) not null,
+    deliverDetailId varchar(20) not null,
+    pamentAmount numeric(10,2) not null,
+    paymentDate date not null,
+    accountId varchar(20),
+    
+    tranUser  varchar(120), 
+    tranBank  varchar(120),
+    tranAccountNo varchar(60),
     
     modifyDate datetime,
     remark varchar(1024),
@@ -122,7 +165,7 @@ CREATE TABLE T_INVOICE(
 
 CREATE TABLE T_ACCOUNT(
     id varchar(20) not null,
-    accountNo varchar(20) not null,
+    accountNo varchar(60) not null,
     bank varchar(20) not null,
     brachBank varchar(64),
     bankLogo varchar(20),
@@ -135,7 +178,7 @@ CREATE TABLE T_ACCOUNT(
 
 CREATE TABLE T_TRANSACTION (
     id varchar(20) not null,
-    accountNo varchar(20) not null,
+    accountNo varchar(60) not null,
     tranDate datetime not null,
     tranType char(1) not null,
     tranAmount numeric(10,2) not null,
@@ -143,7 +186,7 @@ CREATE TABLE T_TRANSACTION (
     
     tranUser  varchar(120), 
     tranBank  varchar(120),
-    tranAccountNo varchar(20),
+    tranAccountNo varchar(60),
     
     orderId varchar(20),
     purchaseId varchar(20),

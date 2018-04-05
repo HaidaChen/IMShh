@@ -1,15 +1,25 @@
 package com.douniu.imshh.finance.purchase.domain;
 
-public class PurchaseDetail {
+import com.douniu.imshh.common.BaseQO;
+
+public class PurchaseDetail extends BaseQO{
 	private String id;
-	private String purchasesupplierId;  /*供应商ID*/
+	private String planId;
+	private String supplierId;          /*供应商ID*/
+	private String supplierName;        /*供应商*/
 	private String materialName;        /*原材料名称*/
 	private String materialId;          /*原材料ID*/
 	private String specification;       /*规格*/
 	private String unit;                /*单位*/
-	private int quantity;               /*数量*/
+	private int amount;               /*数量*/
+	private int deliverAmount;          /*交付数*/
 	private float unitPrice;            /*单价*/
 	private float totlemnt;             /*合计*/
+	private float paid;                 /*已支付*/
+	private float balance;              /*余额*/
+	
+	private int status = 1;
+	
 	public String getId() {
 		return id;
 	}
@@ -17,10 +27,10 @@ public class PurchaseDetail {
 		this.id = id;
 	}
 	public String getPurchasesupplierId() {
-		return purchasesupplierId;
+		return supplierId;
 	}
 	public void setPurchasesupplierId(String purchasesupplierId) {
-		this.purchasesupplierId = purchasesupplierId;
+		this.supplierId = purchasesupplierId;
 	}
 	public String getMaterialName() {
 		return materialName;
@@ -47,10 +57,10 @@ public class PurchaseDetail {
 		this.unit = unit;
 	}
 	public int getQuantity() {
-		return quantity;
+		return amount;
 	}
 	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+		this.amount = quantity;
 	}
 	public float getUnitPrice() {
 		return unitPrice;
@@ -64,10 +74,58 @@ public class PurchaseDetail {
 	public void setTotlemnt(float totlemnt) {
 		this.totlemnt = totlemnt;
 	}
+	
+	public String getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(String supplierId) {
+		this.supplierId = supplierId;
+	}
+	public String getSupplierName() {
+		return supplierName;
+	}
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+	public float getPaid() {
+		return paid;
+	}
+	public void setPaid(float paid) {
+		this.paid = paid;
+	}
+	public float getBalance() {
+		return balance;
+	}
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public int getDeliverAmount() {
+		return deliverAmount;
+	}
+	public void setDeliverAmount(int deliverAmount) {
+		this.deliverAmount = deliverAmount;
+	}
+	
+	public String getPlanId() {
+		return planId;
+	}
+	public void setPlanId(String planId) {
+		this.planId = planId;
+	}
 	@Override
 	public String toString() {
-		return "PurchaseDetail [id=" + id + ", purchasesupplierId=" + purchasesupplierId + ", materialName="
-				+ materialName + ", materialId=" + materialId + ", specification=" + specification + ", unit=" + unit
-				+ ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", totlemnt=" + totlemnt + "]";
-	}	
+		return "PurchaseDetail [id=" + id + ", planId=" + planId + ", supplierId=" + supplierId + ", supplierName="
+				+ supplierName + ", materialName=" + materialName + ", materialId=" + materialId + ", specification="
+				+ specification + ", unit=" + unit + ", quantity=" + amount + ", deliverAmount=" + deliverAmount
+				+ ", unitPrice=" + unitPrice + ", totlemnt=" + totlemnt + ", paid=" + paid + ", balance=" + balance
+				+ ", status=" + status + "]";
+	}
+	
 }

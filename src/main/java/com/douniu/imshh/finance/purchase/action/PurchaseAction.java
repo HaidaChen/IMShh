@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.douniu.imshh.common.PageResult;
-import com.douniu.imshh.finance.purchase.domain.Purchase;
+import com.douniu.imshh.finance.purchase.domain.PurchasePlan;
 import com.douniu.imshh.finance.purchase.service.IPurchaseService;
 import com.douniu.imshh.utils.DateUtil;
 import com.douniu.imshh.utils.ExcelBean;
@@ -55,17 +55,17 @@ public class PurchaseAction {
 	private IPurchaseService service;
 	
 	@RequestMapping("/main")
-    public ModelAndView enter(Purchase purchase){
+    public ModelAndView enter(PurchasePlan purchase){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/finance/purchase/overview");
         return mav;
     }
 	
 	@RequestMapping("/edit")
-	public ModelAndView edit(Purchase purchase){
+	public ModelAndView edit(PurchasePlan purchase){
 		ModelAndView mav = new ModelAndView();
 		if (purchase.getId() != ""){
-			Purchase oPurchase = service.getById(purchase.getId());
+			PurchasePlan oPurchase = service.getById(purchase.getId());
 			mav.addObject("purchase", oPurchase);
 		}
         mav.setViewName("/finance/purchase/edit");
@@ -73,15 +73,15 @@ public class PurchaseAction {
 	}
 	
 	@RequestMapping("/save")
-	public ModelAndView save(Purchase purchase){
+	public ModelAndView save(PurchasePlan purchase){
 		service.save(purchase);
         return enter(purchase);
 	}
 	
 	@RequestMapping(value ="/loadpurchase", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String loadPurchase(Purchase purchase){
-		List<Purchase> res = service.query(purchase);
+	public String loadPurchase(PurchasePlan purchase){
+		List<PurchasePlan> res = service.query(purchase);
 		int count = service.count(purchase);
 		
 		PageResult pr = new PageResult();
@@ -114,7 +114,7 @@ public class PurchaseAction {
           
         in = file.getInputStream();  
         List<List<Object>>  data = ExcelUtil.parseExcel(in, file.getOriginalFilename());
-        List<Purchase> purchases = POIExcelAdapter.toDomainList(data, mapper, Purchase.class);
+        List<PurchasePlan> purchases = POIExcelAdapter.toDomainList(data, mapper, PurchasePlan.class);
         service.batchAdd(purchases);
     }  
     
@@ -138,14 +138,14 @@ public class PurchaseAction {
         	Date startDate = DateUtil.string2Date(request.getParameter("startDate"));
         	Date endDate = DateUtil.string2Date(request.getParameter("endDate"));
         	
-        	Purchase purchase = new Purchase();
+        	PurchasePlan purchase = new PurchasePlan();
         	//purchase.setSupplierName(supplierName);
         	//purchase.setMaterialName(materialName);
         	purchase.setStartDate(startDate);
         	purchase.setEndDate(endDate);
         	
-            List<Purchase> purchases = service.queryNoPage(purchase);
-        	workbook = POIExcelAdapter.toWorkBook(purchases, mapper, Purchase.class); 
+            List<PurchasePlan> purchases = service.queryNoPage(purchase);
+        	workbook = POIExcelAdapter.toWorkBook(purchases, mapper, PurchasePlan.class); 
         } catch (Exception e) {  
             e.printStackTrace();  
         }  

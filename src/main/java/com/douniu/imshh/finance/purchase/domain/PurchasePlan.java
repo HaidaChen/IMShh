@@ -4,16 +4,18 @@ import java.util.Date;
 
 import com.douniu.imshh.common.BaseQO;
 
-public class Purchase extends BaseQO{
+public class PurchasePlan extends BaseQO{
 	private String id;    
 	private String identify;
 	private String orderId;
-	private String orderIdentify;
-	private Date purchaseDate;          /*采购日期*/
+	private String orderIdentify;     /*关联订单*/
+	private Date createDate;          /*创建日期*/
 
-	private float amount;               /*金额*/
+	private float money;               /*金额*/
 	private float paid;                 /*已支付*/
 	private float balance;              /*余额*/
+	
+	private int planStatus;           /*采购计划状态1：待收货，2：待付款，3：已完成*/
 	
 	private String remark;
 	private int status = 1;
@@ -24,17 +26,17 @@ public class Purchase extends BaseQO{
 		this.id = id;
 	}
 	public Date getPurchaseDate() {
-		return purchaseDate;
+		return createDate;
 	}
 	public void setPurchaseDate(Date purchaseDate) {
-		this.purchaseDate = purchaseDate;
+		this.createDate = purchaseDate;
 	}
 	
 	public float getAmount() {
-		return amount;
+		return money;
 	}
 	public void setAmount(float amount) {
-		this.amount = amount;
+		this.money = amount;
 	}
 	public float getPaid() {
 		return paid;
@@ -78,12 +80,24 @@ public class Purchase extends BaseQO{
 	public void setOrderIdentify(String orderIdentify) {
 		this.orderIdentify = orderIdentify;
 	}
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public int getPlanStatus() {
+		return planStatus;
+	}
+	public void setPlanStatus(int planStatus) {
+		this.planStatus = planStatus;
+	}
 	@Override
 	public String toString() {
-		return "Purchase [id=" + id + ", identify=" + identify + ", orderId=" + orderId + ", orderIdentify="
-				+ orderIdentify + ", purchaseDate=" + purchaseDate + ", amount=" + amount + ", paid=" + paid
-				+ ", balance=" + balance + ", remark=" + remark + ", status=" + status + "]";
+		return "PurchasePlan [id=" + id + ", identify=" + identify + ", orderId=" + orderId + ", orderIdentify="
+				+ orderIdentify + ", createDate=" + createDate + ", amount=" + money + ", paid=" + paid + ", balance="
+				+ balance + ", planStatus=" + planStatus + ", remark=" + remark + ", status=" + status + "]";
 	}
-	
-	
+		
 }

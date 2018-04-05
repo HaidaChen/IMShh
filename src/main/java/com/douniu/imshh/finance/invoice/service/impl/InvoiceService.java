@@ -5,7 +5,7 @@ import java.util.List;
 import com.douniu.imshh.finance.invoice.dao.IInvoiceDao;
 import com.douniu.imshh.finance.invoice.domain.Invoice;
 import com.douniu.imshh.finance.invoice.service.IInvoiceService;
-import com.douniu.imshh.finance.purchase.domain.Purchase;
+import com.douniu.imshh.finance.purchase.domain.PurchasePlan;
 import com.douniu.imshh.utils.LikeFlagUtil;
 
 public class InvoiceService implements IInvoiceService{

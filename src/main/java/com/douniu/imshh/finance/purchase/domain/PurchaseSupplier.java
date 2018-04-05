@@ -1,12 +1,19 @@
 package com.douniu.imshh.finance.purchase.domain;
 
+/**
+ * @author Administrator
+ * 供应商视图，为方便根据供应商查看欠款情况
+ */
 public class PurchaseSupplier {
 	private String id;
 	private String supplierId;          /*供应商ID*/
 	private String supplierName;        /*供应商名称*/
+	private String planId;              /*关联采购计划*/
+	private String planIdentify;        /*关联采购计划*/
 	private float amount;               /*金额*/
 	private float paid;                 /*已支付*/
 	private float balance;              /*余额*/
+	
 	public String getId() {
 		return id;
 	}
