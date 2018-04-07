@@ -1,6 +1,7 @@
 package com.douniu.imshh.finance.purchase.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import com.douniu.imshh.common.BaseQO;
 
@@ -15,7 +16,9 @@ public class PurchasePlan extends BaseQO{
 	private float paid;                 /*已支付*/
 	private float balance;              /*余额*/
 	
-	private int planStatus;           /*采购计划状态1：待收货，2：待付款，3：已完成*/
+	private int planStatus = 1;           /*采购计划状态1：待收货，2：待付款，3：已完成*/
+	
+	private List<PurchaseDetail> details;
 	
 	private String remark;
 	private int status = 1;
@@ -32,11 +35,11 @@ public class PurchasePlan extends BaseQO{
 		this.createDate = purchaseDate;
 	}
 	
-	public float getAmount() {
+	public float getMoney() {
 		return money;
 	}
-	public void setAmount(float amount) {
-		this.money = amount;
+	public void setMoney(float money) {
+		this.money = money;
 	}
 	public float getPaid() {
 		return paid;
@@ -79,8 +82,13 @@ public class PurchasePlan extends BaseQO{
 	}
 	public void setOrderIdentify(String orderIdentify) {
 		this.orderIdentify = orderIdentify;
+	}	
+	public List<PurchaseDetail> getDetails() {
+		return details;
 	}
-	
+	public void setDetails(List<PurchaseDetail> details) {
+		this.details = details;
+	}
 	public Date getCreateDate() {
 		return createDate;
 	}

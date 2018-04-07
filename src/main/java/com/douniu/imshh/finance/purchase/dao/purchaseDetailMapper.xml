@@ -18,7 +18,7 @@
         <result property="paid" column="paid"/>
     </resultMap>
     
-    <select id="queryByOrder" parameterType="String" resultMap="pchdtlmap">
+    <select id="queryByPlan" parameterType="String" resultMap="pchdtlmap">
         select * from t_purchaseDetail where planId = #{planId}
           order by modifydate desc
     </select>
@@ -32,7 +32,7 @@
              </foreach>
     </insert>
     
-    <update id="update" parameterType="OrderDetail">
+    <update id="update" parameterType="PurchaseDetail">
         update t_purchaseDetail set 
           planId = #{planId},
           supplierId = #{supplierId},          

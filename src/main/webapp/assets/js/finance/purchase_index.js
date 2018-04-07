@@ -8,8 +8,8 @@ $(function(){
 	var oOperation = new DataOperation();
 	oOperation.init($("#tb_purchase"), opt);
 	
-	$("#txt_search").change(function(){$("#txt_search_materialName").val($("#txt_search").val())});
-	$("#txt_search_materialName").change(function(){$("#txt_search").val($("#txt_search_materialName").val())});
+	$("#txt_search").change(function(){$("#txt_search_identify").val($("#txt_search").val())});
+	$("#txt_search_identify").change(function(){$("#txt_search").val($("#txt_search_identify").val())});
 })
 
 var TableInit = function(){
@@ -25,14 +25,61 @@ var TableInit = function(){
 			pagination: true,
 			sidePagination: "server", 
 			pageList: [10, 25, 50],
+			detailView: true,
 			columns: [{
                 checkbox: true
             }, {
-                field: 'purchaseDate',
-                title: '采购日期'
+                field: 'identify',
+                title: '采购计划编号'
+            }, {
+                field: 'orderIdentify',
+                title: '关联订单编号'
+            }, {
+                field: 'createDate',
+                title: '创建日期'
+            }, {
+                field: 'money',
+                title: '采购总金额'
+            }, {
+                field: 'paid',
+                title: '已付款'
+            }, {
+                field: 'balance',
+                title: '代付款'
+            }, {
+                field: 'planStatus',
+                title: '采购进展',
+                formatter: function(value, row, index){
+                	if (value == 1){
+                		return '待收货';
+                	}else if (value == 2){
+                		return '待付款';
+                	}else{
+                		return '已完成';
+                	}
+                }
+            }],
+            onExpandRow: function(index, row, $detail){
+            	oTableInit.InitSubTable(index, row, $detail);
+            }
+		});
+	}
+	
+	oTableInit.InitSubTable = function(index, row, $detail){
+		var parentid = row.id;
+        var cur_table = $detail.html('<table></table>').find('table');
+        $(cur_table).bootstrapTable({
+            url: 'loadPurchaseDetail.do',
+            method: 'get',
+            queryParams: { planId: parentid },
+            clickToSelect: true,
+            uniqueId: "id",
+            columns: [{
+                field: 'supplierName',
+                title: '供应商'
             }, {
                 field: 'materialName',
-                title: '原材料'
+                title: '品名'
             }, {
                 field: 'specification',
                 title: '规格'
@@ -40,7 +87,7 @@ var TableInit = function(){
                 field: 'unit',
                 title: '单位'
             }, {
-                field: 'quantity',
+                field: 'amount',
                 title: '数量'
             }, {
                 field: 'unitPrice',
@@ -49,13 +96,16 @@ var TableInit = function(){
                 field: 'totlemnt',
                 title: '合计'
             }, {
-                field: 'paid',
-                title: '已支付'
+            	field: 'deliverAmount',
+                title: '交付数量'
             }, {
-                field: 'balance',
-                title: '余额'
+            	field: 'paid',
+                title: '已付款'
+            }, {
+            	field: 'balance',
+                title: '代付款'
             }]
-		});
+        });
 	}
 	
 	oTableInit.queryParams = function(params){
@@ -63,8 +113,9 @@ var TableInit = function(){
 		var Qparams =  {
 			pageSize: params.limit,   //页面大小
             pageOffset: params.offset,  //页码
-            materialName: $("#txt_search_materialName").val(),
-            supplierName: $("#txt_search_supplierName").val(),
+            identify: $("#txt_search_identify").val(),
+            orderIdentify: $("#txt_search_orderIdentify").val(),
+            planStatus: $("#txt_search_planStatus").val(),
             startDate: $("#txt_search_startDate").val(),
             endDate: $("#txt_search_endDate").val()
 		};
@@ -85,20 +136,12 @@ function operationParam(){
 			queryUrl: "loadpurchase.do",
 			gradeQueryElement:$("#btn_grade_query"),
 			gradeQueryUrl:"loadpurchase.do",
-			importElement: $("#btn_import"),
-			importUrl: "ajaxUpload.do",
 			addElement: $("#btn_add"),
 			addUrl: "purchase/edit.do",
 			updateElement: $("#btn_update"),
 			updateUrl: "purchase/edit.do?id=",
 			deleteElement: $("#btn_delete"),
-			deleteUrl: "delete.do?id=",
-			exportElement: $("#btn_export"),
-			exportUrl: "downloadExcel.do",
-			exportParams: {materialName: $("#txt_search_materialName"),
-	            supplierName: $("#txt_search_supplierName"),
-	            startDate: $("#txt_search_startDate"),
-	            endDate: $("#txt_search_endDate")}
+			deleteUrl: "delete.do?id="
 		}
 	return opt;
 }

@@ -14,11 +14,10 @@
         <result property="planStatus" column="planStatus"/>
         <result property="remark" column="remark"/>
         <result property="status" column="status"/>
-        
     </resultMap>
-    
+        
     <select id="findById" parameterType="String" resultMap="pchmap">
-        select * from t_purchaseplan where id = #{id}
+        select *, money - paid as balance from t_purchaseplan where id = #{id}
     </select>
     
     <select id="query" parameterType="PurchasePlan" resultMap="pchmap">
@@ -27,8 +26,11 @@
          where t_purchaseplan.status = 1
         <if test="identify != null and identify !=''">
           and t_purchaseplan.identify like #{identify}           
-        </if>       
-        <if test="planStatus != null and planStatus !=''">
+        </if> 
+        <if test="orderIdentify != null and orderIdentify !=''">
+          and t_order.identify like #{orderIdentify}           
+        </if>      
+        <if test="planStatus != 0">
           and t_purchaseplan.planStatus = #{planStatus}           
         </if> 
         <if test="startDate != null">
@@ -42,12 +44,17 @@
     </select> 
     
     <select id="count" parameterType="PurchasePlan" resultType="int">
-        select count(1) from t_purchaseplan where status = 1
+        select count(1) from t_purchaseplan 
+          left join t_order on t_purchaseplan.orderid = t_order.id 
+         where t_purchaseplan.status = 1
         <if test="identify != null and identify !=''">
-          and identify like #{identify}           
-        </if>       
-        <if test="planStatus != null and planStatus !=''">
-          and planStatus = #{planStatus}           
+          and t_purchaseplan.identify like #{identify}           
+        </if> 
+        <if test="orderIdentify != null and orderIdentify !=''">
+          and t_order.identify like #{orderIdentify}           
+        </if>      
+        <if test="planStatus != 0">
+          and t_purchaseplan.planStatus = #{planStatus}           
         </if> 
         <if test="startDate != null">
           and createDate &gt;= #{startDate}

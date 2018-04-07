@@ -56,11 +56,11 @@ public class PurchaseDetail extends BaseQO{
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	public int getQuantity() {
+	public int getAmount() {
 		return amount;
 	}
-	public void setQuantity(int quantity) {
-		this.amount = quantity;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 	public float getUnitPrice() {
 		return unitPrice;
@@ -123,7 +123,7 @@ public class PurchaseDetail extends BaseQO{
 	public String toString() {
 		return "PurchaseDetail [id=" + id + ", planId=" + planId + ", supplierId=" + supplierId + ", supplierName="
 				+ supplierName + ", materialName=" + materialName + ", materialId=" + materialId + ", specification="
-				+ specification + ", unit=" + unit + ", quantity=" + amount + ", deliverAmount=" + deliverAmount
+				+ specification + ", unit=" + unit + ", amount=" + amount + ", deliverAmount=" + deliverAmount
 				+ ", unitPrice=" + unitPrice + ", totlemnt=" + totlemnt + ", paid=" + paid + ", balance=" + balance
 				+ ", status=" + status + "]";
 	}

@@ -13,14 +13,11 @@
     <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="well title">采购单列表</div>
+    <div class="well title">采购计划列表</div>
     <table id="tb_purchase" data-toolbar="#toolbar"></table>
     
     <div id="toolbar">
     	<div class="btn-group" role="group">
-    		<button type="button" class="btn btn-default" id="btn_import">
-    			<i class="glyphicon glyphicon-import"></i>导入
-    		</button>
     		<button type="button" class="btn btn-default" id="btn_add">
     			<i class="glyphicon glyphicon-plus"></i>新增
     		</button>
@@ -30,13 +27,10 @@
     		<button type="button" class="btn btn-default" id="btn_delete">
     			<i class="glyphicon glyphicon-remove"></i>删除
     		</button>
-    		<button type="button" class="btn btn-default" id="btn_export">
-    			<i class="glyphicon glyphicon-export"></i>导出
-    		</button>
     	</div>
     	
     	<div class="input-group" style="width: 260px; float: right" id="block_search">
-    	    <input type="text" id="txt_search" name="condition" class="form-control col-sm-2" placeholder="物料名称">
+    	    <input type="text" id="txt_search" name="condition" class="form-control col-sm-2" placeholder="采购计划编号">
     	    <span class="input-group-addon" id="span_search">
     	        <i class="glyphicon glyphicon-search"></i>
     	    </span>
@@ -58,17 +52,28 @@
 	            <div class="modal-body">  
 	                <form id="formSearch" class="form-horizontal">
 	                    <div class="form-group" style="margin-top:15px">
-	                        <label class="control-label col-sm-3" for="txt_search_materialName">物料名称</label>
+	                        <label class="control-label col-sm-3" for="txt_search_identify">采购计划编号</label>
 	                        <div class="col-sm-8">
-	                            <input type="text" class="form-control" id="txt_search_materialName" name="materialName">
+	                            <input type="text" class="form-control" id="txt_search_identify" name="identify">
 	                        </div>	                                                
 	                    </div>
 	                    <div class="form-group" style="margin-top:15px">
- 							<label class="control-label col-sm-3" for="txt_search_supplierName">供应商名称</label>
+ 							<label class="control-label col-sm-3" for="txt_search_orderIdentify">关联订单编号</label>
 	                        <div class="col-sm-8">
-	                            <input type="text" class="form-control" id="txt_search_supplierName" name="supplierName">
+	                            <input type="text" class="form-control" id="txt_search_orderIdentify" name="orderIdentify">
 	                        </div>
-	                    </div>   
+	                    </div>
+	                    <div class="form-group" style="margin-top:15px">
+ 							<label class="control-label col-sm-3" for="txt_search_planStatus">采购进展</label>
+	                        <div class="col-sm-8">
+	                            <select id="txt_search_planStatus" name="planStatus" class="form-control">
+	                            	<option value="0">----请选择采购进展----</option>
+			                        <option value="1">待收货</option>
+			                        <option value="2">待付款</option>
+			                        <option value="3">已完成</option>
+	                            </select>
+	                        </div>
+	                    </div>	                    
 	                    <div class="form-group" style="margin-top:15px">
 	                    	<label class="control-label col-sm-3" for="txt_search_startDate">开始日期</label>
 	                        <div class="col-sm-8">
