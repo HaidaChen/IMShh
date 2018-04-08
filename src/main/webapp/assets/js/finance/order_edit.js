@@ -62,8 +62,8 @@ var $orderId = $("#id").val();
 	});
 }
 
-function addRow(index){	
-    data[index] = {"id":"","pdtNo":"","pdtName":"","content":"","quantity":0,"priceRMB":0.0,"priceDollar":0.0,"totlemnt":0.0};
+function addRow(index){
+	data[index] = {"id":"","pdtNo":"","pdtName":"","content":"","quantity":0,"priceRMB":0.0,"priceDollar":0.0,"totlemnt":0.0};
     var params = {index:index, row:data[index]};
     $('#tbl_detail').bootstrapTable('insertRow', params);
 }
@@ -120,6 +120,7 @@ function initOrderDetail(){
 			});
 			loadDetail();
 		}});
+	}else{
+		loadDetail();
 	}
-	loadDetail();
 }

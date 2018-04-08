@@ -605,9 +605,11 @@
             '<div class="fixed-table-container">',
             '<div class="fixed-table-header"><table></table></div>',
             '<div class="fixed-table-body">',
-            '<div class="fixed-table-loading">',
+            /* a problem what always say table loading even table load done */
+            /* did not found the cause for the problem , show remove the area */
+            /*'<div class="fixed-table-loading">',
             this.options.formatLoadingMessage(),
-            '</div>',
+            '</div>',*/
             '</div>',
             '<div class="fixed-table-footer"><table><tr></tr></table></div>',
             this.options.paginationVAlign === 'bottom' || this.options.paginationVAlign === 'both' ?
@@ -2494,6 +2496,9 @@
         if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
             return;
         }
+        /*did not found the problem what append a empty row before insertRow so each action will show tow records*/
+        /*so remove the empty row before append row */
+        this.data.splice(params.index, 1);
         this.data.splice(params.index, 0, params.row);
         this.initSearch();
         this.initPagination();

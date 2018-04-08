@@ -36,9 +36,7 @@ $(function(){
 	
 });
 
-function loadDetail(){
-var $orderId = $("#id").val();
-	
+function loadDetail(){	
 	$("#tbl_detail").bootstrapTable({
 		data: data,
 		cache: false,
@@ -68,8 +66,8 @@ var $orderId = $("#id").val();
 	});
 }
 
-function addRow(index){	
-    data[index] = {"id":"","supplierName":"","materialName":"","specification":"","unit":"","amount":0,"unitPrice":0.0,"totlemnt":0.0,"deliverAmount":0,"paid":0.0,"balance":0.0};
+function addRow(index){
+	data[index] = {"id":"","supplierName":"","materialName":"","specification":"","unit":"","amount":0,"unitPrice":0.0,"totlemnt":0.0,"deliverAmount":0,"paid":0.0,"balance":0.0};
     var params = {index:index, row:data[index]};
     $('#tbl_detail').bootstrapTable('insertRow', params);
 }
@@ -93,9 +91,9 @@ function saveDetail(index, obj){
 	currentTr.children("td").eq(4).html(colContent(row, index, "amount"));
 	currentTr.children("td").eq(5).html(colContent(row, index, "unitPrice"));
 	currentTr.children("td").eq(6).html(colContent(row, index, "totlemnt"));
-	currentTr.children("td").eq(6).html(colContent(row, index, "deliverAmount"));
-	currentTr.children("td").eq(6).html(colContent(row, index, "paid"));
-	currentTr.children("td").eq(6).html(colContent(row, index, "balance"));
+	currentTr.children("td").eq(7).html(colContent(row, index, "deliverAmount"));
+	currentTr.children("td").eq(8).html(colContent(row, index, "paid"));
+	currentTr.children("td").eq(9).html(colContent(row, index, "balance"));
 }
 
 function deleteDetail(index){
@@ -119,6 +117,7 @@ function reloadRowData(obj, row, key, index){
 }
 
 function initPurchaseDetail(){
+	
     var planId = $("input[name=id]").val(); 
     if (planId != ""){
 		$.ajax({url: "loadPurchaseDetail.do?planId="+planId, success: function(result){
@@ -128,5 +127,7 @@ function initPurchaseDetail(){
 			});
 			loadDetail();
 		}});
+	}else{
+		loadDetail();
 	}
 }
