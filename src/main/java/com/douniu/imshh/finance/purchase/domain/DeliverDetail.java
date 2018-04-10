@@ -7,16 +7,17 @@ public class DeliverDetail {
 	
 	private String planId;              /*关联采购计划*/
 	private String planIdentify;        /*关联采购计划*/
+	private String planDetailId;        /*关联采购计划*/
 	
-	private String purchaseDetailId;    /*关联采购计划*/
 	private String supplierId;          /*供应商ID*/
 	private String supplierName;        /*供应商*/
 	private String materialName;        /*原材料名称*/
 	private String materialId;          /*原材料ID*/
 	private String specification;       /*规格*/
 	private String unit;                /*单位*/
-	
+	private float unitPrice;            /*单价*/	
 	private int amount;                 /*交付数量*/
+	private float totlemnt;             /*合计*/
 	private Date deliverDate;           /*交付日期*/
 	
 	private String remark;
@@ -38,12 +39,6 @@ public class DeliverDetail {
 	}
 	public void setPlanIdentify(String planIdentify) {
 		this.planIdentify = planIdentify;
-	}
-	public String getPurchaseDetailId() {
-		return purchaseDetailId;
-	}
-	public void setPurchaseDetailId(String purchaseDetailId) {
-		this.purchaseDetailId = purchaseDetailId;
 	}
 	public String getSupplierId() {
 		return supplierId;
@@ -105,12 +100,31 @@ public class DeliverDetail {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public float getUnitPrice() {
+		return unitPrice;
+	}
+	public void setUnitPrice(float unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+	public float getTotlemnt() {
+		return totlemnt;
+	}
+	public void setTotlemnt(float totlemnt) {
+		this.totlemnt = totlemnt;
+	}
+	
+	public String getPlanDetailId() {
+		return planDetailId;
+	}
+	public void setPlanDetailId(String planDetailId) {
+		this.planDetailId = planDetailId;
+	}
 	@Override
 	public String toString() {
-		return "DeliverDetail [id=" + id + ", planId=" + planId + ", planIdentify=" + planIdentify
-				+ ", purchaseDetailId=" + purchaseDetailId + ", supplierId=" + supplierId + ", supplierName="
-				+ supplierName + ", materialName=" + materialName + ", materialId=" + materialId + ", specification="
-				+ specification + ", unit=" + unit + ", amount=" + amount + ", deliverDate=" + deliverDate + ", remark="
+		return "DeliverDetail [id=" + id + ", planId=" + planId + ", planIdentify=" + planIdentify + ", supplierId="
+				+ supplierId + ", supplierName=" + supplierName + ", materialName=" + materialName + ", materialId="
+				+ materialId + ", specification=" + specification + ", unit=" + unit + ", unitPrice=" + unitPrice
+				+ ", amount=" + amount + ", totlemnt=" + totlemnt + ", deliverDate=" + deliverDate + ", remark="
 				+ remark + ", status=" + status + "]";
 	}
 	

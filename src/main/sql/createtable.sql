@@ -120,9 +120,18 @@ CREATE TABLE T_PURCHASEDETAIL(
 
 CREATE TABLE T_DELIVERDETAIL(
     id varchar(20) not null,
-    purchaseDetailId varchar(20) not null,
+    planId varchar(20) not null,
+    planDetailId varchar(20) not null,
+    materialId varchar(20),
+    materialName varchar(20) not null,
+    supplierId varchar(20),
+    supplierName varchar(20),    
+    specification varchar(20),
+    unit varchar(20),
     amount int not null,
     deliverDate date not null,
+    unitPrice numeric(10,2),
+    totlemnt numeric(10,2),
     
     modifyDate datetime,
     remark varchar(1024),

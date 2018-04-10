@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.douniu.imshh.common.PageResult;
+import com.douniu.imshh.finance.purchase.domain.DeliverDetail;
 import com.douniu.imshh.finance.purchase.domain.PurchaseDetail;
 import com.douniu.imshh.finance.purchase.domain.PurchasePlan;
+import com.douniu.imshh.finance.purchase.service.IDeliverDetailService;
 import com.douniu.imshh.finance.purchase.service.IPurchaseDetailService;
 import com.douniu.imshh.finance.purchase.service.IPurchaseService;
 import com.google.gson.Gson;
@@ -23,7 +25,9 @@ public class PurchaseAction {
 	@Autowired
 	private IPurchaseService service;
 	@Autowired
-	private IPurchaseDetailService dService;
+	private IPurchaseDetailService detailService;
+	@Autowired
+	private IDeliverDetailService deliverService;
 	
 	@RequestMapping("/main")
     public ModelAndView enter(PurchasePlan purchase){
@@ -67,7 +71,7 @@ public class PurchaseAction {
 	@RequestMapping(value ="/loadPurchaseDetail", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String loadPurchaseDetail(String planId){
-		List<PurchaseDetail> details = dService.queryByPlan(planId);		
+		List<PurchaseDetail> details = detailService.queryByPlan(planId);		
 		Gson gson = new Gson();
 		return gson.toJson(details);
 	}
@@ -76,6 +80,37 @@ public class PurchaseAction {
 	@ResponseBody
 	public void delete(String id){
 		service.delete(id);
+		detailService.deleteByPlanId(id);
+		deliverService.deleteByPlan(id);
 	}
 	
+	@RequestMapping("/deliver")
+	public ModelAndView deliver(PurchasePlan purchase){
+		ModelAndView mav = new ModelAndView();
+		List<DeliverDetail> deliver = deliverService.queryByPlan(purchase.getId());
+		mav.addObject("purchase", purchase);
+		mav.addObject("deliver", deliver);
+		mav.setViewName("/finance/purchase/deliver");
+        return mav;
+	}
+	
+	@RequestMapping("/editDeliver")
+	public ModelAndView editDeliver(DeliverDetail deliver ){
+		ModelAndView mav = new ModelAndView();
+		if (deliver.getId() != ""){
+			DeliverDetail oDeliver = deliverService.getById(deliver.getId());
+			mav.addObject("deliver", oDeliver);
+		}
+        mav.setViewName("/finance/purchase/deliverEdit");
+        return mav;
+	}
+	
+	@RequestMapping("/saveDeliver")
+	public ModelAndView saveDeliver(DeliverDetail deliver){
+		deliverService.save(deliver);
+		PurchasePlan purchase = new PurchasePlan();
+		purchase.setId(deliver.getPlanId());
+		purchase.setIdentify(deliver.getPlanIdentify());
+        return deliver(purchase);		
+	}
 }

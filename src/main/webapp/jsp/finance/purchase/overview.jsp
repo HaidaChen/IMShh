@@ -13,33 +13,54 @@
     <link href="<%=basePath %>/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="well title">采购计划列表</div>
-    <table id="tb_purchase" data-toolbar="#toolbar"></table>
-    
-    <div id="toolbar">
-    	<div class="btn-group" role="group">
-    		<button type="button" class="btn btn-default" id="btn_add">
-    			<i class="glyphicon glyphicon-plus"></i>新增
-    		</button>
-    		<button type="button" class="btn btn-default" id="btn_update">
-    			<i class="glyphicon glyphicon-pencil"></i>修改
-    		</button>    		
-    		<button type="button" class="btn btn-default" id="btn_delete">
-    			<i class="glyphicon glyphicon-remove"></i>删除
-    		</button>
-    	</div>
-    	
-    	<div class="input-group" style="width: 260px; float: right" id="block_search">
-    	    <input type="text" id="txt_search" name="condition" class="form-control col-sm-2" placeholder="采购计划编号">
-    	    <span class="input-group-addon" id="span_search">
-    	        <i class="glyphicon glyphicon-search"></i>
-    	    </span>
-    	    <span class="input-group-addon" id="span_search_more" data-toggle="modal" data-target="#grandQueryModal">
-    	        <i class="glyphicon glyphicon-chevron-down"></i>
-    	    </span>
-    	</div>
-    </div>
-    
+	<div class="container-fluid">
+		<div class="row vertical-spacing">
+	    	<div class="well title">采购计划列表</div>
+	    </div>
+	    <div id="toolbar" class="row vertical-spacing">
+	    	<div class="btn-group col-sm-6" role="group">
+	    		<button type="button" class="btn btn-default" id="btn_add">
+	    			<i class="glyphicon glyphicon-plus"></i>新增
+	    		</button>
+	    		<button type="button" class="btn btn-default" id="btn_update">
+	    			<i class="glyphicon glyphicon-pencil"></i>修改
+	    		</button>    		
+	    		<button type="button" class="btn btn-default" id="btn_delete">
+	    			<i class="glyphicon glyphicon-remove"></i>删除
+	    		</button>
+	    	</div>
+	    	
+	    	<div class="col-sm-4 col-sm-offset-2 pull-right">
+	    		<div class="input-group "  id="block_search">
+		    	    <input type="text" id="txt_search" name="condition" class="form-control" placeholder="采购计划编号">
+		    	    <span class="input-group-addon" id="span_search">
+		    	        <i class="glyphicon glyphicon-search"></i>
+		    	    </span>
+		    	    <span class="input-group-addon" id="span_search_more" data-toggle="modal" data-target="#grandQueryModal">
+		    	        <i class="glyphicon glyphicon-zoom-in"></i>
+		    	    </span>
+		    	    <span></span>
+		    	    <span class="input-group-addon" id="span_search_more">
+		    	        <div class="dropdown">
+						  <!-- <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						    <span class="caret"></span>
+						  </button> -->
+						  <i class="glyphicon glyphicon-list dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></i>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						    <li id="li_opt_deliver"><a href="#">收货</a></li>
+						    <li id="li_opt_payment"><a href="#">付款</a></li>						    
+						  </ul>
+						</div>
+		    	    </span>
+		    	    
+		    	</div>
+	    	</div>
+	    	
+		</div>    
+	    <div class="row vertical-spacing">
+	    	<table id="tb_purchase" ></table>
+	    </div>
+	</div>
     <div class="modal fade" id="grandQueryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
 	    <div class="modal-dialog" role="document">  
 	        <div class="modal-content">  
@@ -94,7 +115,8 @@
 	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
 	            </div>  
 	        </div>  
-	    </div>  
+	    </div> 
+	    	    
 	</div>  
     
     

@@ -157,3 +157,7 @@ body{
 .tool{
 	margin-right: 6px;
 }
+.vertical-spacing{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
