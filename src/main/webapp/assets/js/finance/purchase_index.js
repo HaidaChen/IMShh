@@ -11,7 +11,7 @@ $(function(){
 	$("#txt_search").change(function(){$("#txt_search_identify").val($("#txt_search").val())});
 	$("#txt_search_identify").change(function(){$("#txt_search").val($("#txt_search_identify").val())});
 
-	deliver($("#tb_purchase"));
+	//deliver($("#tb_purchase"));
 	payment($("#tb_purchase"));
 })
 
@@ -102,11 +102,13 @@ var TableInit = function(){
             	field: 'deliverAmount',
                 title: '交付数量'
             }, {
-            	field: 'paid',
-                title: '已付款'
-            }, {
-            	field: 'balance',
-                title: '代付款'
+            	field: '',
+                title: '操作',
+                formatter: function(value,row,index){
+    				var strHtml = '<a href="#" onclick="deliver('+row.id+')">';
+    				strHtml += '<i class="glyphicon glyphicon-glass"></i>接收';
+    				return strHtml;
+    			}
             }]
         });
 	}
@@ -149,8 +151,14 @@ function operationParam(){
 	return opt;
 }
 
-function deliver(table){
-	$("#li_opt_deliver").click(function(){
+function deliver(id){
+	alert($("#modal_deliver").html());
+	$("#modal_deliver").modal({
+		remote: "editDeliver.do?planDetailId="+id,
+		backdrop: "static",
+	    keyboard: true
+	});
+	/*$("#li_opt_deliver").click(function(){
 		var selections = table.bootstrapTable('getSelections');
     	if (selections.length == 0){
     		alert("请选择需要相应的采购计划");
@@ -164,7 +172,7 @@ function deliver(table){
     	var identify = selections[0].identify;
     	var url = "purchase/deliver.do?id="+id+"&identify="+identify;
     	$(window.parent.document).find("#contentFrame").attr("src", url);
-	});	
+	});	*/
 }
 
 function payment(){

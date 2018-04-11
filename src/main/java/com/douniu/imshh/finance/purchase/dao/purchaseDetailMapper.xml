@@ -23,6 +23,10 @@
           order by modifydate desc
     </select>
     
+    <select id="findById" parameterType="String" resultMap="pchdtlmap">
+    	select * from t_purchaseDetail where id = #{id}
+    </select>
+    
     <insert id="batchInsert" parameterType="java.util.List">
         
         insert into t_purchaseDetail(id, planId, supplierId, supplierName, materialName, materialId, specification, unit, amount, deliverAmount, unitPrice, totlemnt, paid, modifyDate, status) 

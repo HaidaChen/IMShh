@@ -82,7 +82,7 @@
               
               <div class="form-group">
                   <label for="remark" class="col-sm-2 control-label">备注</label>
-              	  <div class="col-sm-4">
+              	  <div class="col-sm-10">
                   	  <textarea class="form-control" name="remark" placeholder="请输入备注" >${deliver.remark }</textarea>
                   </div>
               </div>

@@ -33,4 +33,10 @@ public class PurchaseDetailService implements IPurchaseDetailService{
 	public void killByPlanId(String planId) {
 		dao.killByPlanId(planId);
 	}
+
+	@Override
+	public PurchaseDetail queryById(String id) {
+		// TODO Auto-generated method stub
+		return dao.findById(id);
+	}
 }

@@ -1,5 +1,6 @@
 package com.douniu.imshh.finance.purchase.action;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.douniu.imshh.finance.purchase.domain.PurchasePlan;
 import com.douniu.imshh.finance.purchase.service.IDeliverDetailService;
 import com.douniu.imshh.finance.purchase.service.IPurchaseDetailService;
 import com.douniu.imshh.finance.purchase.service.IPurchaseService;
+import com.douniu.imshh.utils.ReflectionUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -97,8 +99,14 @@ public class PurchaseAction {
 	@RequestMapping("/editDeliver")
 	public ModelAndView editDeliver(DeliverDetail deliver ){
 		ModelAndView mav = new ModelAndView();
-		if (deliver.getId() != ""){
+		
+		if (deliver.getId() != null && deliver.getId() != ""){
 			DeliverDetail oDeliver = deliverService.getById(deliver.getId());
+			mav.addObject("deliver", oDeliver);
+		}else{
+			String detailId = deliver.getPlanDetailId();
+			PurchaseDetail detail = detailService.queryById(detailId);
+			DeliverDetail oDeliver = createByPlanDetail(detail);
 			mav.addObject("deliver", oDeliver);
 		}
         mav.setViewName("/finance/purchase/deliverEdit");
@@ -112,5 +120,18 @@ public class PurchaseAction {
 		purchase.setId(deliver.getPlanId());
 		purchase.setIdentify(deliver.getPlanIdentify());
         return deliver(purchase);		
+	}
+	
+	private DeliverDetail createByPlanDetail(PurchaseDetail detail){
+		DeliverDetail deliverDetail = new DeliverDetail();
+		Field[] fields = PurchaseDetail.class.getDeclaredFields();
+		for(Field field : fields){
+			Field target = ReflectionUtil.getDeclaredField(deliverDetail, field.getName());
+			if (target != null){
+				Object value = ReflectionUtil.getFieldValue(detail, field.getName());
+				ReflectionUtil.setFieldValue(deliverDetail, target.getName(), value);
+			}
+		}
+		return deliverDetail;
 	}
 }
