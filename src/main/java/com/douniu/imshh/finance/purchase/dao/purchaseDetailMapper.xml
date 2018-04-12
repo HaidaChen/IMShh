@@ -19,8 +19,11 @@
     </resultMap>
     
     <select id="queryByPlan" parameterType="String" resultMap="pchdtlmap">
-        select * from t_purchaseDetail where planId = #{planId}
-          order by modifydate desc
+        select dtl.*, dlv.deliverAmount from t_purchaseDetail dtl 
+          left join (select planDetailId, sum(amount) as deliverAmount from t_deliverDetail group by planDetailId) dlv 
+            on dtl.id = dlv.planDetailId 
+         where dtl.planId = #{planId}
+         order by dtl.modifydate desc
     </select>
     
     <select id="findById" parameterType="String" resultMap="pchdtlmap">
@@ -29,10 +32,10 @@
     
     <insert id="batchInsert" parameterType="java.util.List">
         
-        insert into t_purchaseDetail(id, planId, supplierId, supplierName, materialName, materialId, specification, unit, amount, deliverAmount, unitPrice, totlemnt, paid, modifyDate, status) 
+        insert into t_purchaseDetail(id, planId, supplierId, supplierName, materialName, materialId, specification, unit, amount, unitPrice, totlemnt, paid, modifyDate, status) 
              values
              <foreach collection="list" item="purchasedtl" index="index" separator=",">
-                 (CONCAT(current_timestamp()+1, #{index}) , #{purchasedtl.planId}, #{purchasedtl.supplierId}, #{purchasedtl.supplierName}, #{purchasedtl.materialName}, #{purchasedtl.materialId}, #{purchasedtl.specification}, #{purchasedtl.unit}, #{purchasedtl.amount}, #{purchasedtl.deliverAmount}, #{purchasedtl.unitPrice}, #{purchasedtl.totlemnt}, #{purchasedtl.paid}, sysdate(), '1')
+                 (CONCAT(current_timestamp()+1, #{index}) , #{purchasedtl.planId}, #{purchasedtl.supplierId}, #{purchasedtl.supplierName}, #{purchasedtl.materialName}, #{purchasedtl.materialId}, #{purchasedtl.specification}, #{purchasedtl.unit}, #{purchasedtl.amount}, #{purchasedtl.unitPrice}, #{purchasedtl.totlemnt}, #{purchasedtl.paid}, sysdate(), '1')
              </foreach>
     </insert>
     
@@ -46,7 +49,6 @@
           specification = #{specification},
           unit = #{unit},
           amount = #{amount},
-          deliverAmount = #{deliverAmount},
           unitPrice = #{unitPrice}
           totlemnt = #{totlemnt}
           paid = #{paid}

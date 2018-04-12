@@ -70,8 +70,9 @@ var TableInit = function(){
 	
 	oTableInit.InitSubTable = function(index, row, $detail){
 		var parentid = row.id;
-        var cur_table = $detail.html('<table></table>').find('table');
+        var cur_table = $detail.html('<table id="'+parentid+'"></table>').find('table');
         $(cur_table).bootstrapTable({
+        	cache: false,
             url: 'loadPurchaseDetail.do',
             method: 'get',
             queryParams: { planId: parentid },
@@ -105,7 +106,7 @@ var TableInit = function(){
             	field: '',
                 title: '操作',
                 formatter: function(value,row,index){
-    				var strHtml = '<a href="#" onclick="deliver('+row.id+')">';
+    				var strHtml = '<a href="javascript:void(0);" onclick="deliver('+row.id+', '+parentid+')">';
     				strHtml += '<i class="glyphicon glyphicon-glass"></i>接收';
     				return strHtml;
     			}
@@ -151,28 +152,20 @@ function operationParam(){
 	return opt;
 }
 
-function deliver(id){
-	alert($("#modal_deliver").html());
+function deliver(id, parentId){	
 	$("#modal_deliver").modal({
 		remote: "editDeliver.do?planDetailId="+id,
 		backdrop: "static",
 	    keyboard: true
+	});	
+	$("#modal_deliver").on("hide.bs.modal",function(){
+		setTimeout(function(){
+			alert();
+			$("#"+parentId).bootstrapTable('refreshOptions', {url: 'loadPurchaseDetail.do?A=1&planId='+parentId,
+	            method: 'get'});
+		}, 5000);
+		
 	});
-	/*$("#li_opt_deliver").click(function(){
-		var selections = table.bootstrapTable('getSelections');
-    	if (selections.length == 0){
-    		alert("请选择需要相应的采购计划");
-    		return;
-    	}
-    	if (selections.length > 1){
-    		alert("一次只能够对一个采购计划接收原材料");
-    		return;
-    	}
-    	var id = selections[0].id;
-    	var identify = selections[0].identify;
-    	var url = "purchase/deliver.do?id="+id+"&identify="+identify;
-    	$(window.parent.document).find("#contentFrame").attr("src", url);
-	});	*/
 }
 
 function payment(){

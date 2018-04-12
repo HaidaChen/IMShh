@@ -67,7 +67,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button id="btn_save" type="submit" class="btn btn-default btn-sm">
+              <button id="btn_save" type="submit" class="btn btn-default btn-sm" >
                 <span class="glyphicon glyphicon-check"></span>保存
               </button> 
               <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">

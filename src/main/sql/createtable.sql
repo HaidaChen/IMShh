@@ -109,7 +109,6 @@ CREATE TABLE T_PURCHASEDETAIL(
     specification varchar(20),
     unit varchar(20),
     amount int,
-    deliverAmount int,
     unitPrice numeric(10,2),
     totlemnt numeric(10,2),
     paid numeric(10,2),   

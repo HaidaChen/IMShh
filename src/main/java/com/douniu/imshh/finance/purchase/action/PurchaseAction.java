@@ -1,6 +1,7 @@
 package com.douniu.imshh.finance.purchase.action;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,31 +108,36 @@ public class PurchaseAction {
 			String detailId = deliver.getPlanDetailId();
 			PurchaseDetail detail = detailService.queryById(detailId);
 			DeliverDetail oDeliver = createByPlanDetail(detail);
+			oDeliver.setPlanDetailId(detailId);
 			mav.addObject("deliver", oDeliver);
 		}
         mav.setViewName("/finance/purchase/deliverEdit");
         return mav;
 	}
 	
-	@RequestMapping("/saveDeliver")
-	public ModelAndView saveDeliver(DeliverDetail deliver){
+	@RequestMapping(value = "/saveDeliver", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String saveDeliver(DeliverDetail deliver){
 		deliverService.save(deliver);
-		PurchasePlan purchase = new PurchasePlan();
-		purchase.setId(deliver.getPlanId());
-		purchase.setIdentify(deliver.getPlanIdentify());
-        return deliver(purchase);		
+		return deliver.getPlanId();		
 	}
 	
 	private DeliverDetail createByPlanDetail(PurchaseDetail detail){
 		DeliverDetail deliverDetail = new DeliverDetail();
 		Field[] fields = PurchaseDetail.class.getDeclaredFields();
 		for(Field field : fields){
+			if ("id".equals(field.getName()))
+				continue;
 			Field target = ReflectionUtil.getDeclaredField(deliverDetail, field.getName());
 			if (target != null){
 				Object value = ReflectionUtil.getFieldValue(detail, field.getName());
-				ReflectionUtil.setFieldValue(deliverDetail, target.getName(), value);
+				if (value != null){
+					ReflectionUtil.setFieldValue(deliverDetail, target.getName(), value);
+				}
 			}
 		}
+		deliverDetail.setDeliverDate(new Date());
+		
 		return deliverDetail;
 	}
 }
