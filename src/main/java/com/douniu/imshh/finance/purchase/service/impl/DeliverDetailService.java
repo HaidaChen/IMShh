@@ -5,6 +5,7 @@ import java.util.List;
 import com.douniu.imshh.finance.purchase.dao.IDeliverDetailDao;
 import com.douniu.imshh.finance.purchase.domain.DeliverDetail;
 import com.douniu.imshh.finance.purchase.service.IDeliverDetailService;
+import com.douniu.imshh.utils.LikeFlagUtil;
 
 public class DeliverDetailService implements IDeliverDetailService {
 
@@ -42,6 +43,18 @@ public class DeliverDetailService implements IDeliverDetailService {
 
 	public void setDao(IDeliverDetailDao dao) {
 		this.dao = dao;
+	}
+
+	@Override
+	public List<DeliverDetail> query(DeliverDetail deliverDetail) {
+		DeliverDetail condition = LikeFlagUtil.appendLikeFlag(deliverDetail, new String[]{"planIdentify", "supplierName"});
+		return dao.query(condition);
+	}
+
+	@Override
+	public int count(DeliverDetail deliverDetail) {
+		DeliverDetail condition = LikeFlagUtil.appendLikeFlag(deliverDetail, new String[]{"planIdentify", "supplierName"});
+		return dao.count(condition);
 	}
 	
 }

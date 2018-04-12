@@ -93,8 +93,8 @@
     <script src="<%=basePath %>thirds/jquery/jquery.form.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script src="<%=basePath %>vendors/bootstrap-table/bootstrap-table.js"></script>
-    <script src="<%=basePath %>vendors/bootstrap-table/local/bootstrap-table-zh-CN.js"></script>
+    <%-- <script src="<%=basePath %>vendors/bootstrap-table/bootstrap-table.js"></script>
+    <script src="<%=basePath %>vendors/bootstrap-table/local/bootstrap-table-zh-CN.js"></script> --%>
     <script src="<%=basePath %>vendors/datepicker/bootstrap-datepicker.js"></script>
     <script src="<%=basePath %>assets/js/ins_datepicker.js"></script>
     <script src="<%=basePath %>assets/js/finance/deliver_edit.js"></script>

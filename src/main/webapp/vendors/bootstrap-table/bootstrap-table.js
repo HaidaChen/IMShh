@@ -2046,7 +2046,7 @@
     };
 
     BootstrapTable.prototype.trigger = function (name) {
-        var args = Array.prototype.slice.call(arguments, 1);
+    	var args = Array.prototype.slice.call(arguments, 1);
 
         name += '.bs.table';
         this.options[BootstrapTable.EVENTS[name]].apply(this.options, args);
@@ -2722,7 +2722,7 @@
     };
 
     BootstrapTable.prototype.refresh = function (params) {
-        if (params && params.url) {
+    	if (params && params.url) {
             this.options.pageNumber = 1;
         }
         this.initServer(params && params.silent,

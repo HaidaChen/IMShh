@@ -47,8 +47,8 @@
 						  </button> -->
 						  <i class="glyphicon glyphicon-list dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></i>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						    <li id="li_opt_deliver"><a href="#">收货</a></li>
-						    <li id="li_opt_payment"><a href="#">付款</a></li>						    
+						    <li id="li_opt_deliver"><a href="#" onclick="viewDeliverDetail()">收货明细</a></li>
+						    <li id="li_opt_payment"><a href="#">付款明细</a></li>						    
 						  </ul>
 						</div>
 		    	    </span>

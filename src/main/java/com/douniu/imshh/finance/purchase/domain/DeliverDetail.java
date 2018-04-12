@@ -2,7 +2,9 @@ package com.douniu.imshh.finance.purchase.domain;
 
 import java.util.Date;
 
-public class DeliverDetail {
+import com.douniu.imshh.common.BaseQO;
+
+public class DeliverDetail extends BaseQO{
 	private String id;
 	
 	private String planId;              /*关联采购计划*/

@@ -87,15 +87,28 @@ public class PurchaseAction {
 		deliverService.deleteByPlan(id);
 	}
 	
-	@RequestMapping("/deliver")
-	public ModelAndView deliver(PurchasePlan purchase){
+	@RequestMapping("/mainDeliver")
+	public ModelAndView mainDeliver(DeliverDetail deliverDetail){
 		ModelAndView mav = new ModelAndView();
-		List<DeliverDetail> deliver = deliverService.queryByPlan(purchase.getId());
-		mav.addObject("purchase", purchase);
-		mav.addObject("deliver", deliver);
 		mav.setViewName("/finance/purchase/deliver");
         return mav;
 	}
+	
+	@RequestMapping(value ="/loaddeliverdetail", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String loadDeliverDetail(DeliverDetail deliverDetail){
+		List<DeliverDetail> res = deliverService.query(deliverDetail);
+		int count = deliverService.count(deliverDetail);
+		
+		PageResult pr = new PageResult();
+		
+		pr.setTotal(count);
+		pr.setRows(res);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		return gson.toJson(pr);
+	}
+	
 	
 	@RequestMapping("/editDeliver")
 	public ModelAndView editDeliver(DeliverDetail deliver ){
@@ -119,7 +132,8 @@ public class PurchaseAction {
 	@ResponseBody
 	public String saveDeliver(DeliverDetail deliver){
 		deliverService.save(deliver);
-		return deliver.getPlanId();		
+		Gson gson = new Gson();
+		return gson.toJson(deliver);	
 	}
 	
 	private DeliverDetail createByPlanDetail(PurchaseDetail detail){

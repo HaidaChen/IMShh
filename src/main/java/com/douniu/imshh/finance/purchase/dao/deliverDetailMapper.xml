@@ -25,6 +25,40 @@
           order by d.modifydate desc
     </select>
     
+    <select id="query" parameterType="DeliverDetail" resultMap="dlvdtlmap">
+    	select d.*, p.identify from t_deliverDetail as d, t_purchaseplan as p where d.planId = p.id
+        <if test="planIdentify != null and planIdentify !=''">
+          and p.identify like #{planIdentify}
+        </if>
+        <if test="supplierName != null and supplierName !=''">
+          and d.supplierName like #{supplierName}
+        </if>
+        <if test="startDate != null">
+          and deliverDate &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+          and deliverDate &lt;= #{endDate}
+        </if>
+          order by d.modifydate desc
+          limit #{pageOffset},#{pageSize}
+    </select>
+    
+    <select id="count" parameterType="DeliverDetail" resultType="int">
+    	select count(1) from t_deliverDetail as d, t_purchaseplan as p where d.planId = p.id
+        <if test="planIdentify != null and planIdentify !=''">
+          and p.identify like #{planIdentify}
+        </if>
+        <if test="supplierName != null and supplierName !=''">
+          and d.supplierName like #{supplierName}
+        </if>
+        <if test="startDate != null">
+          and deliverDate &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+          and deliverDate &lt;= #{endDate}
+        </if>
+    </select>
+    
     <select id="findById" parameterType="String" resultMap="dlvdtlmap">
         select * from t_deliverDetail where id = #{id}
     </select>

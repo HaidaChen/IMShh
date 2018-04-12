@@ -10,9 +10,6 @@ $(function(){
 	
 	$("#txt_search").change(function(){$("#txt_search_identify").val($("#txt_search").val())});
 	$("#txt_search_identify").change(function(){$("#txt_search").val($("#txt_search_identify").val())});
-
-	//deliver($("#tb_purchase"));
-	payment($("#tb_purchase"));
 })
 
 var TableInit = function(){
@@ -152,22 +149,14 @@ function operationParam(){
 	return opt;
 }
 
+function viewDeliverDetail(){
+	$(window.parent.document).find("#contentFrame").attr("src", "purchase/mainDeliver.do");
+}
+
 function deliver(id, parentId){	
 	$("#modal_deliver").modal({
 		remote: "editDeliver.do?planDetailId="+id,
 		backdrop: "static",
 	    keyboard: true
-	});	
-	$("#modal_deliver").on("hide.bs.modal",function(){
-		setTimeout(function(){
-			alert();
-			$("#"+parentId).bootstrapTable('refreshOptions', {url: 'loadPurchaseDetail.do?A=1&planId='+parentId,
-	            method: 'get'});
-		}, 5000);
-		
-	});
-}
-
-function payment(){
-	
+	});		
 }
