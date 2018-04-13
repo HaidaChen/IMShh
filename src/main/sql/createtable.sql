@@ -203,3 +203,29 @@ CREATE TABLE T_TRANSACTION (
     remark varchar(1024),
     status char(1)
 );
+
+CREATE TABLE T_STORAGE (
+    id varchar(20) not null,
+    storageDate date not null,
+    pdtNo varchar(20) not null,
+    content varchar(20) not null,
+    amount int not null,
+    
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
+
+CREATE TABLE T_STORAGE_DELIVER (
+    id varchar(20) not null,
+    deliverDate date not null,
+    deliverType varchar(20),
+    orderId varchar(20),
+    pdtNo varchar(20) not null,
+    content varchar(20) not null,
+    amount int not null,
+    
+    modifyDate datetime,
+    remark varchar(1024),
+    status char(1)
+);
