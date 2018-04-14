@@ -229,3 +229,46 @@ CREATE TABLE T_STORAGE_DELIVER (
     remark varchar(1024),
     status char(1)
 );
+
+CREATE TABLE T_USER(
+	id varchar(20) not null,
+	username varchar(60) not null,
+	password varchar(20) not null,
+	fullname varchar(60) not null,
+	email varchar(128),
+	weichar varchar(60),
+	
+	status char(1),
+	modifyDate datetime
+);
+
+CREATE TABLE T_ROLE(
+	id varchar(20) not null,
+	name varchar(60) not null,
+	remark varchar(1024),
+	
+	status char(1),
+	modifyDate datetime
+);
+
+CREATE TABLE T_AUTHORITY(
+	id varchar(20) not null,
+	name varchar(60) not null,
+	parentId varchar(20) not null,
+	action varchar(128) not null,
+	dependents varchar(1024),
+	remark varchar(1024),	
+	
+	status char(1),
+	modifyDate datetime
+);
+
+CREATE TABLE T_USER_ROLE(
+	userId varchar(20) not null,
+	roleId varchar(20) not null
+);
+
+CREATE TABLE T_ROLE_AUTHORITY(
+	roleId varchar(20) not null,
+	authorityId varchar(20) not null
+);
