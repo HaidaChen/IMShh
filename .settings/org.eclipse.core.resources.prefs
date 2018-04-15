@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/com/douniu/imshh/finance/order/action/OrderAction.java=UTF-8
+encoding//src/main/java/com/douniu/imshh/finance/storage/action/DeliverAction.java=UTF-8
 encoding//src/main/webapp/assets/json/menu.json=UTF-8
 encoding//src/main/webapp/jsp/busdata/cust/overview.jsp=UTF-8
 encoding//src/main/webapp/jsp/finance/account/index.html=UTF-8

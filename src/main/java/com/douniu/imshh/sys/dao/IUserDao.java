@@ -5,7 +5,7 @@ import java.util.List;
 import com.douniu.sys.domain.User;
 
 public interface IUserDao {
-	List<User> queryUser(User user);
+	List<User> query(User user);
 	int count(User user);
 	User findById(String id);
 	void insert(User user);

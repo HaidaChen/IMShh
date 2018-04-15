@@ -47,7 +47,7 @@
         </if>
     </select>
     
-    <select id="findById" parameterType="String" resultMap="strgmap">
+    <select id="findById" parameterType="String" resultMap="usermap">
         select * from t_user where id = #{id}
     </select>
     

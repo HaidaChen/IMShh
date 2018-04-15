@@ -236,7 +236,7 @@ CREATE TABLE T_USER(
 	password varchar(20) not null,
 	fullname varchar(60) not null,
 	email varchar(128),
-	weichar varchar(60),
+	weichat varchar(60),
 	
 	status char(1),
 	modifyDate datetime

@@ -14,7 +14,7 @@ public class UserService implements IUserService{
 	@Override
 	public List<User> query(User user) {
 		User condition = LikeFlagUtil.appendLikeFlag(user, new String[]{"userName", "fullName", "email", "weichat"});
-		return dao.queryUser(condition);
+		return dao.query(condition);
 	}
 
 	@Override

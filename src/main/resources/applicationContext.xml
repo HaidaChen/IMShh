@@ -122,6 +122,16 @@ xsi:schemaLocation="
           <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
       
+      
+      <!--  -->
+      <bean name="userService" class="com.douniu.imshh.sys.service.impl.UserService">
+          <property name="dao" ref="userDao"></property>
+      </bean>
+      <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+          <property name="mapperInterface" value="com.douniu.imshh.sys.dao.IUserDao"/>
+          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      
       <bean name="deliverService" class="com.douniu.imshh.finance.storage.service.impl.DeliverService">
           <property name="dao" ref="deliverDao"></property>
       </bean>

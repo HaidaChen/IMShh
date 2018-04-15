@@ -17,6 +17,7 @@
         <typeAlias alias="Transaction" type="com.douniu.imshh.finance.account.domain.Transaction"/>
         <typeAlias alias="Storage" type="com.douniu.imshh.finance.storage.domain.Storage"/>
         <typeAlias alias="StorageDeliver" type="com.douniu.imshh.finance.storage.domain.Deliver"/>
+        <typeAlias alias="User" type="com.douniu.sys.domain.User"/>
     </typeAliases>
     
      
@@ -36,6 +37,7 @@
         <mapper resource="/com/douniu/imshh/finance/account/dao/transactionMapper.xml"/>
         <mapper resource="/com/douniu/imshh/finance/storage/dao/storageMapper.xml"/>
         <mapper resource="/com/douniu/imshh/finance/storage/dao/deliverMapper.xml"/>
+        <mapper resource="/com/douniu/imshh/sys/dao/userMapper.xml"/>
     </mappers>
     
 </configuration>

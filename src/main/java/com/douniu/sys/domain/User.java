@@ -2,7 +2,9 @@ package com.douniu.sys.domain;
 
 import java.util.List;
 
-public class User {
+import com.douniu.imshh.common.BaseQO;
+
+public class User extends BaseQO{
 	private String id;
 	private String userName;
 	private String password;	
