@@ -1,6 +1,8 @@
 package com.douniu.imshh.sys.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,5 +71,28 @@ public class UserAction {
 	public void delete(String id){
 		service.remove(id);
 	}
-	  
+	
+	@RequestMapping("/existUser")
+	@ResponseBody
+	public String existUser(String id, String userName){
+		Map<String, Boolean> result = new HashMap<>();
+		
+		if (!"".equals(id)){
+			User user = service.findById(id);
+			if (userName.equals(user.getUserName())){
+				result.put("valid", true);
+			}else{
+				result.put("valid", false);
+			}
+		}else{
+			if(service.existUserName(userName)){
+				result.put("valid", false);
+			}else{
+				result.put("valid", true);
+			}
+		}
+				
+		Gson gson = new Gson();
+		return gson.toJson(result);
+	}
 }

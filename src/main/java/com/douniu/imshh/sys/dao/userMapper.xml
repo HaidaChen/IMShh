@@ -53,7 +53,7 @@
     
     <insert id="insert" parameterType="User">
         insert into t_user(id, userName, password, fullName, email, weichat, modifydate, status) 
-          values(#{id}, #{userName}, #{password}, #{fullName}, #{email}, #{weichat}, sysdate(), #{status})
+          values(current_timestamp()+'', #{userName}, #{password}, #{fullName}, #{email}, #{weichat}, sysdate(), '1')
     </insert>    
     
     <update id="update" parameterType="User">
@@ -67,7 +67,7 @@
     where id = #{id}
     </update>
     
-    <update id="deleteById" parameterType="String">
+    <update id="delete" parameterType="String">
         update t_user set 
           status = '0',
           modifydate = sysdate()
@@ -77,7 +77,7 @@
     <select id="countByNmPwd" parameterType="User" resultType="int">
     	select count(1) from t_user where status = '1'
     	<if test="userName != null and userName !=''">
-          and username = #{userName}           
+          and username = #{userName}
         </if> 
         <if test="password != null and password !=''">
           and password = #{password}           

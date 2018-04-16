@@ -18,7 +18,7 @@
     </div>
     
     <div class="col-sm-6 col-md-4 col-lg-3" style="margin:40px auto; float:none;">
-      <form method="post" action="index.jsp">
+      <form method="post" action="<%=basePath %>login/login.do">
     <div class="col-xs-12">
           <div class="form-group">
         <div class="input-group">
@@ -32,6 +32,9 @@
           <input type="password" name="password" class="form-control" placeholder="密码">
         </div>
           </div>
+        <div>
+        	<span>${tip}</span>
+        </div>
         </div>
     <div class="col-xs-6">
           

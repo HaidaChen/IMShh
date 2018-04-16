@@ -27,7 +27,7 @@
 
 jQuery.extend({
 	loadSidemenu:function(module){
-		$.getJSON("assets/json/menu.json", function (data){
+		$.getJSON("/IMShh/assets/json/menu.json", function (data){
 			var $sidebar = $('#sidebar');
 			
 			$.each(data, function(index, obj) {
@@ -50,7 +50,7 @@ jQuery.extend({
 							listitem = $('<li></li>');
 						}
 						if (menu.url != ''){
-						    item = $('<a href="' + menu.url + '" target="contentFrame">' + menu.name + '</a>');
+						    item = $('<a href="/IMShh/' + menu.url + '" target="contentFrame">' + menu.name + '</a>');
 						}else{							
 							item = $('<div><a><i class="' + menu.icon + '"></i>' + menu.name + '</a></div>');							
 						}
@@ -62,9 +62,9 @@ jQuery.extend({
 							$.each(menu.submenu, function(idx2, submenu){
 								var subitem = '';
 								if (idx1 == 0 && idx2 == 0){
-									subitem = $('<li class="active"><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
+									subitem = $('<li class="active"><a href="/IMShh/' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
 								}else{
-									subitem = $('<li><a href="' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
+									subitem = $('<li><a href="/IMShh/' + submenu.url + '" target="contentFrame">' + submenu.name + '</a></li>');
 								}
 								subbox.append(subitem);
 							});

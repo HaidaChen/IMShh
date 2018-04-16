@@ -55,7 +55,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a tabindex="-1" href="login.html">Logout</a>
+                                <a tabindex="-1" href="logout.do">Logout</a>
                             </li>
                         </ul>
                     </li>

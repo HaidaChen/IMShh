@@ -15,7 +15,7 @@
 <body>
     <div class="block">
         
-        <form id="custform" class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
+        <form id="userform" class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
             <input type="hidden" name="id" value="${user.id }">
             <div class="modal-header">
                 <h4 class="modal-title" style="color: black">系统用户信息</h4>
@@ -67,6 +67,6 @@
     <script src="<%=basePath %>thirds/jquery/jquery-3.2.1.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=basePath %>thirds/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script src="<%=basePath %>assets/js/busdata/user_edit.js"></script>
+    <script src="<%=basePath %>assets/js/sys/user_edit.js"></script>
 </body>
 </html>
