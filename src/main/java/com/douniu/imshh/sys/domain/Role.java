@@ -1,4 +1,4 @@
-package com.douniu.sys.domain;
+package com.douniu.imshh.sys.domain;
 
 import java.util.List;
 

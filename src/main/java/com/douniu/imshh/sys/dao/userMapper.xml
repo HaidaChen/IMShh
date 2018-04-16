@@ -84,4 +84,16 @@
         </if>         
     </select>
     
+    
+    <delete id="deleteRoleRelation" parameterType="String">
+    	delete t_user_role where roleId = #{userId}
+    </delete>
+    
+    <insert id="addRoleRelation" parameterType="java.util.List">        
+        insert into t_user_role(userid, roleid) 
+             values
+             <foreach collection="list" item="ur">
+                 (#{ur.userId}, #{ur.roleid})
+             </foreach>
+    </insert>
 </mapper>

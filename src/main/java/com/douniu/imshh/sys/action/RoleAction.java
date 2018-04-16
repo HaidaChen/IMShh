@@ -16,9 +16,8 @@ import com.douniu.imshh.sys.service.IUserService;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping("/user")
-public class UserAction {
-	
+@RequestMapping("/role")
+public class RoleAction {
 	@Autowired
 	private IUserService service;
 	

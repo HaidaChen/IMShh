@@ -3,9 +3,9 @@ package com.douniu.imshh.sys.service.impl;
 import java.util.List;
 
 import com.douniu.imshh.sys.dao.IUserDao;
+import com.douniu.imshh.sys.domain.User;
 import com.douniu.imshh.sys.service.IUserService;
 import com.douniu.imshh.utils.LikeFlagUtil;
-import com.douniu.sys.domain.User;
 
 public class UserService implements IUserService{
 

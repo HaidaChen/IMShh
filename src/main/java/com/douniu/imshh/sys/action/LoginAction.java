@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.douniu.imshh.sys.domain.User;
 import com.douniu.imshh.sys.service.IUserService;
-import com.douniu.sys.domain.User;
 
 @Controller
 @RequestMapping("/login")

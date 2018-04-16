@@ -1,14 +1,11 @@
-package com.douniu.sys.domain;
-
-import java.util.List;
+package com.douniu.imshh.sys.domain;
 
 public class Authority {
 	private String id;
 	private String name;
 	private String parentId;
 	private String action;
-	
-	private List<String> dependents;
+	private String dependents;	
 	private String remark;	
 	
 	public String getId() {
@@ -41,10 +38,10 @@ public class Authority {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public List<String> getDependents() {
+	public String getDependents() {
 		return dependents;
 	}
-	public void setDependents(List<String> dependents) {
+	public void setDependents(String dependents) {
 		this.dependents = dependents;
 	}
 	
