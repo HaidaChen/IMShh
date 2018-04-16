@@ -257,10 +257,7 @@ CREATE TABLE T_AUTHORITY(
 	parentId varchar(20) not null,
 	action varchar(128) not null,
 	dependents varchar(1024),
-	remark varchar(1024),	
-	
-	status char(1),
-	modifyDate datetime
+	remark varchar(1024)
 );
 
 CREATE TABLE T_USER_ROLE(
@@ -271,4 +268,12 @@ CREATE TABLE T_USER_ROLE(
 CREATE TABLE T_ROLE_AUTHORITY(
 	roleId varchar(20) not null,
 	authorityId varchar(20) not null
+);
+
+CREATE TABLE T_MENU(
+	id varchar(20) not null,
+	name varchar(60) not null,
+	parentId varchar(20) not null,
+	url varchar(128) not null,
+	icon varchar(128)
 );
