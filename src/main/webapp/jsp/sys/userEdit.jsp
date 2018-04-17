@@ -53,6 +53,41 @@
                       <input type="text" class="form-control" name="weichat" value="${user.weichat }" placeholder="请输入微信号">
                   </div>
               </div>
+              <div class="form-group">
+                  <label for="weichat" class="col-sm-2 control-label">所属角色</label>
+                  <div class="col-sm-10">
+                      <div class="row">
+                      	  <div class="col-sm-5">
+                      	  	<select id="slt_userRole" multiple="multiple" class="form-control" name="roles" size="5">
+                      	  		<c:forEach var="role" items="${userRoles}">
+                      	  		    <option value="${role.id}">${role.name}</option>
+                      	  		</c:forEach>
+                      	  	</select>
+                      	  </div>
+                      	  <div class="col-sm-1">
+                      	    <div class="row">
+                      	    	<span><a href="javascript:void(0);" onclick="removeRole()"><i class="glyphicon glyphicon-chevron-right"></i></a></span>
+                      	    </div>
+                      	    <div class="row">
+                      	    	<span><a href="javascript:void(0);" onclick="removeAllRoles()"><i class="glyphicon glyphicon-forward"></i></a></span>
+                      	    </div>
+                      	    <div class="row">
+                      	    	<span><a href="javascript:void(0);" onclick="addRole()"><i class="glyphicon glyphicon-backward"></i></a></span>
+                      	    </div>
+                      	    <div class="row">
+                      	    	<span><a href="javascript:void(0);" onclick="addAllRole()"><i class="glyphicon glyphicon-chevron-left"></i></a></span>
+                      	    </div>
+                      	  </div>
+                      	  <div class="col-sm-5">
+                      	    <select id="slt_role" multiple="multiple" class="form-control" name="choiceRoles" size="5">
+                      	    	<c:forEach var="role" items="${roles}">
+                      	  		    <option value="${role.id}">${role.name}</option>
+                      	  		</c:forEach>
+                      	  	</select>
+                      	  </div>
+                      </div>
+                  </div>
+              </div>
             </div>
             <div class="modal-footer">
               <button id="btn_save" type="submit" class="btn btn-default btn-sm" >

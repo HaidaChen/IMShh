@@ -60,10 +60,12 @@ public class RoleAction {
 	
 	@RequestMapping(value ="/allAuthority", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String queryAllAuthority(){
+	public String queryAllAuthority(String roleId){
 		List<Authority> auList = authorityService.query();
+		List<Authority> roleAuthList = authorityService.queryByRole(roleId);
 		JSTree root = new JSTree("0", "系统权限");
-		loadChildTree(root, auList);
+		root.getState().setOpened(true);
+		loadChildTree(root, auList, roleAuthList);
 		
 		Gson gson = new Gson();
 		return gson.toJson(root);
@@ -83,16 +85,28 @@ public class RoleAction {
 		service.addAuthorityRelation(roleAuthorities);
 	}
 	
-	private void loadChildTree(JSTree parent, List<Authority> auList){
+	private void loadChildTree(JSTree parent, List<Authority> auList, List<Authority> roleAuthList){
 		List<JSTree> childs = new ArrayList<JSTree>();
 		for (Authority authority : auList){
 			if (authority.getParentId().equals(parent.getId())){
 				JSTree child = new JSTree(authority.getId(), authority.getName());
+				if (containAuthority(child.getId(), roleAuthList)){
+					child.checkNode();
+				}else{
+					child.uncheckNode();
+				}
 				childs.add(child);
-				loadChildTree(child, auList);
+				loadChildTree(child, auList, roleAuthList);
 			}
 		}
 		parent.setChildren(childs);
 	}
 	
+	private boolean containAuthority(String roleId, List<Authority> roleAuthList){
+		for (Authority authority : roleAuthList){
+			if (roleId.equals(authority.getId()))
+				return true;
+		}
+		return false;
+	}
 }

@@ -1,5 +1,6 @@
 package com.douniu.imshh.sys.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.douniu.imshh.common.PageResult;
+import com.douniu.imshh.sys.domain.Role;
 import com.douniu.imshh.sys.domain.User;
+import com.douniu.imshh.sys.service.IRoleService;
 import com.douniu.imshh.sys.service.IUserService;
 import com.google.gson.Gson;
 
@@ -21,6 +24,8 @@ public class UserAction {
 	
 	@Autowired
 	private IUserService service;
+	@Autowired
+	private IRoleService roleService;
 	
 	@RequestMapping("/main")
     public ModelAndView enter(){
@@ -46,11 +51,18 @@ public class UserAction {
 	
 	@RequestMapping("/edit")
 	public ModelAndView edit(User user){
+		List<Role> roles = roleService.query();
+		List<Role> userRoles = new ArrayList<>();	
 		ModelAndView mav = new ModelAndView();
 		if (!"".equals(user.getId()) && user.getId() != null){
 			User oUser = service.findById(user.getId());
 			mav.addObject("user", oUser);
+			userRoles = roleService.queryByUser(user.getId());			
 		}
+		
+		getFreeRoles(roles, userRoles);		
+		mav.addObject("userRoles", userRoles);
+		mav.addObject("roles", roles);		
         mav.setViewName("/sys/userEdit");
         return mav;
 	}
@@ -94,5 +106,15 @@ public class UserAction {
 				
 		Gson gson = new Gson();
 		return gson.toJson(result);
+	}
+	
+	private void getFreeRoles(List<Role> allRole, List<Role> userRole){
+		for (Role role : allRole){
+			for (Role urole : userRole){
+				if (role.getId().equals(urole)){
+					allRole.remove(role);
+				}				
+			}
+		}
 	}
 }

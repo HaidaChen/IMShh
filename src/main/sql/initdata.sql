@@ -81,3 +81,24 @@ insert into T_ROLE(id, name, remark, status, modifyDate)
      values('01', '系统管理员', '系统管理员角色，主要职责是管理系统用户和对用户设置角色，为角色分配权限', '1', sysdate());
 insert into T_ROLE(id, name, remark, status, modifyDate)
      values('02', '业务管理员', '业务管理员角色，是整个系统业务功能模块的管理员，能够访问系统的所有业务模块（不包含系统管理模块）', '1', sysdate());
+     
+ 
+     
+INSERT INTO `t_role_authority` VALUES ('01', '04');
+INSERT INTO `t_role_authority` VALUES ('01', '0401');
+INSERT INTO `t_role_authority` VALUES ('01', '0402');
+INSERT INTO `t_role_authority` VALUES ('02', '01');
+INSERT INTO `t_role_authority` VALUES ('02', '0101');
+INSERT INTO `t_role_authority` VALUES ('02', '0102');
+INSERT INTO `t_role_authority` VALUES ('02', '0103');
+INSERT INTO `t_role_authority` VALUES ('02', '0104');
+INSERT INTO `t_role_authority` VALUES ('02', '0105');
+INSERT INTO `t_role_authority` VALUES ('02', '02');
+INSERT INTO `t_role_authority` VALUES ('02', '0201');
+INSERT INTO `t_role_authority` VALUES ('02', '0202');
+INSERT INTO `t_role_authority` VALUES ('02', '0203');
+INSERT INTO `t_role_authority` VALUES ('02', '03');
+INSERT INTO `t_role_authority` VALUES ('02', '0301');
+INSERT INTO `t_role_authority` VALUES ('02', '0302');
+INSERT INTO `t_role_authority` VALUES ('02', '0303');
+INSERT INTO `t_role_authority` VALUES ('02', '0304');

@@ -43,3 +43,37 @@ $(function(){
 	});
 	
 });
+
+function removeRole(){
+	var selecteds = $("#slt_userRole option:selected");
+	remove(selecteds);
+}
+
+function removeAllRoles(){
+	remove($("#slt_userRole").children());
+}
+
+function remove(roleOpts){
+	var rolePool = $("#slt_role");
+	roleOpts.each(function(){
+		rolePool.append($(this));
+		$(this).remove();
+	});
+}
+
+function addRole(){
+	var selecteds = $("#slt_role option:selected");
+	add(selecteds);
+}
+
+function addAllRole(){
+	add($("#slt_role").children());
+}
+
+function add(roleOpts){
+	var rolePool = $("#slt_userRole");
+	roleOpts.each(function(){
+		rolePool.append($(this));
+		$(this).remove();
+	});
+}

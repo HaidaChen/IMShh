@@ -29,14 +29,13 @@ $(function(){
 	$("#select_role").change(function(){
 		var remark = $(this).find("option:selected").attr("remark");
 		$("#remark").text(remark);
-		loadAuTree();
+		loadAuTree($(this).val());
 		$("#sideAuthority").show();
 	});
 	
 	$("#btn_save_authortiy").click(function(){
 		var roleId = $("#select_role").val();
 		var url = "saveAuthority.do?roleId="+roleId+"&authorityIds="+ids;
-		alert(url);
 		$.ajax({"url": url, success: function(){
 			alert("角色权限保存成功");
 		}});
@@ -44,19 +43,18 @@ $(function(){
 });
 
 var ids = [];
-function loadAuTree(){
-	$('#authorityTree').remove();
+function loadAuTree(roleId){
 	ids = [];
 	var tree = $('#authorityTree');
-	tree.data('jstree', false);
-	tree.data('jstree', false).empty().jstree({
+	tree.data('jstree', false).empty();
+	tree.jstree({
 	    'core' : {
 	      'data' : {
-	        "url" : "allAuthority.do",
+	        "url" : "allAuthority.do?roleId="+roleId,
 	        "dataType" : "json"
 	      }
 	    },
-	    "plugins" : ["state", "types",  "wholerow", "checkbox" ]
+	    "plugins" : ["checkbox" ]
 	});	
 	
 	tree.on('changed.jstree', function (e, data){

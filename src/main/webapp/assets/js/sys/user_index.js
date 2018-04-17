@@ -66,9 +66,9 @@ function operationParam(){
 			queryElement: $("#span_search"),
 			queryUrl: "loaduser.do",
 			addElement: $("#btn_add"),
-			addUrl: "user/edit.do",
+			addUrl: "/IMShh/user/edit.do",
 			updateElement: $("#btn_update"),
-			updateUrl: "user/edit.do?id=",
+			updateUrl: "/IMShh/user/edit.do?id=",
 			deleteElement: $("#btn_delete"),
 			deleteUrl: "delete.do?id="
 		}

@@ -12,16 +12,16 @@ public class JSTree {
 	
 	public JSTree(){super();}
 		
-	public JSTree(String id, String text, String icon, boolean opened, boolean disabled, boolean selected) {
+	public JSTree(String id, String text){
+		this(id, text, "false", false, false);
+	}
+	
+	public JSTree(String id, String text, String icon, boolean opened, boolean checked) {
 		super();
 		this.id = id;
 		this.text = text;
 		this.icon = icon;
-		this.state = new State(opened, disabled, selected);
-	}
-	
-	public JSTree(String id, String text){
-		this(id, text, "false", true, false, false);
+		this.state = new State(opened, checked);
 	}
 
 	public String getId() {
@@ -56,30 +56,50 @@ public class JSTree {
 		this.state = state;
 	}
 	
-	public void selectNode(){
+	public void checkNode(){
 		this.state.selected = true;
+		this.state.checked = true;
+	}
+	
+	public void uncheckNode(){
+		this.state.selected = false;
+		this.state.checked = false;
 	}
 	
 	public void opendNode(){
 		this.state.opened = true;
 	}
 
+	
+	
 	@Override
 	public String toString() {
-		return "JSTree [id=" + id + ", text=" + text + ", children=" + children + "]";
+		return "JSTree [id=" + id + ", text=" + text + ", icon=" + icon + ", state=" + state + ", children=" + children
+				+ "]";
 	}
-	
-	class State{
+
+	public class State{
 		private boolean opened;
 		private boolean disabled;
 		private boolean selected;
-				
-		public State(boolean opened, boolean disabled, boolean selected) {
+		private boolean checked;
+		private boolean undetermined;
+			
+		public State(){super();}
+		
+		public State(boolean opened, boolean checked){
+			this(opened, false, checked, checked, false);
+		}
+		
+		public State(boolean opened, boolean disabled, boolean selected, boolean checked, boolean undetermined) {
 			super();
 			this.opened = opened;
 			this.disabled = disabled;
 			this.selected = selected;
+			this.checked = checked;
+			this.undetermined = undetermined;
 		}
+		
 		
 		public boolean isOpened() {
 			return opened;
@@ -98,6 +118,30 @@ public class JSTree {
 		}
 		public void setSelected(boolean selected) {
 			this.selected = selected;
-		}		
+		}
+		public boolean isChecked() {
+			return checked;
+		}
+
+		public void setChecked(boolean checked) {
+			this.checked = checked;
+		}
+
+		public boolean isUndetermined() {
+			return undetermined;
+		}
+
+		public void setUndetermined(boolean undetermined) {
+			this.undetermined = undetermined;
+		}
+
+		@Override
+		public String toString() {
+			return "State [opened=" + opened + ", disabled=" + disabled + ", selected=" + selected + ", checked="
+					+ checked + ", undetermined=" + undetermined + "]";
+		}
+
+		
+		
 	}
 }
