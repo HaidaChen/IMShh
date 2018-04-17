@@ -86,7 +86,7 @@
     
     
     <delete id="deleteRoleRelation" parameterType="String">
-    	delete t_user_role where roleId = #{userId}
+    	delete from t_user_role where roleId = #{userId}
     </delete>
     
     <insert id="addRoleRelation" parameterType="java.util.List">        

@@ -1,8 +1,7 @@
 package com.douniu.imshh.sys.action;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,57 +9,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.douniu.imshh.common.PageResult;
-import com.douniu.imshh.sys.domain.User;
-import com.douniu.imshh.sys.service.IUserService;
+import com.douniu.imshh.sys.domain.Authority;
+import com.douniu.imshh.sys.domain.JSTree;
+import com.douniu.imshh.sys.domain.Role;
+import com.douniu.imshh.sys.domain.RoleAuthority;
+import com.douniu.imshh.sys.service.IAuthorityService;
+import com.douniu.imshh.sys.service.IRoleService;
 import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/role")
 public class RoleAction {
 	@Autowired
-	private IUserService service;
+	private IRoleService service;
+	@Autowired
+	private IAuthorityService authorityService;
 	
 	@RequestMapping("/main")
     public ModelAndView enter(){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/sys/userOverview");
+        List<Role> roles = service.query();
+        mav.addObject("roles", roles);
+        mav.setViewName("/sys/roleOverview");
         return mav;
     }
 	
-	@RequestMapping(value ="/loaduser", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public String loadUser(User user){
-		List<User> res = service.query(user);
-		int count = service.count(user);
-		
-		PageResult pr = new PageResult();
-		
-		pr.setTotal(count);
-		pr.setRows(res);
-		
-		Gson gson = new Gson();
-		return gson.toJson(pr);
-	}
-	
 	@RequestMapping("/edit")
-	public ModelAndView edit(User user){
+	public ModelAndView edit(Role role){
 		ModelAndView mav = new ModelAndView();
-		if (!"".equals(user.getId()) && user.getId() != null){
-			User oUser = service.findById(user.getId());
-			mav.addObject("user", oUser);
+		if (!"".equals(role.getId()) && role.getId() != null){
+			Role oRole = service.findById(role.getId());
+			mav.addObject("role", oRole);
 		}
-        mav.setViewName("/sys/userEdit");
+        mav.setViewName("/sys/roleEdit");
         return mav;
 	}
 	
 	@RequestMapping("/save")
-	public ModelAndView save(User user){
-		if (!"".equals(user.getId()) && user.getId() != null){
-			service.update(user);
-		}else{
-			service.add(user);
-		}
+	public ModelAndView save(Role role){
+		service.add(role);
 		return enter();
 	}	
 	
@@ -68,30 +55,44 @@ public class RoleAction {
 	@RequestMapping("/delete")
 	@ResponseBody
 	public void delete(String id){
-		service.remove(id);
+		service.delete(id);
+	}	
+	
+	@RequestMapping(value ="/allAuthority", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String queryAllAuthority(){
+		List<Authority> auList = authorityService.query();
+		JSTree root = new JSTree("0", "系统权限");
+		loadChildTree(root, auList);
+		
+		Gson gson = new Gson();
+		return gson.toJson(root);
 	}
 	
-	@RequestMapping("/existUser")
+	@RequestMapping(value ="/saveAuthority", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String existUser(String id, String userName){
-		Map<String, Boolean> result = new HashMap<>();
+	public void saveAuthority(String roleId, String authorityIds){
+		service.deleteAuthorityRelation(roleId);
 		
-		if (!"".equals(id)){
-			User user = service.findById(id);
-			if (userName.equals(user.getUserName())){
-				result.put("valid", true);
-			}else{
-				result.put("valid", false);
-			}
-		}else{
-			if(service.existUserName(userName)){
-				result.put("valid", false);
-			}else{
-				result.put("valid", true);
+		List<RoleAuthority> roleAuthorities = new ArrayList<>();
+		String[] authorityIdArr = authorityIds.split(",");		
+		for (String authorityId : authorityIdArr){
+			RoleAuthority roleAuthority = new RoleAuthority(roleId, authorityId);
+			roleAuthorities.add(roleAuthority);
+		}
+		service.addAuthorityRelation(roleAuthorities);
+	}
+	
+	private void loadChildTree(JSTree parent, List<Authority> auList){
+		List<JSTree> childs = new ArrayList<JSTree>();
+		for (Authority authority : auList){
+			if (authority.getParentId().equals(parent.getId())){
+				JSTree child = new JSTree(authority.getId(), authority.getName());
+				childs.add(child);
+				loadChildTree(child, auList);
 			}
 		}
-				
-		Gson gson = new Gson();
-		return gson.toJson(result);
+		parent.setChildren(childs);
 	}
+	
 }

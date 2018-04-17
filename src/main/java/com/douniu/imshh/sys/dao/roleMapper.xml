@@ -25,7 +25,7 @@
     
     <insert id="insert" parameterType="Role">
         insert into t_role(id, name, remark, modifydate, status) 
-          values(current_timestamp()+'', #{name}, #{remark},sysdate(), '1')
+          values(current_timestamp()+'', #{name}, #{remark}, sysdate(), '1')
     </insert> 
     
     <update id="update" parameterType="User">
@@ -44,14 +44,14 @@
     </update>
     
     <delete id="deleteAuthorityRelation" parameterType="String">
-    	delete t_role_authority where roleId = #{roleId}
+    	delete from t_role_authority where roleId = #{roleId}
     </delete>
     
     <insert id="addAuthorityRelation" parameterType="java.util.List">        
         insert into t_role_authority(roleid, authorityId) 
              values
-             <foreach collection="list" item="ra">
-                 (#{ra.roleid}, #{ra.authorityId})
+             <foreach collection="list" item="ra" index="index" separator=",">
+                 (#{ra.roleId}, #{ra.authorityId})
              </foreach>
     </insert>
 </mapper>

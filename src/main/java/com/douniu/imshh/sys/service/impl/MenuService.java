@@ -15,4 +15,7 @@ public class MenuService implements IMenuService{
 		return dao.query();
 	}
 
+	public void setDao(IMenuDao dao) {
+		this.dao = dao;
+	}	
 }

@@ -39,7 +39,7 @@
                         "url": "user/main.do",
                     "submenu": null},
                     {"name": "角色管理", 
-                        "url": "user/main.do",
+                        "url": "role/main.do",
                     "submenu": null},
                     {"name": "系统权限", 
                         "url": "user/main.do",

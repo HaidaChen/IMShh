@@ -4,6 +4,14 @@ public class RoleAuthority {
 	private String roleId;
 	private String authorityId;
 	
+	public RoleAuthority(){super();}	
+	
+	public RoleAuthority(String roleId, String authorityId) {
+		super();
+		this.roleId = roleId;
+		this.authorityId = authorityId;
+	}
+
 	public String getRoleId() {
 		return roleId;
 	}

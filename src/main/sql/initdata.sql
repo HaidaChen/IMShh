@@ -76,3 +76,8 @@ insert into T_AUTHORITY(id, name, parentId, action, dependents, remark)
      values('0401', '用户管理', '04', 'user/main.do', '', '拥有用户管理权限，可以查看，新增，修改和删除用户信息，并为其分配角色');
 insert into T_AUTHORITY(id, name, parentId, action, dependents, remark)
      values('0402', '角色管理', '04', 'role/main.do', '', '拥有角色管理权限，可以查看，新增，修改和删除角色信息，并为其分配权限');
+
+insert into T_ROLE(id, name, remark, status, modifyDate)
+     values('01', '系统管理员', '系统管理员角色，主要职责是管理系统用户和对用户设置角色，为角色分配权限', '1', sysdate());
+insert into T_ROLE(id, name, remark, status, modifyDate)
+     values('02', '业务管理员', '业务管理员角色，是整个系统业务功能模块的管理员，能够访问系统的所有业务模块（不包含系统管理模块）', '1', sysdate());

@@ -9,6 +9,7 @@ public interface IRoleService {
 	List<Role> query();
 	List<Role> queryByUser(String userId);
 	Role findById(String id);
+	void add(Role role);
 	void addAuthorityRelation(List<RoleAuthority> roleAuthorities);
 	void deleteAuthorityRelation(String roleId);
 	void delete(String id);

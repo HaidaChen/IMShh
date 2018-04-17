@@ -21,7 +21,7 @@
         select m.* from t_authority m, t_role_authority b where m.id = b.authorityId and b.roleId = #{roleId}
     </select>    
     
-    <select id="findById" parameterType="String" resultMap="usermap">
+    <select id="findById" parameterType="String" resultMap="authoritymap">
         select * from t_authority where id = #{id}
     </select>
     

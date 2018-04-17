@@ -34,6 +34,11 @@ public class RoleService implements IRoleService{
 	public void addAuthorityRelation(List<RoleAuthority> roleAuthorities) {
 		dao.addAuthorityRelation(roleAuthorities);
 	}
+	
+	@Override
+	public void add(Role role) {
+		dao.insert(role);
+	}	
 
 	@Override
 	public void delete(String id) {
@@ -42,5 +47,6 @@ public class RoleService implements IRoleService{
 	
 	public void setDao(IRoleDao dao) {
 		this.dao = dao;
-	}		
+	}
+		
 }
