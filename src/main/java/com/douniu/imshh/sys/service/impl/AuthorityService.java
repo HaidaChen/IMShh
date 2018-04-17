@@ -19,6 +19,11 @@ public class AuthorityService implements IAuthorityService{
 	public List<Authority> queryByRole(String roleId) {
 		return dao.queryByRole(roleId);
 	}
+	
+	@Override
+	public List<Authority> queryByUser(String userId) {
+		return dao.queryByUser(userId);
+	}
 
 	@Override
 	public Authority findById(String id) {

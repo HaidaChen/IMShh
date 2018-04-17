@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.douniu.imshh.common.PageResult;
 import com.douniu.imshh.sys.domain.Role;
 import com.douniu.imshh.sys.domain.User;
+import com.douniu.imshh.sys.domain.UserRole;
 import com.douniu.imshh.sys.service.IRoleService;
 import com.douniu.imshh.sys.service.IUserService;
 import com.google.gson.Gson;
@@ -60,7 +61,7 @@ public class UserAction {
 			userRoles = roleService.queryByUser(user.getId());			
 		}
 		
-		getFreeRoles(roles, userRoles);		
+		roles = getFreeRoles(roles, userRoles);		
 		mav.addObject("userRoles", userRoles);
 		mav.addObject("roles", roles);		
         mav.setViewName("/sys/userEdit");
@@ -68,11 +69,23 @@ public class UserAction {
 	}
 	
 	@RequestMapping("/save")
-	public ModelAndView save(User user){
+	public ModelAndView save(User user, String[] userRoles){
 		if (!"".equals(user.getId()) && user.getId() != null){
 			service.update(user);
 		}else{
+			String id = System.currentTimeMillis() + "";
+			user.setId(id);
 			service.add(user);
+		}
+		
+		if (userRoles != null){
+			List<UserRole> userRoleList = new ArrayList<>();
+			for (String roleId : userRoles){
+				UserRole ur = new UserRole(user.getId(), roleId);
+				userRoleList.add(ur);
+			}
+			service.deleteRoleRelation(user.getId());
+			service.addRoleRelation(userRoleList);
 		}
 		return enter();
 	}	
@@ -108,13 +121,20 @@ public class UserAction {
 		return gson.toJson(result);
 	}
 	
-	private void getFreeRoles(List<Role> allRole, List<Role> userRole){
+	private List<Role> getFreeRoles(List<Role> allRole, List<Role> userRole){
+		List<Role> freeRoles = new ArrayList<>();
 		for (Role role : allRole){
+			boolean hasRef = false;
 			for (Role urole : userRole){
-				if (role.getId().equals(urole)){
-					allRole.remove(role);
+				if (role.getId().equals(urole.getId())){
+					hasRef = true;
+					break;
 				}				
 			}
+			if (!hasRef){
+				freeRoles.add(role);
+			}
 		}
+		return freeRoles;
 	}
 }

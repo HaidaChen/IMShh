@@ -21,6 +21,10 @@
         select m.* from t_authority m, t_role_authority b where m.id = b.authorityId and b.roleId = #{roleId}
     </select>    
     
+    <select id="queryByUser" parameterType="String" resultMap="authoritymap">
+        select a.* from t_authority a, t_role_authority r, t_user_role u where a.id = r.authorityId and r.roleId = u.roleId and u.userId= #{userId}
+    </select>
+    
     <select id="findById" parameterType="String" resultMap="authoritymap">
         select * from t_authority where id = #{id}
     </select>

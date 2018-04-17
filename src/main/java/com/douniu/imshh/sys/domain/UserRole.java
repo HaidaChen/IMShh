@@ -4,6 +4,12 @@ public class UserRole {
 	private String userId;
 	private String roleId;
 	
+	
+	public UserRole(String userId, String roleId) {
+		super();
+		this.userId = userId;
+		this.roleId = roleId;
+	}
 	public String getUserId() {
 		return userId;
 	}

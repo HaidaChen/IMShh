@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.douniu.imshh.sys.dao.IUserDao;
 import com.douniu.imshh.sys.domain.User;
+import com.douniu.imshh.sys.domain.UserRole;
 import com.douniu.imshh.sys.service.IUserService;
 import com.douniu.imshh.utils.LikeFlagUtil;
 
@@ -15,7 +16,14 @@ public class UserService implements IUserService{
 	public List<User> query(User user) {
 		User condition = LikeFlagUtil.appendLikeFlag(user, new String[]{"userName", "fullName", "email", "weichat"});
 		return dao.query(condition);
+	}	
+
+	@Override
+	public User findByNmPwd(User user) {
+		return dao.findByNmPwd(user);
 	}
+
+
 
 	@Override
 	public int count(User user) {
@@ -47,12 +55,22 @@ public class UserService implements IUserService{
 	public boolean existUserName(String userName) {
 		User user = new User();
 		user.setUserName(userName);
-		return dao.countByNmPwd(user) > 0;
+		return dao.findByNmPwd(user) != null;
 	}
 	
 	@Override
 	public boolean verify(User user) {
-		return dao.countByNmPwd(user) > 0;
+		return dao.findByNmPwd(user) != null;
+	}
+
+	@Override
+	public void addRoleRelation(List<UserRole> userRoles) {
+		dao.addRoleRelation(userRoles);
+	}
+
+	@Override
+	public void deleteRoleRelation(String userId) {
+		dao.deleteRoleRelation(userId);
 	}
 
 	public void setDao(IUserDao dao) {

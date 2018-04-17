@@ -46,6 +46,7 @@ $(function(){
 
 function removeRole(){
 	var selecteds = $("#slt_userRole option:selected");
+	
 	remove(selecteds);
 }
 
@@ -57,7 +58,7 @@ function remove(roleOpts){
 	var rolePool = $("#slt_role");
 	roleOpts.each(function(){
 		rolePool.append($(this));
-		$(this).remove();
+		//$(this).remove();
 	});
 }
 
@@ -74,6 +75,12 @@ function add(roleOpts){
 	var rolePool = $("#slt_userRole");
 	roleOpts.each(function(){
 		rolePool.append($(this));
-		$(this).remove();
 	});
+}
+
+function choseAuthority(){
+	$("#slt_userRole").children().each(function(){
+		$(this).attr("selected", "selected");
+	});
+	
 }

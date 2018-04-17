@@ -15,7 +15,7 @@
 <body>
     <div class="block">
         
-        <form id="userform" class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
+        <form id="userform" onsubmit="choseAuthority()" class="form-horizontal" method="post" role="form" style="text-align:center;" action="save.do">
             <input type="hidden" name="id" value="${user.id }">
             <div class="modal-header">
                 <h4 class="modal-title" style="color: black">系统用户信息</h4>
@@ -58,9 +58,9 @@
                   <div class="col-sm-10">
                       <div class="row">
                       	  <div class="col-sm-5">
-                      	  	<select id="slt_userRole" multiple="multiple" class="form-control" name="roles" size="5">
+                      	  	<select id="slt_userRole" multiple="multiple" class="form-control" name="userRoles" size="5">
                       	  		<c:forEach var="role" items="${userRoles}">
-                      	  		    <option value="${role.id}">${role.name}</option>
+                      	  		    <option value="${role.id}" >${role.name}</option>
                       	  		</c:forEach>
                       	  	</select>
                       	  </div>
@@ -72,10 +72,10 @@
                       	    	<span><a href="javascript:void(0);" onclick="removeAllRoles()"><i class="glyphicon glyphicon-forward"></i></a></span>
                       	    </div>
                       	    <div class="row">
-                      	    	<span><a href="javascript:void(0);" onclick="addRole()"><i class="glyphicon glyphicon-backward"></i></a></span>
+                      	    	<span><a href="javascript:void(0);" onclick="addAllRole()"><i class="glyphicon glyphicon-backward"></i></a></span>
                       	    </div>
                       	    <div class="row">
-                      	    	<span><a href="javascript:void(0);" onclick="addAllRole()"><i class="glyphicon glyphicon-chevron-left"></i></a></span>
+                      	    	<span><a href="javascript:void(0);" onclick="addRole()"><i class="glyphicon glyphicon-chevron-left"></i></a></span>
                       	    </div>
                       	  </div>
                       	  <div class="col-sm-5">

@@ -53,7 +53,7 @@
     
     <insert id="insert" parameterType="User">
         insert into t_user(id, userName, password, fullName, email, weichat, modifydate, status) 
-          values(current_timestamp()+'', #{userName}, #{password}, #{fullName}, #{email}, #{weichat}, sysdate(), '1')
+          values(#{id}, #{userName}, #{password}, #{fullName}, #{email}, #{weichat}, sysdate(), '1')
     </insert>    
     
     <update id="update" parameterType="User">
@@ -74,8 +74,8 @@
         where id = #{id}
     </update>
     
-    <select id="countByNmPwd" parameterType="User" resultType="int">
-    	select count(1) from t_user where status = '1'
+    <select id="findByNmPwd" parameterType="User" resultMap="usermap">
+    	select * from t_user where status = '1'
     	<if test="userName != null and userName !=''">
           and username = #{userName}
         </if> 
@@ -86,14 +86,14 @@
     
     
     <delete id="deleteRoleRelation" parameterType="String">
-    	delete from t_user_role where roleId = #{userId}
+    	delete from t_user_role where userId = #{userId}
     </delete>
     
     <insert id="addRoleRelation" parameterType="java.util.List">        
         insert into t_user_role(userid, roleid) 
              values
-             <foreach collection="list" item="ur">
-                 (#{ur.userId}, #{ur.roleid})
+             <foreach collection="list" item="ur" index="index" separator=",">
+                 (#{ur.userId}, #{ur.roleId})
              </foreach>
     </insert>
 </mapper>

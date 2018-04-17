@@ -1,6 +1,7 @@
 package com.douniu.imshh.sys.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -10,6 +11,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.douniu.imshh.sys.domain.Authority;
 
 public class AuthorizationFilter implements Filter{
 	private FilterConfig config;
@@ -45,7 +48,23 @@ public class AuthorizationFilter implements Filter{
         	hresponse.sendRedirect("/IMShh/login.jsp");
         	return;
         }else{
-        	chain.doFilter(request, response);
+        	List<Authority> authorities = (List<Authority>) hrequest.getSession().getAttribute("userAuthority");
+        	String url = hrequest.getRequestURL().toString();
+        	boolean hasAuth = false;
+        	for (Authority authority : authorities){
+        		if (authority.getAction().equals(""))
+        			continue;
+        		if (url.indexOf(authority.getAction()) > -1){
+        			hasAuth = true;
+        			break;
+        		}
+        	}
+        	if (hasAuth){
+        		chain.doFilter(request, response);
+        	}else{
+        		hresponse.sendRedirect("/IMShh/login.jsp");
+        		hrequest.setAttribute("tip", "È¨ÏÞ²»¹»");
+        	}
             return;
         }
 	}
